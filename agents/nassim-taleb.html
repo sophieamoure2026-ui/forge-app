@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nassim Taleb AI Agent — Black Swan Protection Analysis | NeuForge Legends Pool</title>
+  <meta name="description" content="Copy Nassim Taleb's investment philosophy with AI. Tail risk and optionality. Taleb's AI holds a barbell portfolio: ultra-safe core + small high-upside options positions, protecting against black swans while staying in the game. Available now in the NeuForge Legends Pool — 18 legendary investors as autonomous AI agents.">
+  <meta property="og:title" content="Nassim Taleb AI Agent — NeuForge Legends Pool">
+  <meta property="og:description" content="Tail risk and optionality. Taleb's AI holds a barbell portfolio: ultra-safe core + small high-upside options positions, protecting against black swans while staying in the game.">
+  <meta property="og:url" content="https://neuforge.app/agents/nassim-taleb">
+  <meta property="og:image" content="https://neuforge.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://neuforge.app/agents/nassim-taleb">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Nassim Taleb AI Agent",
+    "description": "Tail risk and optionality. Taleb's AI holds a barbell portfolio: ultra-safe core + small high-upside options positions, protecting against black swans while staying in the game.",
+    "applicationCategory": "FinanceApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "49",
+      "priceCurrency": "USD"
+    },
+    "url": "https://neuforge.app/agents/nassim-taleb"
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #030712; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; min-height: 100vh; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    .container { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    nav { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Space Mono', monospace; font-size: 13px; color: #818cf8; letter-spacing: 2px; text-decoration: none; }
+    .nav-back { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; }
+    .nav-back:hover { color: rgba(255,255,255,0.6); }
+    .hero { padding: 64px 0 48px; }
+    .firm-tag { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; color: #818cf8; text-transform: uppercase; margin-bottom: 16px; opacity: 0.7; }
+    h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+    .strategy-tag { display: inline-block; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 4px 16px; font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+    .tagline { font-size: 18px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 680px; margin-bottom: 36px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: #818cf8; color: #000; font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary { background: transparent; color: rgba(255,255,255,0.5); font-size: 15px; padding: 14px 28px; border-radius: 100px; text-decoration: none; border: 1px solid rgba(255,255,255,0.12); transition: border-color 0.2s; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 48px 0; }
+    .section-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 24px; }
+    .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .how-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; }
+    .how-num { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; color: #818cf8; margin-bottom: 8px; }
+    .how-label { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+    .holdings-wrap { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; margin-bottom: 48px; }
+    .holdings-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 12px; }
+    .holdings-tickers { font-family: 'Space Mono', monospace; font-size: 18px; color: #818cf8; }
+    .pool-section { background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; margin-bottom: 48px; text-align: center; }
+    .pool-section h2 { font-size: 24px; margin-bottom: 12px; }
+    .pool-section p { font-size: 15px; color: rgba(255,255,255,0.4); margin-bottom: 24px; line-height: 1.6; }
+    .all-agents { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+    .agent-chip { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 100px; padding: 6px 14px; font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; transition: all 0.2s; }
+    .agent-chip:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
+    .agent-chip.current { border-color: #818cf8; color: #818cf8; }
+    footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 24px 0; text-align: center; font-size: 12px; color: rgba(255,255,255,0.2); }
+    footer a { color: rgba(255,255,255,0.25); text-decoration: none; }
+  </style>
+</head>
+<body>
+<nav><div class="container"><div class="nav-inner">
+  <a href="/" class="nav-logo">NEUFORGE</a>
+  <a href="/legends" class="nav-back">← All Legends</a>
+</div></div></nav>
+
+<main class="container">
+  <div class="hero">
+    <div class="firm-tag">EMPIRICA Capital · AI Agent</div>
+    <h1>Nassim Taleb</h1>
+    <div class="strategy-tag">Black Swan Protection</div>
+    <p class="tagline">Tail risk and optionality. Taleb's AI holds a barbell portfolio: ultra-safe core + small high-upside options positions, protecting against black swans while staying in the game.</p>
+    <div class="cta-row">
+      <a href="/legends#subscribe" class="btn-primary">Copy Nassim's Strategy →</a>
+      <a href="/legends" class="btn-secondary">See All 18 Legends</a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-title">How This Agent Works</div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-num">1</div><div class="how-label">You give the agent a ticker or portfolio</div></div>
+    <div class="how-card"><div class="how-num">2</div><div class="how-label">It applies Nassim's exact philosophy to analyze it</div></div>
+    <div class="how-card"><div class="how-num">3</div><div class="how-label">It votes BUY / HOLD / SELL with full written reasoning</div></div>
+    <div class="how-card"><div class="how-num">4</div><div class="how-label">You copy the output — no auditing, no supervisor fatigue</div></div>
+  </div>
+
+  <div class="holdings-wrap">
+    <div class="holdings-label">Known Holdings · Typical Universe</div>
+    <div class="holdings-tickers">VIX, OTM puts, GOLD, BTC</div>
+  </div>
+
+  <div class="pool-section">
+    <h2>All 18 Legends in One Pool</h2>
+    <p>When you subscribe to the Legends Pool, Nassim's agent joins 17 others. Their votes are weighted, combined, and delivered as a single consensus signal — so you get the best of every philosophy, not just one.</p>
+    <a href="/legends#subscribe" class="btn-primary">Start at $49/month →</a>
+  </div>
+
+  <div class="section-title">All 18 Legend Agents</div>
+  <div class="all-agents">
+    <a href="/agents/warren-buffett" class="agent-chip">Warren Buffett</a>
+    <a href="/agents/michael-burry" class="agent-chip">Michael Burry</a>
+    <a href="/agents/charlie-munger" class="agent-chip">Charlie Munger</a>
+    <a href="/agents/cathie-wood" class="agent-chip">Cathie Wood</a>
+    <a href="/agents/ray-dalio" class="agent-chip">Ray Dalio</a>
+    <a href="/agents/peter-lynch" class="agent-chip">Peter Lynch</a>
+    <a href="/agents/george-soros" class="agent-chip">George Soros</a>
+    <a href="/agents/stanley-druckenmiller" class="agent-chip">Stanley Druckenmiller</a>
+    <a href="/agents/jim-simons" class="agent-chip">Jim Simons</a>
+    <a href="/agents/paul-tudor-jones" class="agent-chip">Paul Tudor Jones</a>
+    <a href="/agents/david-tepper" class="agent-chip">David Tepper</a>
+    <a href="/agents/carl-icahn" class="agent-chip">Carl Icahn</a>
+    <a href="/agents/bill-ackman" class="agent-chip">Bill Ackman</a>
+    <a href="/agents/david-einhorn" class="agent-chip">David Einhorn</a>
+    <a href="/agents/leon-cooperman" class="agent-chip">Leon Cooperman</a>
+    <a href="/agents/howard-marks" class="agent-chip">Howard Marks</a>
+    <a href="/agents/joel-greenblatt" class="agent-chip">Joel Greenblatt</a>
+    <a href="/agents/nassim-taleb" class="agent-chip current">Nassim Taleb</a>
+  </div>
+</main>
+
+<footer><div class="container">
+  <p>© 2026 NeuForge / Titan Signal &nbsp;·&nbsp; <a href="https://neuforge.app">neuforge.app</a> &nbsp;·&nbsp; AI-generated analysis. Not financial advice.</p>
+</div></footer>
+</body>
+</html>
