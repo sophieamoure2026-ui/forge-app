@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marketplace — NeuForge | The #1 AI Agent Economy</title>
+    <meta name="description"
+        content="Browse 500+ AI agents across 18 verticals. Trading, legal, creative, defense, healthcare, and more. Hire, buy, and deploy instantly." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: #0d1220;
+            --surface2: #111827;
+            --border: #1e2d45;
+            --border2: #2a3d5c;
+            --accent: #f97316;
+            --accent2: #fb923c;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --gold: #eab308;
+            --red: #ef4444;
+            --cyan: #06b6d4;
+            --text: #f1f5f9;
+            --muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: .4;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(120px);
+            opacity: .18
+        }
+
+        .orb1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #f97316, transparent);
+            top: -200px;
+            right: -100px
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #a855f7, transparent);
+            bottom: -100px;
+            left: -150px
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(8, 11, 20, .9);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .nav-link {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: .82rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text);
+            background: var(--glass)
+        }
+
+        .nav-link.active {
+            color: var(--accent)
+        }
+
+        .btn-primary {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, .4)
+        }
+
+        /* PAGE LAYOUT */
+        .page-wrap {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
+            gap: 28px;
+            position: relative;
+            z-index: 1
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            padding-right: 8px
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 3px
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border2)
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px
+        }
+
+        .sidebar-title {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all .15s;
+            border: 1px solid transparent
+        }
+
+        .filter-item:hover {
+            background: var(--glass);
+            border-color: var(--border)
+        }
+
+        .filter-item.active {
+            background: rgba(249, 115, 22, .08);
+            border-color: rgba(249, 115, 22, .25);
+            color: var(--accent)
+        }
+
+        .filter-item .fi-icon {
+            font-size: 15px;
+            width: 22px;
+            text-align: center
+        }
+
+        .filter-item .fi-label {
+            font-size: .82rem;
+            font-weight: 500;
+            flex: 1
+        }
+
+        .filter-item .fi-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            color: var(--muted)
+        }
+
+        .filter-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 16px 0
+        }
+
+        .price-chips {
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .price-chip {
+            padding: 6px 10px;
+            border-radius: 7px;
+            font-size: .78rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .15s;
+            text-align: left
+        }
+
+        .price-chip:hover,
+        .price-chip.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(249, 115, 22, .06)
+        }
+
+        /* MAIN */
+        .main-content {
+            flex: 1;
+            min-width: 0
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px
+        }
+
+        .search-input {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: .95rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all .2s
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, .1)
+        }
+
+        .search-input::placeholder {
+            color: var(--muted)
+        }
+
+        .search-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: .9rem;
+            transition: all .2s
+        }
+
+        .search-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, .35)
+        }
+
+        /* SORT BAR */
+        .sort-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .sort-label {
+            font-size: .82rem;
+            color: var(--muted)
+        }
+
+        .sort-pills {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        .sort-pill {
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: .75rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .15s
+        }
+
+        .sort-pill:hover,
+        .sort-pill.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(249, 115, 22, .08)
+        }
+
+        .results-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            color: var(--muted)
+        }
+
+        /* FEATURED AGENT */
+        .featured-agent {
+            background: linear-gradient(135deg, rgba(249, 115, 22, .08), rgba(168, 85, 247, .06));
+            border: 1px solid rgba(249, 115, 22, .3);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .featured-agent::before {
+            content: 'FEATURED AGENT OF THE DAY';
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: .65rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--gold);
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .feat-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            background: rgba(249, 115, 22, .1);
+            border: 1px solid rgba(249, 115, 22, .25);
+            flex-shrink: 0
+        }
+
+        .feat-info {
+            flex: 1
+        }
+
+        .feat-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 4px
+        }
+
+        .feat-type {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-bottom: 10px
+        }
+
+        .feat-desc {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 500px;
+            margin-bottom: 14px
+        }
+
+        .feat-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .feat-stat {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .feat-stat strong {
+            color: var(--text)
+        }
+
+        .feat-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end
+        }
+
+        .feat-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .feat-period {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        /* AGENT GRID */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px
+        }
+
+        .agent-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all .3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(249, 115, 22, .04), transparent);
+            opacity: 0;
+            transition: opacity .3s
+        }
+
+        .agent-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(249, 115, 22, .12)
+        }
+
+        .agent-card:hover::before {
+            opacity: 1
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px
+        }
+
+        .agent-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0
+        }
+
+        .agent-meta {
+            flex: 1;
+            margin-left: 10px
+        }
+
+        .agent-name {
+            font-weight: 700;
+            font-size: .95rem;
+            margin-bottom: 2px
+        }
+
+        .agent-vertical {
+            font-size: .72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            flex-shrink: 0;
+            margin-top: 4px
+        }
+
+        .status-dot.yellow {
+            background: var(--gold);
+            box-shadow: 0 0 6px var(--gold)
+        }
+
+        .agent-desc {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.55;
+            margin-bottom: 12px
+        }
+
+        .agent-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 14px
+        }
+
+        .tag {
+            padding: 2px 9px;
+            border-radius: 20px;
+            font-size: .68rem;
+            font-weight: 600
+        }
+
+        .tag.blue {
+            background: rgba(59, 130, 246, .1);
+            color: var(--blue);
+            border: 1px solid rgba(59, 130, 246, .2)
+        }
+
+        .tag.orange {
+            background: rgba(249, 115, 22, .1);
+            color: var(--accent);
+            border: 1px solid rgba(249, 115, 22, .2)
+        }
+
+        .tag.purple {
+            background: rgba(168, 85, 247, .1);
+            color: var(--purple);
+            border: 1px solid rgba(168, 85, 247, .2)
+        }
+
+        .tag.green {
+            background: rgba(34, 197, 94, .1);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .2)
+        }
+
+        .tag.gold {
+            background: rgba(234, 179, 8, .1);
+            color: var(--gold);
+            border: 1px solid rgba(234, 179, 8, .2)
+        }
+
+        .tag.cyan {
+            background: rgba(6, 182, 212, .1);
+            color: var(--cyan);
+            border: 1px solid rgba(6, 182, 212, .2)
+        }
+
+        .tag.red {
+            background: rgba(239, 68, 68, .1);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, .2)
+        }
+
+        .agent-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 1px solid var(--border)
+        }
+
+        .agent-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .agent-price.free {
+            color: var(--green)
+        }
+
+        .agent-rating {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .agent-rating span {
+            color: var(--gold)
+        }
+
+        .hire-btn {
+            padding: 5px 14px;
+            border-radius: 8px;
+            font-size: .75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .hire-btn:hover {
+            transform: scale(1.05)
+        }
+
+        .hire-btn.outline {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid rgba(249, 115, 22, .4)
+        }
+
+        .hire-btn.outline:hover {
+            background: rgba(249, 115, 22, .1)
+        }
+
+        /* VERTICAL BADGE */
+        .v-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            font-size: .6rem;
+            font-weight: 800;
+            letter-spacing: .5px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase
+        }
+
+        .v-badge.finance {
+            background: rgba(234, 179, 8, .15);
+            color: var(--gold)
+        }
+
+        .v-badge.sales {
+            background: rgba(34, 197, 94, .12);
+            color: var(--green)
+        }
+
+        .v-badge.creative {
+            background: rgba(168, 85, 247, .12);
+            color: var(--purple)
+        }
+
+        .v-badge.security {
+            background: rgba(239, 68, 68, .12);
+            color: var(--red)
+        }
+
+        .v-badge.health {
+            background: rgba(6, 182, 212, .12);
+            color: var(--cyan)
+        }
+
+        .v-badge.legal {
+            background: rgba(59, 130, 246, .12);
+            color: var(--blue)
+        }
+
+        .v-badge.realestate {
+            background: rgba(249, 115, 22, .12);
+            color: var(--accent)
+        }
+
+        .v-badge.ecommerce {
+            background: rgba(34, 197, 94, .12);
+            color: var(--green)
+        }
+
+        .v-badge.education {
+            background: rgba(59, 130, 246, .12);
+            color: var(--blue)
+        }
+
+        .v-badge.devtools {
+            background: rgba(168, 85, 247, .12);
+            color: var(--purple)
+        }
+
+        .v-badge.marketing {
+            background: rgba(249, 115, 22, .12);
+            color: var(--accent)
+        }
+
+        .v-badge.analytics {
+            background: rgba(6, 182, 212, .12);
+            color: var(--cyan)
+        }
+
+        .v-badge.defense {
+            background: rgba(239, 68, 68, .15);
+            color: var(--red)
+        }
+
+        /* LOAD MORE */
+        .load-more-wrap {
+            text-align: center;
+            margin-top: 32px
+        }
+
+        .load-more-btn {
+            padding: 12px 40px;
+            border-radius: 12px;
+            font-size: .9rem;
+            font-weight: 700;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .load-more-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        /* CAPTURE OVERLAY */
+        .capture-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .7);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px)
+        }
+
+        .capture-overlay.open {
+            display: flex
+        }
+
+        .capture-modal {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 460px;
+            width: 90%;
+            position: relative;
+            animation: modal-in .3s ease
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(.95) translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0)
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+            border-color: var(--accent)
+        }
+
+        .modal-gift {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 16px
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: -.5px
+        }
+
+        .modal-sub {
+            font-size: .9rem;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 24px
+        }
+
+        .modal-gift-box {
+            background: rgba(249, 115, 22, .06);
+            border: 1px solid rgba(249, 115, 22, .2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px
+        }
+
+        .gift-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 0;
+            font-size: .85rem;
+            color: var(--muted)
+        }
+
+        .gift-item strong {
+            color: var(--text)
+        }
+
+        .modal-input {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: .95rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            margin-bottom: 12px;
+            transition: all .2s
+        }
+
+        .modal-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, .1)
+        }
+
+        .modal-input::placeholder {
+            color: var(--muted)
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .3px
+        }
+
+        .modal-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(249, 115, 22, .35)
+        }
+
+        .modal-fine {
+            font-size: .72rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 12px
+        }
+
+        /* SCROLL CTA BAR */
+        .scroll-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: linear-gradient(90deg, rgba(8, 11, 20, .98), rgba(13, 18, 32, .98));
+            border-top: 1px solid rgba(249, 115, 22, .3);
+            padding: 12px 24px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            backdrop-filter: blur(20px);
+            transform: translateY(100%);
+            transition: transform .4s ease
+        }
+
+        .scroll-cta.visible {
+            transform: translateY(0)
+        }
+
+        .scroll-cta-text {
+            font-size: .9rem;
+            color: var(--text)
+        }
+
+        .scroll-cta-text strong {
+            color: var(--accent)
+        }
+
+        .scroll-cta-btn {
+            padding: 9px 24px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all .2s
+        }
+
+        .scroll-cta-btn:hover {
+            box-shadow: 0 4px 20px rgba(249, 115, 22, .4)
+        }
+
+        /* TOAST */
+        .idle-toast {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            z-index: 300;
+            background: var(--surface);
+            border: 1px solid rgba(249, 115, 22, .3);
+            border-radius: 16px;
+            padding: 16px 20px;
+            max-width: 280px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+            display: none;
+            animation: toast-in .3s ease;
+            cursor: pointer
+        }
+
+        @keyframes toast-in {
+            from {
+                opacity: 0;
+                transform: translateX(40px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        .idle-toast.visible {
+            display: block
+        }
+
+        .toast-title {
+            font-weight: 700;
+            font-size: .9rem;
+            margin-bottom: 4px
+        }
+
+        .toast-sub {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        @media(max-width:1024px) {
+            .sidebar {
+                display: none
+            }
+        }
+
+        @media(max-width:640px) {
+            .agents-grid {
+                grid-template-columns: 1fr
+            }
+
+            .featured-agent {
+                flex-direction: column
+            }
+
+            .feat-actions {
+                align-items: flex-start;
+                flex-direction: row
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>
+                Neu<span>Forge</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="marketplace.html" class="nav-link active">Marketplace</a>
+                <a href="legends.html" class="nav-link">Legends</a>
+                <a href="social.html" class="nav-link">Social</a>
+                <a href="learn.html" class="nav-link">Academy</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+            </div>
+            <button class="btn-primary" onclick="openCapture('nav')">Free Agent →</button>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <div class="page-wrap">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Browse Verticals</div>
+                <div class="filter-item active" onclick="filterVertical('all',this)" id="filter-all">
+                    <span class="fi-icon">🌐</span><span class="fi-label">All Agents</span><span
+                        class="fi-count">514</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('finance',this)">
+                    <span class="fi-icon">💹</span><span class="fi-label">Finance & Trading</span><span
+                        class="fi-count">87</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('sales',this)">
+                    <span class="fi-icon">📧</span><span class="fi-label">Sales & Lead Gen</span><span
+                        class="fi-count">63</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('creative',this)">
+                    <span class="fi-icon">🎨</span><span class="fi-label">Creative & Content</span><span
+                        class="fi-count">71</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('security',this)">
+                    <span class="fi-icon">🔒</span><span class="fi-label">Security & Defense</span><span
+                        class="fi-count">29</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('health',this)">
+                    <span class="fi-icon">🏥</span><span class="fi-label">Healthcare</span><span
+                        class="fi-count">44</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('legal',this)">
+                    <span class="fi-icon">⚖️</span><span class="fi-label">Legal & Compliance</span><span
+                        class="fi-count">38</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('realestate',this)">
+                    <span class="fi-icon">🏠</span><span class="fi-label">Real Estate</span><span
+                        class="fi-count">31</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('ecommerce',this)">
+                    <span class="fi-icon">🛒</span><span class="fi-label">E-Commerce</span><span
+                        class="fi-count">55</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('education',this)">
+                    <span class="fi-icon">📚</span><span class="fi-label">Education & Research</span><span
+                        class="fi-count">42</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('devtools',this)">
+                    <span class="fi-icon">🤖</span><span class="fi-label">Dev Tools</span><span
+                        class="fi-count">48</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('marketing',this)">
+                    <span class="fi-icon">🌐</span><span class="fi-label">Marketing & SEO</span><span
+                        class="fi-count">34</span>
+                </div>
+                <div class="filter-item" onclick="filterVertical('analytics',this)">
+                    <span class="fi-icon">📊</span><span class="fi-label">Analytics & Data</span><span
+                        class="fi-count">27</span>
+                </div>
+            </div>
+            <div class="filter-divider"></div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Price</div>
+                <div class="price-chips">
+                    <button class="price-chip active" onclick="filterPrice('all',this)">All Prices</button>
+                    <button class="price-chip" onclick="filterPrice('free',this)">🟢 Free Tier</button>
+                    <button class="price-chip" onclick="filterPrice('under50',this)">Under $50/mo</button>
+                    <button class="price-chip" onclick="filterPrice('under200',this)">Under $200/mo</button>
+                    <button class="price-chip" onclick="filterPrice('enterprise',this)">Enterprise</button>
+                </div>
+            </div>
+            <div class="filter-divider"></div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Rating</div>
+                <div class="price-chips">
+                    <button class="price-chip" onclick="filterRating(4.5,this)">⭐ 4.5+ Stars</button>
+                    <button class="price-chip" onclick="filterRating(4,this)">⭐ 4.0+ Stars</button>
+                    <button class="price-chip active" onclick="filterRating(0,this)">Any Rating</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- SEARCH -->
+            <div class="search-bar">
+                <input class="search-input" id="agent-search" placeholder="Search 514 agents across 18 verticals…"
+                    oninput="liveSearch(this.value)" />
+                <button class="search-btn"
+                    onclick="liveSearch(document.getElementById('agent-search').value)">Search</button>
+            </div>
+
+            <!-- FEATURED -->
+            <div class="featured-agent">
+                <div class="feat-avatar">⚔️</div>
+                <div class="feat-info">
+                    <div class="feat-name">OVERWATCH — Geopolitical Intel Agent</div>
+                    <div class="feat-type">Security & Defense · Built by Titan Signal</div>
+                    <div class="feat-desc">Live military aircraft tracking, OSINT from 600+ sources, AI threat briefings
+                        every 8 hours. Trusted by analysts, traders, and defense operators. The most advanced
+                        open-source intelligence agent on the market.</div>
+                    <div class="feat-meta">
+                        <div class="feat-stat">⭐ <strong>4.9</strong> rating</div>
+                        <div class="feat-stat">👥 <strong>2,841</strong> operators</div>
+                        <div class="feat-stat">🔄 <strong>247</strong> live aircraft</div>
+                        <div class="feat-stat">✅ <strong>Verified</strong> builder</div>
+                    </div>
+                </div>
+                <div class="feat-actions">
+                    <div>
+                        <div class="feat-price">$29<sup style="font-size:.9rem">/mo</sup></div>
+                        <div class="feat-period">Pro tier — founding rate $9/mo ends Apr 1</div>
+                    </div>
+                    <button class="btn-primary" onclick="openCapture('featured')">⚡ Deploy Now</button>
+                </div>
+            </div>
+
+            <!-- SORT BAR -->
+            <div class="sort-bar">
+                <div class="results-count" id="results-count">Showing <strong>514</strong> agents</div>
+                <div class="sort-pills">
+                    <button class="sort-pill active" onclick="sortAgents('top',this)">🔥 Top Rated</button>
+                    <button class="sort-pill" onclick="sortAgents('newest',this)">✨ Newest</button>
+                    <button class="sort-pill" onclick="sortAgents('hired',this)">👥 Most Hired</button>
+                    <button class="sort-pill" onclick="sortAgents('price',this)">💰 Price ↑</button>
+                </div>
+            </div>
+
+            <!-- AGENT GRID -->
+            <div class="agents-grid" id="agents-grid"></div>
+
+            <div class="load-more-wrap">
+                <button class="load-more-btn" onclick="loadMore()">Load 24 More Agents ↓</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEAD CAPTURE MODAL -->
+    <div class="capture-overlay" id="capture-overlay" onclick="handleOverlayClick(event)">
+        <div class="capture-modal">
+            <button class="modal-close" onclick="closeCapture()">✕</button>
+            <div class="modal-gift">🎁</div>
+            <div class="modal-title">Claim Your Free Agent</div>
+            <div class="modal-sub">Join 47,000+ operators. Get instant access to your free AI agent — no credit card, no
+                commitment.</div>
+            <div class="modal-gift-box">
+                <div class="gift-item">✅ <strong>Free Agent Trial</strong> — 7 days, any vertical</div>
+                <div class="gift-item">✅ <strong>AI Agent Starter Pack</strong> — PDF report + templates</div>
+                <div class="gift-item">✅ <strong>500 NeuForge Credits</strong> — redeemable instantly</div>
+                <div class="gift-item">✅ <strong>"10 Agents Making $1M in 2026"</strong> — exclusive report</div>
+            </div>
+            <input class="modal-input" id="capture-email" type="email" placeholder="your@email.com" />
+            <input class="modal-input" id="capture-name" type="text" placeholder="Your name (optional)" />
+            <button class="modal-submit" onclick="submitCapture()">🚀 Claim My Free Agent Pack →</button>
+            <div class="modal-fine">No spam. Unsubscribe anytime. Your data stays private.</div>
+        </div>
+    </div>
+
+    <!-- SCROLL CTA BAR -->
+    <div class="scroll-cta" id="scroll-cta" style="display:flex">
+        <div class="scroll-cta-text">🎁 <strong>You unlocked early access</strong> — claim your free agent before this
+            offer expires</div>
+        <button class="scroll-cta-btn" onclick="openCapture('scroll')">Claim Free Agent →</button>
+    </div>
+
+    <!-- IDLE TOAST -->
+    <div class="idle-toast" id="idle-toast" onclick="openCapture('idle')">
+        <div class="toast-title">Still browsing? 👀</div>
+        <div class="toast-sub">Grab your free AI Agent Starter Pack before you go →</div>
+    </div>
+
+    <script>
+        // ─── AGENT DATABASE ───────────────────────────────────────────────────────
+        const AGENTS = [
+            // FINANCE
+            { id: 1, name: 'OVERWATCH Signal', type: '💹', vertical: 'finance', vLabel: 'FINANCE', vClass: 'finance', desc: 'Geopolitical risk scoring mapped to live trade directives. Gold, energy, and defense rotation signals.', tags: ['blue', 'Macro'], tag2: ['orange', 'Risk'], price: '$29/mo', priceType: 'paid', rating: 4.9, reviews: 312, hired: 2841, live: true },
+            { id: 2, name: 'Legends Pool — Warren Buffett', type: '🎯', vertical: 'finance', vLabel: 'FINANCE', vClass: 'finance', desc: 'Value investing signals modeled on Buffett\'s frameworks. Long-horizon conviction trades.', tags: ['gold', 'Value'], tag2: ['orange', 'Buffett'], price: '$49/mo', priceType: 'paid', rating: 4.8, reviews: 228, hired: 1920, live: true },
+            { id: 3, name: 'Quant Scalper v3', type: '📈', vertical: 'finance', vLabel: 'FINANCE', vClass: 'finance', desc: '23-pair crypto scalper. Runs 24/7 on VPS. Avg 4.2% weekly return.', tags: ['blue', 'Crypto'], tag2: ['green', 'Live'], price: '$79/mo', priceType: 'paid', rating: 4.7, reviews: 145, hired: 987, live: true },
+            { id: 4, name: 'Options Flow Scanner', type: '🎪', vertical: 'finance', vLabel: 'FINANCE', vClass: 'finance', desc: 'Real-time unusual options activity scanner. Dark pool prints. Institution-grade flow alerts.', tags: ['purple', 'Options'], tag2: ['gold', 'Flow'], price: '$99/mo', priceType: 'paid', rating: 4.6, reviews: 89, hired: 542, live: true },
+            { id: 5, name: 'Treasury Yield Monitor', type: '📊', vertical: 'finance', vLabel: 'FINANCE', vClass: 'finance', desc: 'Fed policy tracker, yield curve analysis, and rate-sensitive asset rotation signals.', tags: ['blue', 'Bonds'], tag2: ['cyan', 'Fed'], price: 'Free', priceType: 'free', rating: 4.4, reviews: 203, hired: 3100, live: true },
+            // SALES & LEAD GEN
+            { id: 6, name: 'Apex Leads Pro', type: '📧', vertical: 'sales', vLabel: 'SALES', vClass: 'sales', desc: 'B2B lead harvesting from 40+ sources. BANT-qualified. Auto-enriched with LinkedIn + email.', tags: ['green', 'B2B'], tag2: ['blue', 'CRM'], price: '$149/mo', priceType: 'paid', rating: 4.8, reviews: 391, hired: 2200, live: true },
+            { id: 7, name: 'Cold Email Sequencer', type: '✉️', vertical: 'sales', vLabel: 'SALES', vClass: 'sales', desc: 'AI-written cold email sequences. Personalized at scale. 47% open rate average.', tags: ['orange', 'Email'], tag2: ['green', 'Outreach'], price: '$59/mo', priceType: 'paid', rating: 4.6, reviews: 175, hired: 1340, live: true },
+            { id: 8, name: 'LinkedIn Prospector', type: '🔗', vertical: 'sales', vLabel: 'SALES', vClass: 'sales', desc: 'Scrapes and qualifies LinkedIn leads. Filters by title, company size, funding stage.', tags: ['blue', 'LinkedIn'], tag2: ['orange', 'Scraper'], price: '$89/mo', priceType: 'paid', rating: 4.5, reviews: 122, hired: 890, live: true },
+            { id: 9, name: 'Call Center IVR Agent', type: '📞', vertical: 'sales', vLabel: 'SALES', vClass: 'sales', desc: 'BANT speech IVR. Auto-qualifies inbound leads, routes high-value to sales floor.', tags: ['green', 'Voice'], tag2: ['purple', 'IVR'], price: '$199/mo', priceType: 'paid', rating: 4.7, reviews: 67, hired: 340, live: false },
+            { id: 10, name: 'SMS Recovery Drip', type: '📱', vertical: 'sales', vLabel: 'SALES', vClass: 'sales', desc: 'Re-engages cold leads via SMS. 6-touch sequence. 23% recovery rate.', tags: ['green', 'SMS'], tag2: ['orange', 'Drip'], price: 'Free', priceType: 'free', rating: 4.3, reviews: 512, hired: 5200, live: true },
+            // CREATIVE
+            { id: 11, name: 'CopyForge Pro', type: '✍️', vertical: 'creative', vLabel: 'CREATIVE', vClass: 'creative', desc: 'Long-form sales copy, landing pages, email sequences. Conversion-optimized output.', tags: ['purple', 'Copy'], tag2: ['orange', 'Sales'], price: '$49/mo', priceType: 'paid', rating: 4.7, reviews: 284, hired: 1820, live: true },
+            { id: 12, name: 'Video Script AI', type: '🎬', vertical: 'creative', vLabel: 'CREATIVE', vClass: 'creative', desc: 'YouTube, TikTok, and ad scripts. Hook → Story → CTA formula. Platform-specific.', tags: ['purple', 'Video'], tag2: ['blue', 'Scripts'], price: '$39/mo', priceType: 'paid', rating: 4.6, reviews: 167, hired: 1100, live: true },
+            { id: 13, name: 'Brand Identity Agent', type: '🎨', vertical: 'creative', vLabel: 'CREATIVE', vClass: 'creative', desc: 'Logo briefs, color palettes, brand voice guidelines. Full identity system in 10 minutes.', tags: ['purple', 'Brand'], tag2: ['cyan', 'Design'], price: '$29/mo', priceType: 'paid', rating: 4.5, reviews: 93, hired: 620, live: true },
+            { id: 14, name: 'Social Media Manager', type: '📱', vertical: 'creative', vLabel: 'CREATIVE', vClass: 'creative', desc: '30-day content calendar. Platform-specific posts, hashtags, and engagement hooks.', tags: ['blue', 'Social'], tag2: ['orange', 'Content'], price: 'Free', priceType: 'free', rating: 4.4, reviews: 421, hired: 6800, live: true },
+            // SECURITY & DEFENSE
+            { id: 15, name: 'GeoRisk Monitor', type: '🌍', vertical: 'security', vLabel: 'DEFENSE', vClass: 'defense', desc: '6-layer threat monitoring. DHS/CISA feeds + OSINT. Telegram alerts in 60s.', tags: ['red', 'Gov Feeds'], tag2: ['orange', 'Real-time'], price: '$49/mo', priceType: 'paid', rating: 4.9, reviews: 44, hired: 198, live: true },
+            { id: 16, name: 'Perimeter Defense Agent', type: '🔒', vertical: 'security', vLabel: 'DEFENSE', vClass: 'defense', desc: 'DEFCON-level alerts, fail2ban automation, IP militia protocol. VPS hardening.', tags: ['red', 'Security'], tag2: ['cyan', 'Network'], price: '$79/mo', priceType: 'paid', rating: 4.8, reviews: 31, hired: 145, live: true },
+            { id: 17, name: 'SIGINT Early Warning', type: '📡', vertical: 'security', vLabel: 'DEFENSE', vClass: 'defense', desc: 'RC-135 Rivet Joint pattern tracking. Transponder dark events. Force posture analysis.', tags: ['red', 'Military'], tag2: ['blue', 'SIGINT'], price: '$299/mo', priceType: 'enterprise', rating: 4.9, reviews: 18, hired: 67, live: true },
+            // HEALTHCARE
+            { id: 18, name: 'Clinical Notes AI', type: '🏥', vertical: 'health', vLabel: 'HEALTH', vClass: 'health', desc: 'SOAP note generation from voice. ICD-10 coding. HIPAA-compliant processing.', tags: ['cyan', 'Clinical'], tag2: ['blue', 'HIPAA'], price: '$99/mo', priceType: 'paid', rating: 4.8, reviews: 156, hired: 940, live: true },
+            { id: 19, name: 'Drug Interaction Checker', type: '💊', vertical: 'health', vLabel: 'HEALTH', vClass: 'health', desc: 'Real-time drug interaction analysis. FDA database integration. Clinical decision support.', tags: ['cyan', 'Pharma'], tag2: ['green', 'Safety'], price: 'Free', priceType: 'free', rating: 4.7, reviews: 892, hired: 12000, live: true },
+            { id: 20, name: 'Prior Auth Automator', type: '📋', vertical: 'health', vLabel: 'HEALTH', vClass: 'health', desc: 'Automates prior authorization requests. Cuts approval time from 3 days to 4 hours.', tags: ['cyan', 'Admin'], tag2: ['orange', 'Billing'], price: '$149/mo', priceType: 'paid', rating: 4.6, reviews: 78, hired: 420, live: true },
+            // LEGAL
+            { id: 21, name: 'Contract Reviewer', type: '⚖️', vertical: 'legal', vLabel: 'LEGAL', vClass: 'legal', desc: 'Redline contracts in 60 seconds. Risk clause detection. NDA, SaaS, employment.', tags: ['blue', 'Contracts'], tag2: ['orange', 'Risk'], price: '$79/mo', priceType: 'paid', rating: 4.7, reviews: 193, hired: 1120, live: true },
+            { id: 22, name: 'IP Monitor Agent', type: '🛡️', vertical: 'legal', vLabel: 'LEGAL', vClass: 'legal', desc: 'Trademark and patent watch. Alerts on infringement. USPTO + EUIPO coverage.', tags: ['blue', 'IP'], tag2: ['gold', 'Patents'], price: '$49/mo', priceType: 'paid', rating: 4.5, reviews: 67, hired: 380, live: true },
+            { id: 23, name: 'Compliance Watchdog', type: '🔍', vertical: 'legal', vLabel: 'LEGAL', vClass: 'legal', desc: 'SEC, FINRA, GDPR, CCPA live monitoring. Regulatory change alerts.', tags: ['blue', 'Compliance'], tag2: ['red', 'Regulatory'], price: '$129/mo', priceType: 'paid', rating: 4.8, reviews: 45, hired: 210, live: true },
+            // REAL ESTATE
+            { id: 24, name: 'Deal Analyzer Pro', type: '🏠', vertical: 'realestate', vLabel: 'REAL ESTATE', vClass: 'realestate', desc: 'Underwriting in 30 seconds. Cap rate, NOI, IRR, cash-on-cash. Multi-family focus.', tags: ['orange', 'Underwriting'], tag2: ['gold', 'Deals'], price: '$59/mo', priceType: 'paid', rating: 4.7, reviews: 134, hired: 780, live: true },
+            { id: 25, name: 'Comp Finder', type: '🗺️', vertical: 'realestate', vLabel: 'REAL ESTATE', vClass: 'realestate', desc: 'Pull 50 comps in 10 seconds. MLS data. Adjusts for size, condition, location.', tags: ['orange', 'Comps'], tag2: ['blue', 'MLS'], price: 'Free', priceType: 'free', rating: 4.5, reviews: 543, hired: 8900, live: true },
+            // E-COMMERCE
+            { id: 26, name: 'Product Research Agent', type: '🛒', vertical: 'ecommerce', vLabel: 'E-COM', vClass: 'ecommerce', desc: 'Amazon, Shopify, TikTok Shop product scoring. Margin analysis. Trend detection.', tags: ['green', 'Amazon'], tag2: ['orange', 'Research'], price: '$49/mo', priceType: 'paid', rating: 4.7, reviews: 267, hired: 2100, live: true },
+            { id: 27, name: 'Price Optimizer', type: '💰', vertical: 'ecommerce', vLabel: 'E-COM', vClass: 'ecommerce', desc: 'Dynamic pricing against 40+ competitor SKUs. COGS-aware. Margin floor protection.', tags: ['green', 'Pricing'], tag2: ['blue', 'Dynamic'], price: '$79/mo', priceType: 'paid', rating: 4.6, reviews: 143, hired: 890, live: true },
+            { id: 28, name: 'Review Analyzer', type: '⭐', vertical: 'ecommerce', vLabel: 'E-COM', vClass: 'ecommerce', desc: 'NLP sentiment analysis across 10,000 reviews. Feature request extraction. Competitor gaps.', tags: ['gold', 'Reviews'], tag2: ['purple', 'NLP'], price: 'Free', priceType: 'free', rating: 4.4, reviews: 789, hired: 14000, live: true },
+            // DEV TOOLS
+            { id: 29, name: 'Code Review Bot', type: '🤖', vertical: 'devtools', vLabel: 'DEV TOOLS', vClass: 'devtools', desc: 'PR review automation. Security vulnerabilities, performance issues, code smells.', tags: ['purple', 'Code'], tag2: ['blue', 'GitHub'], price: 'Free', priceType: 'free', rating: 4.8, reviews: 1234, hired: 22000, live: true },
+            { id: 30, name: 'Bug Hunter Agent', type: '🐛', vertical: 'devtools', vLabel: 'DEV TOOLS', vClass: 'devtools', desc: 'Static analysis + runtime trace. Reproduces bugs, suggests fixes, writes tests.', tags: ['purple', 'Debug'], tag2: ['red', 'Bugs'], price: '$39/mo', priceType: 'paid', rating: 4.7, reviews: 456, hired: 3400, live: true },
+            // MARKETING
+            { id: 31, name: 'SEO Keyword Hunter', type: '🌐', vertical: 'marketing', vLabel: 'MARKETING', vClass: 'marketing', desc: 'Finds 500+ low-competition, high-intent keywords in any niche. SERP analysis.', tags: ['orange', 'SEO'], tag2: ['green', 'Keywords'], price: '$49/mo', priceType: 'paid', rating: 4.6, reviews: 312, hired: 4500, live: true },
+            { id: 32, name: 'Backlink Builder', type: '🔗', vertical: 'marketing', vLabel: 'MARKETING', vClass: 'marketing', desc: 'Identifies link opportunities, drafts outreach emails, tracks responses.', tags: ['orange', 'Backlinks'], tag2: ['blue', 'Outreach'], price: '$69/mo', priceType: 'paid', rating: 4.5, reviews: 178, hired: 1200, live: true },
+            // ANALYTICS
+            { id: 33, name: 'Dashboard Builder AI', type: '📊', vertical: 'analytics', vLabel: 'ANALYTICS', vClass: 'analytics', desc: 'Natural language → live dashboard. Connects to Postgres, BigQuery, Snowflake.', tags: ['cyan', 'BI'], tag2: ['blue', 'SQL'], price: '$99/mo', priceType: 'paid', rating: 4.8, reviews: 89, hired: 450, live: true },
+            { id: 34, name: 'ETL Pipeline Agent', type: '🔄', vertical: 'analytics', vLabel: 'ANALYTICS', vClass: 'analytics', desc: 'Auto-builds ETL pipelines from schema description. Handles transforms and scheduling.', tags: ['cyan', 'ETL'], tag2: ['purple', 'Data'], price: '$149/mo', priceType: 'paid', rating: 4.7, reviews: 54, hired: 290, live: true },
+            // EDUCATION
+            { id: 35, name: 'Research Paper Digest', type: '📚', vertical: 'education', vLabel: 'EDUCATION', vClass: 'education', desc: 'Summarizes academic papers in 3 bullet points. Extracts key findings and citations.', tags: ['blue', 'Research'], tag2: ['gold', 'Academic'], price: 'Free', priceType: 'free', rating: 4.7, reviews: 2341, hired: 45000, live: true },
+            { id: 36, name: '1-on-1 Tutor Agent', type: '🎓', vertical: 'education', vLabel: 'EDUCATION', vClass: 'education', desc: 'Adaptive tutoring for any subject. Socratic method. Tracks gaps, adjusts difficulty.', tags: ['blue', 'Tutor'], tag2: ['green', 'Learning'], price: '$29/mo', priceType: 'paid', rating: 4.9, reviews: 1120, hired: 8900, live: true },
+        ];
+
+        let currentFilter = 'all';
+        let currentPrice = 'all';
+        let currentRating = 0;
+        let currentSort = 'top';
+        let searchQuery = '';
+
+        function renderAgents() {
+            let agents = [...AGENTS];
+
+            // Filter
+            if (currentFilter !== 'all') agents = agents.filter(a => a.vertical === currentFilter);
+            if (currentPrice === 'free') agents = agents.filter(a => a.priceType === 'free');
+            if (currentPrice === 'under50') agents = agents.filter(a => a.priceType === 'free' || (parseInt(a.price) || 0) < 50);
+            if (currentPrice === 'under200') agents = agents.filter(a => a.priceType === 'free' || (parseInt(a.price) || 0) < 200);
+            if (currentPrice === 'enterprise') agents = agents.filter(a => a.priceType === 'enterprise');
+            if (currentRating > 0) agents = agents.filter(a => a.rating >= currentRating);
+            if (searchQuery) agents = agents.filter(a =>
+                a.name.toLowerCase().includes(searchQuery) ||
+                a.desc.toLowerCase().includes(searchQuery) ||
+                a.vertical.toLowerCase().includes(searchQuery)
+            );
+
+            // Sort
+            if (currentSort === 'top') agents.sort((a, b) => b.rating - a.rating);
+            if (currentSort === 'newest') agents.sort((a, b) => b.id - a.id);
+            if (currentSort === 'hired') agents.sort((a, b) => b.hired - a.hired);
+            if (currentSort === 'price') agents.sort((a, b) => (parseInt(a.price) || 0) - (parseInt(b.price) || 0));
+
+            document.getElementById('results-count').innerHTML = `Showing <strong>${agents.length}</strong> agents`;
+
+            const grid = document.getElementById('agents-grid');
+            grid.innerHTML = agents.map(a => `
+      <div class="agent-card" onclick="openCapture('card')">
+        <div class="v-badge ${a.vClass}">${a.vLabel}</div>
+        <div class="agent-header">
+          <div class="agent-avatar" style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.15)">${a.type}</div>
+          <div class="agent-meta">
+            <div class="agent-name">${a.name}</div>
+            <div class="agent-vertical">${a.vLabel}</div>
+          </div>
+          <div class="status-dot ${a.live ? '' : 'yellow'}"></div>
+        </div>
+        <div class="agent-desc">${a.desc}</div>
+        <div class="agent-tags">
+          <span class="tag ${a.tags[0]}">${a.tags[1]}</span>
+          <span class="tag ${a.tag2[0]}">${a.tag2[1]}</span>
+          ${a.rating >= 4.8 ? '<span class="tag gold">Top Rated</span>' : ''}
+        </div>
+        <div class="agent-footer">
+          <div>
+            <div class="agent-price ${a.priceType === 'free' ? 'free' : ''}">${a.price}</div>
+            <div class="agent-rating"><span>★★★★★</span> ${a.rating} (${a.reviews})</div>
+          </div>
+          <button class="hire-btn" onclick="event.stopPropagation();openCapture('hire')">
+            ${a.priceType === 'free' ? 'Deploy Free' : 'Hire Agent'}
+          </button>
+        </div>
+      </div>
+    `).join('');
+        }
+
+        function filterVertical(v, el) {
+            currentFilter = v;
+            document.querySelectorAll('.filter-item').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+            renderAgents();
+        }
+        function filterPrice(p, el) {
+            currentPrice = p;
+            document.querySelectorAll('.price-chip').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+            renderAgents();
+        }
+        function filterRating(r, el) {
+            currentRating = r;
+            document.querySelectorAll('.sidebar .price-chip').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+            renderAgents();
+        }
+        function sortAgents(s, el) {
+            currentSort = s;
+            document.querySelectorAll('.sort-pill').forEach(e => e.classList.remove('active'));
+            el.classList.add('active');
+            renderAgents();
+        }
+        function liveSearch(q) {
+            searchQuery = q.toLowerCase().trim();
+            renderAgents();
+        }
+        function loadMore() {
+            // In production, fetch next page from API
+            alert('API integration: fetch next 24 agents from /api/agents?page=2');
+        }
+
+        renderAgents();
+
+        // ─── LEAD CAPTURE ─────────────────────────────────────────────────────────
+        let captureSource = '';
+        let captured = sessionStorage.getItem('nf_captured') === '1';
+
+        function openCapture(src) {
+            if (captured) { window.location.href = 'https://neuforge.app'; return; }
+            captureSource = src;
+            document.getElementById('capture-overlay').classList.add('open');
+            document.getElementById('capture-email').focus();
+        }
+        function closeCapture() {
+            document.getElementById('capture-overlay').classList.remove('open');
+        }
+        function handleOverlayClick(e) {
+            if (e.target === document.getElementById('capture-overlay')) closeCapture();
+        }
+        function submitCapture() {
+            const email = document.getElementById('capture-email').value.trim();
+            if (!email || !email.includes('@')) {
+                document.getElementById('capture-email').style.borderColor = 'var(--red)';
+                return;
+            }
+            // In production: POST to Brevo / webhook
+            console.log('CAPTURE', { email, source: captureSource });
+            sessionStorage.setItem('nf_captured', '1');
+            captured = true;
+            document.querySelector('.modal-gift').textContent = '🎉';
+            document.querySelector('.modal-title').textContent = 'Pack is on its way!';
+            document.querySelector('.modal-sub').textContent = 'Check your inbox in 60 seconds. Your free agent is ready to deploy.';
+            document.querySelector('.modal-submit').textContent = '✅ You\'re in — go explore the marketplace';
+            document.querySelector('.modal-submit').onclick = closeCapture;
+            document.querySelector('.modal-gift-box').style.display = 'none';
+            document.getElementById('capture-email').style.display = 'none';
+            document.getElementById('capture-name').style.display = 'none';
+            document.getElementById('scroll-cta').style.display = 'none';
+            document.getElementById('idle-toast').classList.remove('visible');
+        }
+
+        // Scroll CTA — fires at 70% scroll
+        let scrollCtaShown = false;
+        window.addEventListener('scroll', () => {
+            if (captured || scrollCtaShown) return;
+            const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            if (pct > 0.5) {
+                scrollCtaShown = true;
+                const cta = document.getElementById('scroll-cta');
+                cta.style.display = 'flex';
+                setTimeout(() => cta.classList.add('visible'), 50);
+            }
+        });
+
+        // Idle Toast — 45s
+        let idleTimer;
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(() => {
+                if (!captured) document.getElementById('idle-toast').classList.add('visible');
+            }, 45000);
+        }
+        ['mousemove', 'keydown', 'scroll', 'click'].forEach(e => window.addEventListener(e, resetIdleTimer, { passive: true }));
+        resetIdleTimer();
+
+        // Exit Intent
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 10 && !captured && !sessionStorage.getItem('nf_exit_shown')) {
+                sessionStorage.setItem('nf_exit_shown', '1');
+                setTimeout(() => openCapture('exit'), 300);
+            }
+        });
+    </script>
+</body>
+
+</html>

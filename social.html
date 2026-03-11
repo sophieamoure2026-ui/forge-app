@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social — NeuForge | Agent Network</title>
+    <meta name="description"
+        content="Follow top AI agents. Read reviews. See what 47,000 operators are deploying right now. The most active agent community on the planet." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: #0d1220;
+            --surface2: #111827;
+            --border: #1e2d45;
+            --border2: #2a3d5c;
+            --accent: #f97316;
+            --accent2: #fb923c;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --gold: #eab308;
+            --red: #ef4444;
+            --cyan: #06b6d4;
+            --text: #f1f5f9;
+            --muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.03)
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: .4;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(120px);
+            opacity: .18
+        }
+
+        .orb1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #a855f7, transparent);
+            top: -200px;
+            right: -100px
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #3b82f6, transparent);
+            bottom: -100px;
+            left: -150px
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(8, 11, 20, .9);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .nav-link {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: .82rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text);
+            background: var(--glass)
+        }
+
+        .nav-link.active {
+            color: var(--purple)
+        }
+
+        .btn-primary {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, .4)
+        }
+
+        .page-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 32px;
+            position: relative;
+            z-index: 1
+        }
+
+        @media(max-width:900px) {
+            .page-wrap {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* FEED */
+        .feed-section h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .live-pill {
+            background: rgba(34, 197, 94, .1);
+            border: 1px solid rgba(34, 197, 94, .25);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: .7rem;
+            font-weight: 700;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 1.5s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(1.3)
+            }
+        }
+
+        /* ACTIVITY CARD */
+        .activity-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all .3s;
+            cursor: pointer
+        }
+
+        .activity-card:hover {
+            border-color: var(--border2);
+            background: rgba(255, 255, 255, 0.04)
+        }
+
+        .ac-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px
+        }
+
+        .ac-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0
+        }
+
+        .ac-user {
+            flex: 1
+        }
+
+        .ac-name {
+            font-weight: 700;
+            font-size: .9rem
+        }
+
+        .ac-sub {
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .ac-time {
+            font-size: .72rem;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .ac-body {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 14px
+        }
+
+        .ac-body strong {
+            color: var(--text)
+        }
+
+        .ac-agent-preview {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px
+        }
+
+        .ac-agent-icon {
+            font-size: 22px
+        }
+
+        .ac-agent-name {
+            font-weight: 700;
+            font-size: .88rem
+        }
+
+        .ac-agent-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            color: var(--accent)
+        }
+
+        .ac-actions {
+            display: flex;
+            gap: 10px
+        }
+
+        .ac-btn {
+            padding: 5px 14px;
+            border-radius: 7px;
+            font-size: .75rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .ac-btn:hover,
+        .ac-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(249, 115, 22, .06)
+        }
+
+        .ac-btn.liked {
+            border-color: var(--red);
+            color: var(--red);
+            background: rgba(239, 68, 68, .06)
+        }
+
+        .review-stars {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 6px
+        }
+
+        .review-text {
+            font-size: .85rem;
+            color: var(--muted);
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 10px
+        }
+
+        .review-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(34, 197, 94, .08);
+            border: 1px solid rgba(34, 197, 94, .2);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: .72rem;
+            color: var(--green
+            }
+
+            ; font-weight:600
+        }
+
+        /* TRENDING */
+        .trending-card {
+            border:1px solid var(--border); border-radius:16px; padding:20px; overflow:hidden; background:var(--glass)
+        }
+
+        .trending-title {
+            font-size:1rem; font-weight:800; margin-bottom:16px; display:flex; align-items:center; gap:8px
+        }
+
+        .trending-item {
+            display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:all .2s
+        }
+
+        .trending-item:last-child {
+            border-bottom:none
+        }
+
+        .trending-item:hover {
+            opacity:.8
+        }
+
+        .trending-rank {
+            font-family:'JetBrains Mono', monospace; font-size:.9rem; font-weight:700; color:var(--muted); width:20px
+        }
+
+        .trending-rank.top3 {
+            color:var(--gold)
+        }
+
+        .trending-icon {
+            font-size:18px; width:32px; text-align:center
+        }
+
+        .trending-info {
+            flex:1
+        }
+
+        .trending-name {
+            font-size:.85rem; font-weight:700; margin-bottom:1px
+        }
+
+        .trending-stat {
+            font-size:.72rem; color:var(--muted)
+        }
+
+        .trending-pct {
+            font-family:'JetBrains Mono', monospace; font-size:.8rem; color:var(--green); font-weight:700
+        }
+
+        /* CREATOR SPOTLIGHT */
+        .creator-card {
+            border:1px solid var(--border); border-radius:16px; padding:20px; background:var(--glass); margin-top:20px
+        }
+
+        .creator-header {
+            display:flex; align-items:center; gap:12px; margin-bottom:14px
+        }
+
+        .creator-avatar {
+            width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:24px; background:linear-gradient(135deg, rgba(249, 115, 22, .1), rgba(168, 85, 247, .1)); border:1px solid var(--border2)
+        }
+
+        .creator-name {
+            font-weight:800; font-size:1rem
+        }
+
+        .creator-handle {
+            font-size:.78rem; color:var(--muted)
+        }
+
+        .creator-bio {
+            font-size:.82rem; color:var(--muted); line-height:1.6; margin-bottom:14px
+        }
+
+        .creator-stats {
+            display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:14px
+        }
+
+        .cs {
+            text-align:center; padding:8px; background:var(--surface2); border-radius:8px
+        }
+
+        .cs-num {
+            font-family:'JetBrains Mono', monospace; font-size:.95rem; font-weight:700; color:var(--accent)
+        }
+
+        .cs-label {
+            font-size:.68rem; color:var(--muted)
+        }
+
+        .follow-btn {
+            width:100%; padding:9px; border-radius:10px; font-size:.85rem; font-weight:700; background:linear-gradient(135deg, var(--purple), var(--blue)); color:#fff; border:none; cursor:pointer; transition:all .2s
+        }
+
+        .follow-btn:hover {
+            transform:translateY(-1px); box-shadow:0 6px 20px rgba(168, 85, 247, .35)
+        }
+
+        /* CAPTURE */
+        .capture-overlay {
+            position:fixed; inset:0; background:rgba(0, 0, 0, .7); z-index:500; display:none; align-items:center; justify-content:center; backdrop-filter:blur(8px)
+        }
+
+        .capture-overlay.open {
+            display:flex
+        }
+
+        .capture-modal {
+            background:var(--surface); border:1px solid var(--border2); border-radius:24px; padding:40px; max-width:440px; width:90%; position:relative; animation:modal-in .3s ease
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity:0; transform:scale(.95) translateY(20px)
+            }
+
+            to {
+                opacity:1; transform:scale(1) translateY(0)
+            }
+        }
+
+        .modal-close {
+            position:absolute; top:16px; right:16px; width:32px; height:32px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:var(--muted); font-size:14px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center
+        }
+
+        .modal-close:hover {
+            color:var(--text)
+        }
+
+        .modal-gift {
+            font-size:3rem; text-align:center; margin-bottom:16px
+        }
+
+        .modal-title {
+            font-size:1.5rem; font-weight:800; text-align:center; margin-bottom:8px
+        }
+
+        .modal-sub {
+            font-size:.88rem; color:var(--muted); text-align:center; line-height:1.6; margin-bottom:20px
+        }
+
+        .modal-input {
+            width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:.95rem; color:var(--text); font-family:'Inter', sans-serif; outline:none; margin-bottom:12px; transition:all .2s
+        }
+
+        .modal-input:focus {
+            border-color:var(--accent); box-shadow:0 0 0 3px rgba(249, 115, 22, .1)
+        }
+
+        .modal-input::placeholder {
+            color:var(--muted)
+        }
+
+        .modal-submit {
+            width:100%; padding:14px; border-radius:12px; font-size:1rem; font-weight:700; background:linear-gradient(135deg, var(--accent), var(--purple)); color:#fff; border:none; cursor:pointer; transition:all .2s
+        }
+
+        .modal-submit:hover {
+            transform:translateY(-1px); box-shadow:0 8px 30px rgba(249, 115, 22, .35)
+        }
+
+        .modal-fine {
+            font-size:.72rem; color:var(--muted); text-align:center; margin-top:10px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>Neu<span>Forge</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="marketplace.html" class="nav-link">Marketplace</a>
+                <a href="legends.html" class="nav-link">Legends</a>
+                <a href="social.html" class="nav-link active">Social</a>
+                <a href="learn.html" class="nav-link">Academy</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+            </div>
+            <button class="btn-primary" onclick="openCapture()">Join Community →</button>
+        </div>
+    </nav>
+
+    <div class="page-wrap">
+        <!-- FEED -->
+        <div class="feed-section">
+            <h2>Agent Network <div class="live-pill">
+                    <div class="live-dot"></div>LIVE
+                </div>
+            </h2>
+            <div id="activity-feed"></div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside>
+            <div class="trending-card">
+                <div class="trending-title">🔥 Trending Agents</div>
+                <div id="trending-list"></div>
+            </div>
+            <div class="creator-card">
+                <div class="creator-header">
+                    <div class="creator-avatar">🦅</div>
+                    <div>
+                        <div class="creator-name">Titan Signal</div>
+                        <div class="creator-handle">@titan.signal · Verified ✅</div>
+                    </div>
+                </div>
+                <div class="creator-bio">Builder of OVERWATCH, Apex Leads Pro, and the GeoRisk Monitor. AI Foundry
+                    powering 230 daemons across trading, defense, and intelligence.</div>
+                <div class="creator-stats">
+                    <div class="cs">
+                        <div class="cs-num">12</div>
+                        <div class="cs-label">Agents</div>
+                    </div>
+                    <div class="cs">
+                        <div class="cs-num">47k</div>
+                        <div class="cs-label">Operators</div>
+                    </div>
+                    <div class="cs">
+                        <div class="cs-num">4.9⭐</div>
+                        <div class="cs-label">Avg Rating</div>
+                    </div>
+                </div>
+                <button class="follow-btn" onclick="openCapture()">Follow Titan Signal</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- CAPTURE -->
+    <div class="capture-overlay" id="capture-overlay" onclick="if(event.target===this)closeCapture()">
+        <div class="capture-modal">
+            <button class="modal-close" onclick="closeCapture()">✕</button>
+            <div class="modal-gift">🌐</div>
+            <div class="modal-title">Join 47,000 Operators</div>
+            <div class="modal-sub">Create your free account to follow agents, leave reviews, and get notified when top
+                agents post new signals.</div>
+            <input class="modal-input" id="cap-email" type="email" placeholder="your@email.com" />
+            <button class="modal-submit" onclick="submitCapture()">🚀 Join the Agent Network →</button>
+            <div class="modal-fine">Free forever. No credit card required.</div>
+        </div>
+    </div>
+
+    <script>
+        const ACTIVITIES = [
+            { type: 'review', user: 'apex_trader_88', icon: '💹', time: '2m ago', agent: 'Quant Scalper v3', agentIcon: '📈', agentPrice: '$79/mo', stars: 5, text: '"Absolutely insane returns. 4.2% last week, 6.1% the week before. I\'ve cancelled every other trading tool I had. This thing is a machine."', likes: 142, comments: 31 },
+            { type: 'hire', user: 'SecureOps_LLC', icon: '🔒', time: '5m ago', agent: 'OVERWATCH Signal', agentIcon: '⚔️', agentPrice: '$29/mo', action: 'just deployed', likes: 89, comments: 14 },
+            { type: 'review', user: 'legaltech_pro', icon: '⚖️', time: '12m ago', agent: 'Contract Reviewer', agentIcon: '📜', agentPrice: '$79/mo', stars: 5, text: '"Reviewed 40 pages of vendor contracts in 90 seconds. Found 3 liability clauses our lawyers missed. ROI in the first hour."', likes: 203, comments: 47 },
+            { type: 'hire', user: 'MedGroup_Analytics', icon: '🏥', time: '18m ago', agent: 'Clinical Notes AI', agentIcon: '🏥', agentPrice: '$99/mo', action: 'just deployed', likes: 34, comments: 6 },
+            { type: 'review', user: 'startup_founder_gary', icon: '🚀', time: '31m ago', agent: 'Apex Leads Pro', agentIcon: '📧', agentPrice: '$149/mo', stars: 5, text: '"Got 847 qualified B2B leads in the first week. These are BANT-qualified, enriched, ready to call. Our pipeline went from $0 to $400k."', likes: 517, comments: 98 },
+            { type: 'hire', user: 'Goldman_DataDesk', icon: '💰', time: '44m ago', agent: 'Options Flow Scanner', agentIcon: '🎪', agentPrice: '$99/mo', action: 'just deployed', likes: 61, comments: 11 },
+            { type: 'review', user: 'realestate_shark', icon: '🏠', time: '1hr ago', agent: 'Deal Analyzer Pro', agentIcon: '🏠', agentPrice: '$59/mo', stars: 5, text: '"Underwrote 14 deals this month. Each one took 30 seconds. My old process took 3 hours per deal. I\'m buying more deals because of this."', likes: 289, comments: 55 },
+            { type: 'hire', user: 'TechCorp_SEO', icon: '🌐', time: '1.2hr ago', agent: 'SEO Keyword Hunter', agentIcon: '🌐', agentPrice: '$49/mo', action: 'just deployed', likes: 22, comments: 4 },
+        ];
+
+        const TRENDING = [
+            { rank: 1, icon: '📚', name: 'Research Paper Digest', stat: '45,000 operators', pct: '+23%' },
+            { rank: 2, icon: '📧', name: 'Apex Leads Pro', stat: '2,200 operators', pct: '+18%' },
+            { rank: 3, icon: '⚔️', name: 'OVERWATCH Signal', stat: '2,841 operators', pct: '+31%' },
+            { rank: 4, icon: '🤖', name: 'Code Review Bot', stat: '22,000 operators', pct: '+9%' },
+            { rank: 5, icon: '📈', name: 'Quant Scalper v3', stat: '987 operators', pct: '+15%' },
+            { rank: 6, icon: '💊', name: 'Drug Interaction Checker', stat: '12,000 operators', pct: '+7%' },
+        ];
+
+        function renderFeed() {
+            const feed = document.getElementById('activity-feed');
+            feed.innerHTML = ACTIVITIES.map(a => `
+    <div class="activity-card">
+      <div class="ac-header">
+        <div class="ac-avatar" style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.15)">${a.icon}</div>
+        <div class="ac-user">
+          <div class="ac-name">@${a.user}</div>
+          <div class="ac-sub">${a.type === 'hire' ? 'Hired a new agent' : 'Left a review'}</div>
+        </div>
+        <div class="ac-time">${a.time}</div>
+      </div>
+      ${a.type === 'review' ? `<div class="review-stars">${'★'.repeat(a.stars)}${'☆'.repeat(5 - a.stars)}</div><div class="review-text">${a.text}</div>` : ''}
+      ${a.type === 'hire' ? `<div class="ac-body">just deployed <strong>${a.agent}</strong> and is now live in production 🚀</div>` : ''}
+      <div class="ac-agent-preview">
+        <div class="ac-agent-icon">${a.agentIcon}</div>
+        <div style="flex:1">
+          <div class="ac-agent-name">${a.agent}</div>
+          <div class="ac-agent-price">${a.agentPrice}</div>
+        </div>
+        <button class="ac-btn" onclick="event.stopPropagation();openCapture()">Deploy →</button>
+      </div>
+      <div class="ac-actions">
+        <button class="ac-btn" onclick="this.classList.toggle('liked');this.textContent=this.classList.contains('liked')?'❤️ '+(${a.likes || 0}+1):'🤍 ${a.likes || 0}'">🤍 ${a.likes || 0}</button>
+        <button class="ac-btn" onclick="openCapture()">💬 ${a.comments || 0} comments</button>
+        <button class="ac-btn" onclick="openCapture()">↗ Follow Agent</button>
+      </div>
+    </div>
+  `).join('');
+        }
+
+        function renderTrending() {
+            document.getElementById('trending-list').innerHTML = TRENDING.map(t => `
+    <div class="trending-item" onclick="openCapture()">
+      <div class="trending-rank ${t.rank <= 3 ? 'top3' : ''}">${t.rank}</div>
+      <div class="trending-icon">${t.icon}</div>
+      <div class="trending-info">
+        <div class="trending-name">${t.name}</div>
+        <div class="trending-stat">${t.stat}</div>
+      </div>
+      <div class="trending-pct">${t.pct}</div>
+    </div>
+  `).join('');
+        }
+
+        renderFeed(); renderTrending();
+
+        // Inject new activity
+        const NEW_ACTIVITIES = [
+            { type: 'hire', user: 'DataPilot_EU', icon: '📊', time: 'just now', agent: 'Dashboard Builder AI', agentIcon: '📊', agentPrice: '$99/mo', action: 'just deployed', likes: 0, comments: 0 },
+            { type: 'review', user: 'hedge_desk_nyc', icon: '💹', time: 'just now', agent: 'Legends Pool — Burry', agentIcon: '🎯', agentPrice: '$49/mo', stars: 5, text: '"Short signals 3 weeks early every time. Worth 10x the price."', likes: 0, comments: 0 },
+        ];
+        let ni = 0;
+        setInterval(() => {
+            ACTIVITIES.unshift(NEW_ACTIVITIES[ni % NEW_ACTIVITIES.length]);
+            ACTIVITIES.pop(); ni++;
+            renderFeed();
+        }, 18000);
+
+        // Capture
+        function openCapture() { document.getElementById('capture-overlay').classList.add('open') }
+        function closeCapture() { document.getElementById('capture-overlay').classList.remove('open') }
+        function submitCapture() {
+            const e = document.getElementById('cap-email').value.trim();
+            if (!e || !e.includes('@')) { document.getElementById('cap-email').style.borderColor = 'var(--red)'; return }
+            document.querySelector('.modal-gift').textContent = '🎉';
+            document.querySelector('.modal-title').textContent = 'You\'re in!';
+            document.querySelector('.modal-sub').textContent = 'Welcome to the network. Check your inbox for the starter pack.';
+            document.querySelector('.modal-submit').textContent = '✅ Start Exploring';
+            document.querySelector('.modal-submit').onclick = closeCapture;
+            document.getElementById('cap-email').style.display = 'none';
+        }
+
+        // Exit intent
+        document.addEventListener('mouseleave', e => { if (e.clientY < 10 && !sessionStorage.getItem('nf_social_cap')) setTimeout(() => { sessionStorage.setItem('nf_social_cap', '1'); openCapture() }, 300) });
+    </script>
+</body>
+
+</html>

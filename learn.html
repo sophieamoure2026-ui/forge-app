@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academy — NeuForge | Learn to Build & Deploy AI Agents</title>
+    <meta name="description"
+        content="Free courses on building, deploying, and monetizing AI agents. Earn a NeuForge certification. 50,000+ students enrolled." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: #0d1220;
+            --surface2: #111827;
+            --border: #1e2d45;
+            --accent: #f97316;
+            --accent2: #fb923c;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --gold: #eab308;
+            --text: #f1f5f9;
+            --muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.03)
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: .4;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(120px);
+            opacity: .18
+        }
+
+        .orb1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #22c55e, transparent);
+            top: -200px;
+            right: -100px
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #3b82f6, transparent);
+            bottom: -100px;
+            left: -150px
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(8, 11, 20, .9);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .nav-link {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: .82rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text);
+            background: var(--glass)
+        }
+
+        .nav-link.active {
+            color: var(--green)
+        }
+
+        .btn-primary {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, .4)
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        .py80 {
+            padding: 80px 0
+        }
+
+        /* HERO */
+        .hero {
+            padding: 120px 24px 60px;
+            text-align: center;
+            position: relative;
+            z-index: 1
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, .1);
+            border: 1px solid rgba(34, 197, 94, .25);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 24px
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 20px
+        }
+
+        .h1-grad {
+            background: linear-gradient(90deg, var(--green), var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 580px;
+            margin: 0 auto 32px
+        }
+
+        .cert-preview {
+            background: linear-gradient(135deg, rgba(34, 197, 94, .06), rgba(59, 130, 246, .04));
+            border: 1px solid rgba(34, 197, 94, .2);
+            border-radius: 16px;
+            padding: 20px 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 20px
+        }
+
+        .cert-icon {
+            font-size: 2.5rem
+        }
+
+        .cert-text {
+            text-align: left
+        }
+
+        .cert-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 4px
+        }
+
+        .cert-title {
+            font-size: .95rem;
+            font-weight: 700
+        }
+
+        .cert-sub {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        /* STATS */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 0 0 60px
+        }
+
+        .stat {
+            text-align: center
+        }
+
+        .stat-num {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .stat-label {
+            font-size: .8rem;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        /* COURSE GRID */
+        .section-label {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px
+        }
+
+        .section-title span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-size: .95rem;
+            margin-bottom: 40px
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px
+        }
+
+        .course-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .3s
+        }
+
+        .course-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(249, 115, 22, .12)
+        }
+
+        .course-thumb {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: .65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: .5px;
+            text-transform: uppercase
+        }
+
+        .course-badge.free {
+            background: rgba(34, 197, 94, .15);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .3)
+        }
+
+        .course-badge.paid {
+            background: rgba(249, 115, 22, .15);
+            color: var(--accent);
+            border: 1px solid rgba(249, 115, 22, .3)
+        }
+
+        .course-badge.cert {
+            background: rgba(234, 179, 8, .15);
+            color: var(--gold);
+            border: 1px solid rgba(234, 179, 8, .3)
+        }
+
+        .course-body {
+            padding: 20px
+        }
+
+        .course-level {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px
+        }
+
+        .course-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.3
+        }
+
+        .course-desc {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 14px
+        }
+
+        .course-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 1px solid var(--border)
+        }
+
+        .course-stats {
+            display: flex;
+            gap: 14px
+        }
+
+        .cs-item {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .cs-item strong {
+            color: var(--text)
+        }
+
+        .enroll-btn {
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: .75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .enroll-btn:hover {
+            transform: scale(1.05)
+        }
+
+        .enroll-btn.free-btn {
+            background: transparent;
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .4)
+        }
+
+        .enroll-btn.free-btn:hover {
+            background: rgba(34, 197, 94, .1)
+        }
+
+        /* LEARNING PATH */
+        .path-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 20px
+        }
+
+        .path-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px
+        }
+
+        .path-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px
+        }
+
+        .path-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 4px
+        }
+
+        .path-meta {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .path-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .path-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--surface2);
+            border-radius: 10px;
+            border: 1px solid var(--border)
+        }
+
+        .step-n {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--accent);
+            width: 24px
+        }
+
+        .step-title {
+            flex: 1;
+            font-size: .85rem;
+            font-weight: 600
+        }
+
+        .step-dur {
+            font-size: .72rem;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .step-done {
+            color: var(--green);
+            font-size: 1rem
+        }
+
+        /* CAPTURE */
+        .capture-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .7);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px)
+        }
+
+        .capture-overlay.open {
+            display: flex
+        }
+
+        .capture-modal {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 440px;
+            width: 90%;
+            position: relative;
+            animation: modal-in .3s ease
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(.95)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .modal-gift {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 16px
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px
+        }
+
+        .modal-sub {
+            font-size: .88rem;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 20px
+        }
+
+        .modal-input {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: .95rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            margin-bottom: 12px;
+            transition: all .2s
+        }
+
+        .modal-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, .1)
+        }
+
+        .modal-input::placeholder {
+            color: var(--muted)
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .modal-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, .3)
+        }
+
+        .modal-fine {
+            font-size: .72rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>Neu<span>Forge</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="marketplace.html" class="nav-link">Marketplace</a>
+                <a href="legends.html" class="nav-link">Legends</a>
+                <a href="social.html" class="nav-link">Social</a>
+                <a href="learn.html" class="nav-link active">Academy</a>
+                <a href="sell.html" class="nav-link">Sell</a>
+            </div>
+            <button class="btn-primary" onclick="openCapture()">Enroll Free →</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-badge">🎓 50,000+ students enrolled · 94% completion rate</div>
+        <h1>Master <span class="h1-grad">the Agent Economy</span></h1>
+        <p class="hero-sub">Free courses. Real deployments. Earn a NeuForge certification that top operators actually
+            recognize.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <button class="btn-primary" style="padding:14px 32px;font-size:1rem;border-radius:12px"
+                onclick="openCapture()">Start Learning Free →</button>
+            <a href="#courses"
+                style="padding:14px 24px;border-radius:12px;border:1px solid var(--border);color:var(--text);font-weight:600;text-decoration:none;transition:all .2s;font-size:.95rem">Browse
+                Courses</a>
+        </div>
+        <div class="cert-preview">
+            <div class="cert-icon">🏆</div>
+            <div class="cert-text">
+                <div class="cert-label">Upon completion</div>
+                <div class="cert-title">NeuForge Certified Agent Operator</div>
+                <div class="cert-sub">Shareable PDF + LinkedIn badge · Recognized by 200+ firms</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-num">50k+</div>
+                <div class="stat-label">Students Enrolled</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">24</div>
+                <div class="stat-label">Free Courses</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">94%</div>
+                <div class="stat-label">Completion Rate</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">4.9★</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+        </div>
+
+        <!-- FREE COURSES -->
+        <div id="courses" style="scroll-margin-top:80px">
+            <div class="section-label">Free Courses</div>
+            <div class="section-title">Start <span>Building Today</span></div>
+            <div class="section-sub">No credit card. No waitlist. Just open and learn.</div>
+            <div class="courses-grid">
+                <div class="course-card" onclick="openCapture()">
+                    <div class="course-thumb"
+                        style="background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(168,85,247,.08))">🤖<div
+                            class="course-badge free">FREE</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-level">Beginner · 2.5 hours</div>
+                        <div class="course-title">Build Your First AI Agent in 60 Minutes</div>
+                        <div class="course-desc">Deploy a working AI agent from scratch. No coding experience needed.
+                            Uses Groq + LLaMA 3.3.</div>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <div class="cs-item">👥 <strong>18,400</strong> enrolled</div>
+                                <div class="cs-item">⭐ <strong>4.9</strong></div>
+                            </div>
+                            <button class="enroll-btn free-btn" onclick="event.stopPropagation();openCapture()">Enroll
+                                Free</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openCapture()">
+                    <div class="course-thumb"
+                        style="background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(6,182,212,.06))">🧠<div
+                            class="course-badge free">FREE</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-level">Beginner · 3 hours</div>
+                        <div class="course-title">Prompt Engineering for AI Agents</div>
+                        <div class="course-desc">The prompting frameworks used by Titan Signal's 230-daemon fleet.
+                            System prompts that actually work.</div>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <div class="cs-item">👥 <strong>12,900</strong> enrolled</div>
+                                <div class="cs-item">⭐ <strong>4.8</strong></div>
+                            </div>
+                            <button class="enroll-btn free-btn" onclick="event.stopPropagation();openCapture()">Enroll
+                                Free</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openCapture()">
+                    <div class="course-thumb"
+                        style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(6,182,212,.06))">🚀<div
+                            class="course-badge free">FREE</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-level">Intermediate · 4 hours</div>
+                        <div class="course-title">Deploy Agents to Production</div>
+                        <div class="course-desc">VPS deployment, systemd daemons, Redis queues, health endpoints. Make
+                            it bulletproof.</div>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <div class="cs-item">👥 <strong>8,200</strong> enrolled</div>
+                                <div class="cs-item">⭐ <strong>4.9</strong></div>
+                            </div>
+                            <button class="enroll-btn free-btn" onclick="event.stopPropagation();openCapture()">Enroll
+                                Free</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openCapture()">
+                    <div class="course-thumb"
+                        style="background:linear-gradient(135deg,rgba(234,179,8,.1),rgba(249,115,22,.06))">💰<div
+                            class="course-badge cert">CERTIFIED</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-level">Advanced · 8 hours</div>
+                        <div class="course-title">Monetize Your Agent: List & Sell on NeuForge</div>
+                        <div class="course-desc">Package your agent, set pricing, write listings that convert, and earn
+                            70% revenue share.</div>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <div class="cs-item">👥 <strong>4,100</strong> enrolled</div>
+                                <div class="cs-item">⭐ <strong>4.9</strong></div>
+                            </div>
+                            <button class="enroll-btn" onclick="event.stopPropagation();openCapture()">Enroll
+                                $49</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openCapture()">
+                    <div class="course-thumb"
+                        style="background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(168,85,247,.06))">🔒<div
+                            class="course-badge paid">PRO</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-level">Advanced · 6 hours</div>
+                        <div class="course-title">Intelligence Ops: Building OSINT Agents</div>
+                        <div class="course-desc">Build real geopolitical risk monitors. The exact tech behind OVERWATCH.
+                            ADS-B, RSS, Telegram.</div>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <div class="cs-item">👥 <strong>2,800</strong> enrolled</div>
+                                <div class="cs-item">⭐ <strong>5.0</strong></div>
+                            </div>
+                            <button class="enroll-btn" onclick="event.stopPropagation();openCapture()">Enroll
+                                $79</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card" onclick="openCapture()">
+                    <div class="course-thumb"
+                        style="background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(168,85,247,.08))">📊<div
+                            class="course-badge free">FREE</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-level">Intermediate · 3.5 hours</div>
+                        <div class="course-title">Multi-Agent Systems: Fleets That Execute</div>
+                        <div class="course-desc">Orchestrate 10+ agents. Task routing, failover, and logging. The Titan
+                            Signal architecture.</div>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <div class="cs-item">👥 <strong>6,400</strong> enrolled</div>
+                                <div class="cs-item">⭐ <strong>4.8</strong></div>
+                            </div>
+                            <button class="enroll-btn free-btn" onclick="event.stopPropagation();openCapture()">Enroll
+                                Free</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEARNING PATH -->
+        <div class="section-label">Learning Paths</div>
+        <div class="section-title">Go from <span>Zero to Deployed</span></div>
+        <div class="section-sub" style="margin-bottom:28px">Curated sequences. Start here if you're new.</div>
+        <div class="path-card">
+            <div class="path-header">
+                <div class="path-icon"
+                    style="background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(168,85,247,.08));border:1px solid var(--border)">
+                    💸</div>
+                <div>
+                    <div class="path-title">Agent Entrepreneur Path</div>
+                    <div class="path-meta">5 courses · ~18 hours · Certification included</div>
+                </div>
+            </div>
+            <div class="path-steps">
+                <div class="path-step">
+                    <div class="step-n">01</div>
+                    <div class="step-title">Build Your First AI Agent</div>
+                    <div class="step-dur">2.5hr</div>
+                    <div class="step-done">✅</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-n">02</div>
+                    <div class="step-title">Prompt Engineering for AI Agents</div>
+                    <div class="step-dur">3hr</div>
+                    <div class="step-done">✅</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-n">03</div>
+                    <div class="step-title">Deploy Agents to Production</div>
+                    <div class="step-dur">4hr</div>
+                    <div class="step-done" style="color:var(--muted)">○</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-n">04</div>
+                    <div class="step-title">Multi-Agent Systems: Fleets That Execute</div>
+                    <div class="step-dur">3.5hr</div>
+                    <div class="step-done" style="color:var(--muted)">○</div>
+                </div>
+                <div class="path-step">
+                    <div class="step-n">05</div>
+                    <div class="step-title">Monetize Your Agent: List & Sell on NeuForge</div>
+                    <div class="step-dur">8hr</div>
+                    <div class="step-done" style="color:var(--muted)">○</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPTURE -->
+    <div class="capture-overlay" id="capture-overlay" onclick="if(event.target===this)closeCapture()">
+        <div class="capture-modal">
+            <button class="modal-close" onclick="closeCapture()">✕</button>
+            <div class="modal-gift">🎓</div>
+            <div class="modal-title">Start Learning Free</div>
+            <div class="modal-sub">Get instant access to all free courses plus your NeuForge Starter Pack — 3 courses,
+                PDF report, and 500 credits.</div>
+            <input class="modal-input" id="cap-email" type="email" placeholder="your@email.com" />
+            <button class="modal-submit" onclick="submitCapture()">🚀 Enroll Free — Start Now →</button>
+            <div class="modal-fine">Free forever. Upgrade any time for advanced courses.</div>
+        </div>
+    </div>
+
+    <script>
+        function openCapture() { document.getElementById('capture-overlay').classList.add('open') }
+        function closeCapture() { document.getElementById('capture-overlay').classList.remove('open') }
+        function submitCapture() {
+            const e = document.getElementById('cap-email').value.trim();
+            if (!e || !e.includes('@')) { document.getElementById('cap-email').style.borderColor = 'var(--red)'; return }
+            document.querySelector('.modal-gift').textContent = '🎉';
+            document.querySelector('.modal-title').textContent = 'Enrollment confirmed!';
+            document.querySelector('.modal-sub').textContent = 'Check your inbox for course access. Your starter pack is on the way.';
+            document.querySelector('.modal-submit').textContent = '✅ Go to Dashboard';
+            document.querySelector('.modal-submit').onclick = closeCapture;
+            document.getElementById('cap-email').style.display = 'none';
+        }
+        document.addEventListener('mouseleave', e => { if (e.clientY < 10 && !sessionStorage.getItem('nf_learn_cap')) setTimeout(() => { sessionStorage.setItem('nf_learn_cap', '1'); openCapture() }, 300) });
+    </script>
+</body>
+
+</html>

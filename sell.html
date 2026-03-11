@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sell Your Agent — NeuForge | List, Earn, Scale</title>
+    <meta name="description"
+        content="List your AI agent on the #1 agent marketplace. 70% revenue share. 47,000 active buyers. Free to list." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: #0d1220;
+            --surface2: #111827;
+            --border: #1e2d45;
+            --border2: #2a3d5c;
+            --accent: #f97316;
+            --accent2: #fb923c;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --gold: #eab308;
+            --text: #f1f5f9;
+            --muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.03)
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: .4;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(120px);
+            opacity: .2
+        }
+
+        .orb1 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, #f97316, transparent);
+            top: -200px;
+            right: -100px
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #22c55e, transparent);
+            bottom: -100px;
+            left: -150px
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(8, 11, 20, .9);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .nav-link {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: .82rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text);
+            background: var(--glass)
+        }
+
+        .nav-link.active {
+            color: var(--accent)
+        }
+
+        .btn-primary {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, .4)
+        }
+
+        /* HERO */
+        .hero {
+            padding: 120px 24px 80px;
+            text-align: center;
+            position: relative;
+            z-index: 1
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(249, 115, 22, .1);
+            border: 1px solid rgba(249, 115, 22, .3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 24px
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 20px
+        }
+
+        .h1-line2 {
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto 36px
+        }
+
+        /* SPLIT MODEL */
+        .split-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin: 48px auto;
+            max-width: 500px
+        }
+
+        .split-block {
+            flex: 1;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid var(--border);
+            position: relative
+        }
+
+        .split-block.creator {
+            background: rgba(249, 115, 22, .04);
+            border-color: rgba(249, 115, 22, .3);
+            border-radius: 16px 0 0 16px
+        }
+
+        .split-block.platform {
+            background: rgba(168, 85, 247, .04);
+            border-color: rgba(168, 85, 247, .25);
+            border-radius: 0 16px 16px 0
+        }
+
+        .split-pct {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .split-pct.orange {
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .split-pct.purple {
+            background: linear-gradient(90deg, var(--purple), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .split-label {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        .split-you {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px
+        }
+
+        .split-you.orange {
+            color: var(--accent)
+        }
+
+        .split-you.purple {
+            color: var(--purple)
+        }
+
+        /* STEPS */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        .py80 {
+            padding: 80px 0
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px
+        }
+
+        .section-title span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 40px 0
+        }
+
+        .step-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all .3s
+        }
+
+        .step-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px)
+        }
+
+        .step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            opacity: .4;
+            margin-bottom: 12px
+        }
+
+        .step-title {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 8px
+        }
+
+        .step-desc {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        /* LISTING FORM */
+        .form-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 0 auto
+        }
+
+        .form-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 6px
+        }
+
+        .form-sub {
+            font-size: .88rem;
+            color: var(--muted);
+            margin-bottom: 28px
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px
+        }
+
+        @media(max-width:600px) {
+            .form-row {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .form-group.full {
+            grid-column: 1/-1
+        }
+
+        label {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: .5px;
+            text-transform: uppercase
+        }
+
+        input,
+        textarea,
+        select {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-size: .9rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: all .2s;
+            outline: none;
+            width: 100%
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, .1)
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--muted)
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px
+        }
+
+        select option {
+            background: var(--surface2)
+        }
+
+        .price-model {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 4px
+        }
+
+        .pm-chip {
+            padding: 10px;
+            border-radius: 10px;
+            font-size: .78rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+            text-align: center
+        }
+
+        .pm-chip.selected,
+        .pm-chip:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(249, 115, 22, .06)
+        }
+
+        .payout-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 4px
+        }
+
+        .payout-chip {
+            padding: 10px;
+            border-radius: 10px;
+            font-size: .78rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+            text-align: center
+        }
+
+        .payout-chip.selected,
+        .payout-chip:hover {
+            border-color: var(--green);
+            color: var(--green);
+            background: rgba(34, 197, 94, .06)
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 24px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .3px
+        }
+
+        .form-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 35px rgba(249, 115, 22, .4)
+        }
+
+        /* LEADERBOARD */
+        .leaderboard {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 60px
+        }
+
+        .lb-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .lb-row {
+            display: grid;
+            grid-template-columns: 40px 1fr 100px 100px 80px;
+            align-items: center;
+            padding: 14px 24px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+            transition: background .2s
+        }
+
+        .lb-row:hover {
+            background: var(--glass)
+        }
+
+        .lb-row:last-child {
+            border-bottom: none
+        }
+
+        .lb-rank {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--muted);
+            font-size: .9rem
+        }
+
+        .lb-rank.gold {
+            color: var(--gold)
+        }
+
+        .lb-rank.silver {
+            color: #94a3b8
+        }
+
+        .lb-rank.bronze {
+            color: #c2804f
+        }
+
+        .lb-creator {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .lb-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: var(--surface2);
+            border: 1px solid var(--border)
+        }
+
+        .lb-name {
+            font-weight: 700;
+            font-size: .88rem
+        }
+
+        .lb-handle {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .lb-agents {
+            font-size: .82rem;
+            color: var(--muted);
+            text-align: center
+        }
+
+        .lb-mrr {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .88rem;
+            color: var(--green);
+            font-weight: 700
+        }
+
+        .lb-badge {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: .65rem;
+            font-weight: 800;
+            background: rgba(249, 115, 22, .12);
+            color: var(--accent);
+            border: 1px solid rgba(249, 115, 22, .2)
+        }
+
+        /* CAPTURE */
+        .capture-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .7);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px)
+        }
+
+        .capture-overlay.open {
+            display: flex
+        }
+
+        .capture-modal {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 440px;
+            width: 90%;
+            position: relative;
+            animation: modal-in .3s ease
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(.95)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .modal-gift {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 16px
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px
+        }
+
+        .modal-sub {
+            font-size: .88rem;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 20px
+        }
+
+        .modal-input {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: .95rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            margin-bottom: 12px
+        }
+
+        .modal-input:focus {
+            border-color: var(--accent)
+        }
+
+        .modal-input::placeholder {
+            color: var(--muted)
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .modal-submit:hover {
+            transform: translateY(-1px)
+        }
+
+        .modal-fine {
+            font-size: .72rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>Neu<span>Forge</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="marketplace.html" class="nav-link">Marketplace</a>
+                <a href="legends.html" class="nav-link">Legends</a>
+                <a href="social.html" class="nav-link">Social</a>
+                <a href="learn.html" class="nav-link">Academy</a>
+                <a href="sell.html" class="nav-link active">Sell</a>
+            </div>
+            <button class="btn-primary"
+                onclick="document.getElementById('listing-form').scrollIntoView({behavior:'smooth'})">List Your Agent
+                →</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-badge">💰 Top creators earn $30k–$120k/month</div>
+        <h1>Turn Your Agent<br><span class="h1-line2">Into a Business</span></h1>
+        <p class="hero-sub">47,000 active buyers. Free to list. The highest revenue share in the industry — and we pay
+            in ETH.</p>
+        <button class="btn-primary" style="padding:14px 36px;font-size:1.05rem;border-radius:12px"
+            onclick="document.getElementById('listing-form').scrollIntoView({behavior:'smooth'})">List Free — Start
+            Earning Today →</button>
+
+        <div class="split-wrap">
+            <div class="split-block creator">
+                <div class="split-you orange">YOU KEEP</div>
+                <div class="split-pct orange">70%</div>
+                <div class="split-label">of every sale, forever</div>
+            </div>
+            <div class="split-block platform">
+                <div class="split-you purple">NEUFORGE</div>
+                <div class="split-pct purple">30%</div>
+                <div class="split-label">marketplace & infrastructure</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- HOW IT WORKS -->
+        <div class="section-label">How It Works</div>
+        <div class="section-title">List in <span>4 Steps</span></div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <div class="step-title">Describe Your Agent</div>
+                <div class="step-desc">Name, vertical, pricing model, and a demo URL or walkthrough. Takes 5 minutes.
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <div class="step-title">We Review in 24h</div>
+                <div class="step-desc">Our team tests the agent live. If it works, it goes live. We reject vaporware.
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <div class="step-title">47k Buyers Find You</div>
+                <div class="step-desc">Your agent appears in search, category pages, and our weekly digest to 47,000
+                    operators.</div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">04</div>
+                <div class="step-title">Get Paid, Your Way</div>
+                <div class="step-desc">Withdraw as ETH, USDC, or ACH bank transfer. No minimums. Instant on-chain
+                    payouts.</div>
+            </div>
+        </div>
+
+        <!-- LISTING FORM -->
+        <div class="form-wrap" id="listing-form">
+            <div class="form-title">📬 Submit Your Agent</div>
+            <div class="form-sub">Free to list. We'll review within 24 hours and reach out directly.</div>
+            <div class="form-row">
+                <div class="form-group"><label>Agent Name</label><input type="text" placeholder="e.g. Apex Leads Pro" />
+                </div>
+                <div class="form-group"><label>Your Name / Company</label><input type="text"
+                        placeholder="e.g. Titan Signal" /></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Email</label><input type="email" placeholder="you@company.com" /></div>
+                <div class="form-group">
+                    <label>Vertical</label>
+                    <select>
+                        <option>Finance & Trading</option>
+                        <option>Sales & Lead Gen</option>
+                        <option>Creative & Content</option>
+                        <option>Security & Defense</option>
+                        <option>Healthcare</option>
+                        <option>Legal & Compliance</option>
+                        <option>Real Estate</option>
+                        <option>E-Commerce</option>
+                        <option>Education & Research</option>
+                        <option>Dev Tools</option>
+                        <option>Mobile & Apps</option>
+                        <option>Marketing & SEO</option>
+                        <option>Analytics & Data</option>
+                        <option>Gaming & Entertainment</option>
+                        <option>Logistics & Supply Chain</option>
+                        <option>Climate & Agriculture</option>
+                        <option>Government & Civic</option>
+                        <option>Space & Deep Tech</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row full" style="display:block;margin-bottom:16px">
+                <div class="form-group">
+                    <label>What does your agent do? (3 sentences max)</label>
+                    <textarea
+                        placeholder="Describe the problem it solves, how it works, and what makes it different."></textarea>
+                </div>
+            </div>
+            <div class="form-row full" style="display:block;margin-bottom:16px">
+                <label>Pricing Model</label>
+                <div class="price-model">
+                    <button class="pm-chip selected" onclick="selectChip(this,'pm')">🟢 Free (open source)</button>
+                    <button class="pm-chip" onclick="selectChip(this,'pm')">💰 Paid subscription</button>
+                    <button class="pm-chip" onclick="selectChip(this,'pm')">🏢 Enterprise / quote</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Starting Price ($/mo)</label><input type="number"
+                        placeholder="e.g. 49" /></div>
+                <div class="form-group"><label>Live Demo URL</label><input type="url"
+                        placeholder="https://youragent.com/demo" /></div>
+            </div>
+            <div class="form-row full" style="display:block;margin-bottom:0">
+                <label>Preferred Payout Method</label>
+                <div class="payout-grid">
+                    <button class="payout-chip selected" onclick="selectChip(this,'pay')">⚡ ETH (on-chain)</button>
+                    <button class="payout-chip" onclick="selectChip(this,'pay')">💵 USDC</button>
+                    <button class="payout-chip" onclick="selectChip(this,'pay')">🏦 ACH Bank</button>
+                </div>
+            </div>
+            <button class="form-submit" onclick="submitListing()">Submit Agent for Review — Free →</button>
+        </div>
+
+        <!-- LEADERBOARD -->
+        <div class="leaderboard" style="margin-bottom:60px">
+            <div class="lb-header">🏆 Top Creators This Month</div>
+            <div class="lb-row" style="background:rgba(249,115,22,.03)">
+                <div class="lb-rank gold">01</div>
+                <div class="lb-creator">
+                    <div class="lb-avatar">🦅</div>
+                    <div>
+                        <div class="lb-name">Titan Signal</div>
+                        <div class="lb-handle">@titan.signal</div>
+                    </div>
+                </div>
+                <div class="lb-agents">12 agents</div>
+                <div class="lb-mrr">$94,200/mo</div>
+                <div class="lb-badge">VERIFIED</div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank silver">02</div>
+                <div class="lb-creator">
+                    <div class="lb-avatar">🤖</div>
+                    <div>
+                        <div class="lb-name">NeuralForge Labs</div>
+                        <div class="lb-handle">@neuralforge</div>
+                    </div>
+                </div>
+                <div class="lb-agents">8 agents</div>
+                <div class="lb-mrr">$61,500/mo</div>
+                <div class="lb-badge">TOP CREATOR</div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank bronze">03</div>
+                <div class="lb-creator">
+                    <div class="lb-avatar">⚖️</div>
+                    <div>
+                        <div class="lb-name">LexAI Studio</div>
+                        <div class="lb-handle">@lexai</div>
+                    </div>
+                </div>
+                <div class="lb-agents">5 agents</div>
+                <div class="lb-mrr">$43,800/mo</div>
+                <div class="lb-badge">LEGAL</div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank">04</div>
+                <div class="lb-creator">
+                    <div class="lb-avatar">📊</div>
+                    <div>
+                        <div class="lb-name">DataPilot AI</div>
+                        <div class="lb-handle">@datapilot</div>
+                    </div>
+                </div>
+                <div class="lb-agents">4 agents</div>
+                <div class="lb-mrr">$28,100/mo</div>
+                <div class="lb-badge">ANALYTICS</div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank">05</div>
+                <div class="lb-creator">
+                    <div class="lb-avatar">🏥</div>
+                    <div>
+                        <div class="lb-name">MedAgent Systems</div>
+                        <div class="lb-handle">@medagent</div>
+                    </div>
+                </div>
+                <div class="lb-agents">3 agents</div>
+                <div class="lb-mrr">$19,600/mo</div>
+                <div class="lb-badge">HEALTH</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPTURE -->
+    <div class="capture-overlay" id="capture-overlay" onclick="if(event.target===this)closeCapture()">
+        <div class="capture-modal">
+            <button class="modal-close" onclick="closeCapture()">✕</button>
+            <div class="modal-gift">💰</div>
+            <div class="modal-title">Your Listing Is Submitted!</div>
+            <div class="modal-sub">Our team will review within 24 hours. Confirm your email to get notified instantly
+                when it goes live.</div>
+            <input class="modal-input" id="cap-email" type="email" placeholder="Confirm your email" />
+            <button class="modal-submit" onclick="finalSubmit()">✅ Confirm & Get Notified</button>
+            <div class="modal-fine">We'll never share your email. Listing review is free.</div>
+        </div>
+    </div>
+
+    <script>
+        function selectChip(el, group) {
+            document.querySelectorAll(`.${group === 'pm' ? 'pm' : 'payout'}-chip`).forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        function submitListing() {
+            document.getElementById('capture-overlay').classList.add('open');
+        }
+        function closeCapture() {
+            document.getElementById('capture-overlay').classList.remove('open');
+        }
+        function finalSubmit() {
+            const e = document.getElementById('cap-email').value.trim();
+            if (!e || !e.includes('@')) { document.getElementById('cap-email').style.borderColor = 'var(--red)'; return; }
+            document.querySelector('.modal-gift').textContent = '🎉';
+            document.querySelector('.modal-title').textContent = 'You\'re in the queue!';
+            document.querySelector('.modal-sub').textContent = 'We\'ll review your agent within 24 hours. Check your inbox for next steps.';
+            document.querySelector('.modal-submit').textContent = '✅ Got it — Back to Marketplace';
+            document.querySelector('.modal-submit').onclick = () => window.location.href = 'marketplace.html';
+            document.getElementById('cap-email').style.display = 'none';
+        }
+        document.addEventListener('mouseleave', e => {
+            if (e.clientY < 10 && !sessionStorage.getItem('nf_sell_cap')) {
+                sessionStorage.setItem('nf_sell_cap', '1');
+                setTimeout(() => document.getElementById('capture-overlay').classList.add('open'), 500);
+            }
+        });
+    </script>
+</body>
+
+</html>
