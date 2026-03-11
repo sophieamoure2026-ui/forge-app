@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to NeuForge — You're In</title>
+    <meta name="description" content="Your AI investment committee is active. Welcome to NeuForge Legends Pool." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: #0d1220;
+            --border: #1e2d45;
+            --accent: #f97316;
+            --gold: #eab308;
+            --green: #22c55e;
+            --text: #f1f5f9;
+            --muted: #64748b
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: .4;
+            pointer-events: none
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(120px);
+            opacity: .2
+        }
+
+        .orb1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #eab308, transparent);
+            top: -150px;
+            right: -100px
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #a855f7, transparent);
+            bottom: -100px;
+            left: -100px
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 600px;
+            padding: 40px 24px
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 32px;
+            animation: pop .5s cubic-bezier(.175, .885, .32, 1.275)
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 12px
+        }
+
+        .gold {
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .sub {
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 36px
+        }
+
+        .next-steps {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: left;
+            margin-bottom: 32px
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .05)
+        }
+
+        .step:last-child {
+            border: none
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: #000;
+            font-size: .75rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .step-text {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.5
+        }
+
+        .step-text strong {
+            color: var(--text)
+        }
+
+        .btn-gold {
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(234, 179, 8, .4)
+        }
+
+        .session-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            color: var(--muted);
+            margin-top: 20px;
+            opacity: .5
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="wrap">
+        <div class="checkmark">✓</div>
+        <h1>Welcome to <span class="gold">NeuForge.</span></h1>
+        <p class="sub">Your committee is active. The 18 greatest investor AIs are ready to vote on your first ticker.
+        </p>
+
+        <div class="next-steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-text"><strong>Check your email</strong><br />Your account confirmation and API key will
+                    arrive within 2 minutes.</div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-text"><strong>Run your first committee vote</strong><br />Go to the Legends Pool, enter
+                    your first ticker, and watch the debate.</div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-text"><strong>Connect copy trading</strong><br />Link your exchange and mirror the
+                    committee's consensus automatically.</div>
+            </div>
+        </div>
+
+        <a href="legends.html" class="btn-gold">Open Your Committee →</a>
+        <div class="session-id" id="sid"></div>
+    </div>
+    <script>
+        const p = new URLSearchParams(window.location.search);
+        const sid = p.get('session_id');
+        if (sid) document.getElementById('sid').textContent = `Ref: ${sid}`;
+    </script>
+</body>
+
+</html>

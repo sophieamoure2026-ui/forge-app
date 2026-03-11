@@ -1,8 +1,27 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Header
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional
-import sqlite3, json, time, uuid
+import sqlite3, json, time, uuid, os
+import stripe
+from dotenv import load_dotenv
+
+load_dotenv()
+
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
+DOMAIN = os.getenv("DOMAIN", "https://neuforge.app")
+
+# ── Stripe Price IDs — fill in after creating products in Stripe dashboard
+# Go to: dashboard.stripe.com/products → create each plan → copy price ID
+PRICES = {
+    "starter":   os.getenv("STRIPE_PRICE_STARTER",   "price_STARTER_PLACEHOLDER"),
+    "pro":       os.getenv("STRIPE_PRICE_PRO",       "price_PRO_PLACEHOLDER"),
+    "allstars":  os.getenv("STRIPE_PRICE_ALLSTARS",  "price_ALLSTARS_PLACEHOLDER"),
+    "titan_copy":   os.getenv("STRIPE_PRICE_TITAN_COPY",   "price_TITAN_COPY_PLACEHOLDER"),
+    "elite":     os.getenv("STRIPE_PRICE_ELITE",     "price_ELITE_PLACEHOLDER"),
+}
 
 app = FastAPI(title="Neuforge AgentRegistry", version="1.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -136,3 +155,106 @@ def list_transactions(limit: int = 20):
 @app.get("/health")
 def health():
     return {"status": "neuforge_online", "platform": "Titan Signal AI Foundry"}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STRIPE CHECKOUT
+# ─────────────────────────────────────────────────────────────────────────────
+
+class CheckoutRequest(BaseModel):
+    package: str  # starter | pro | allstars | titan_copy | elite
+    customer_email: Optional[str] = None
+
+@app.post("/checkout/create-session")
+async def create_checkout_session(req: CheckoutRequest):
+    """Create a Stripe Checkout Session and return the redirect URL."""
+    if not stripe.api_key:
+        raise HTTPException(500, "Stripe not configured — set STRIPE_SECRET_KEY")
+
+    price_id = PRICES.get(req.package)
+    if not price_id or "PLACEHOLDER" in price_id:
+        raise HTTPException(400, f"Package '{req.package}' not configured. Set STRIPE_PRICE_{req.package.upper()} in env.")
+
+    pkg_labels = {
+        "starter":    "Legends Pool — Starter (3 Agents)",
+        "pro":        "Legends Pool — Pro (10 Agents)",
+        "allstars":   "Legends Pool — All-Stars (18 Agents)",
+        "titan_copy": "Titan Signal — Copy Trade",
+        "elite":      "NeuForge Elite — Both Pools",
+    }
+
+    try:
+        session_kwargs = dict(
+            payment_method_types=["card"],
+            line_items=[{"price": price_id, "quantity": 1}],
+            mode="subscription",
+            success_url=f"{DOMAIN}/success?session_id={{CHECKOUT_SESSION_ID}}",
+            cancel_url=f"{DOMAIN}/legends",
+            metadata={"package": req.package, "label": pkg_labels.get(req.package, "")},
+            billing_address_collection="auto",
+            allow_promotion_codes=True,
+        )
+        if req.customer_email:
+            session_kwargs["customer_email"] = req.customer_email
+
+        session = stripe.checkout.Session.create(**session_kwargs)
+        return {"url": session.url, "session_id": session.id}
+    except stripe.error.StripeError as e:
+        raise HTTPException(400, str(e.user_message))
+
+
+@app.get("/checkout/prices")
+def get_prices():
+    """Return all available packages and pricing — readable by AI agents."""
+    return {
+        "packages": [
+            {"id": "starter",    "name": "Legends Starter",  "agents": 3,  "price_usd": 49,  "configured": "PLACEHOLDER" not in PRICES["starter"]},
+            {"id": "pro",        "name": "Legends Pro",       "agents": 10, "price_usd": 149, "configured": "PLACEHOLDER" not in PRICES["pro"]},
+            {"id": "allstars",   "name": "Legends All-Stars", "agents": 18, "price_usd": 299, "configured": "PLACEHOLDER" not in PRICES["allstars"]},
+            {"id": "titan_copy", "name": "Titan Copy Trade",  "agents": 0,  "price_usd": 149, "configured": "PLACEHOLDER" not in PRICES["titan_copy"]},
+            {"id": "elite",      "name": "NeuForge Elite",    "agents": 18, "price_usd": 499, "configured": "PLACEHOLDER" not in PRICES["elite"]},
+        ]
+    }
+
+
+@app.post("/checkout/webhook")
+async def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
+    """Stripe webhook — fires when a subscription is confirmed."""
+    payload = await request.body()
+    try:
+        event = stripe.Webhook.construct_event(payload, stripe_signature, STRIPE_WEBHOOK_SECRET)
+    except Exception as e:
+        raise HTTPException(400, f"Webhook error: {e}")
+
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+        pkg     = session.get("metadata", {}).get("package", "unknown")
+        email   = session.get("customer_email", "")
+        sub_id  = session.get("subscription", "")
+
+        # Log to DB
+        conn = sqlite3.connect(DB)
+        conn.execute("""CREATE TABLE IF NOT EXISTS subscribers (
+            id TEXT PRIMARY KEY, email TEXT, package TEXT,
+            stripe_sub_id TEXT, created INTEGER, active INTEGER DEFAULT 1
+        )""")
+        conn.execute("INSERT OR IGNORE INTO subscribers VALUES (?,?,?,?,?,1)",
+                    (str(uuid.uuid4()), email, pkg, sub_id, int(time.time())))
+        conn.commit()
+        conn.close()
+
+    return {"received": True}
+
+
+@app.get("/subscribers")
+def list_subscribers():
+    """Internal endpoint — subscriber count by package."""
+    try:
+        conn = sqlite3.connect(DB)
+        rows = conn.execute(
+            "SELECT package, COUNT(*) as cnt FROM subscribers WHERE active=1 GROUP BY package"
+        ).fetchall()
+        conn.close()
+        return {"subscribers": [{"package": r[0], "count": r[1]} for r in rows]}
+    except Exception:
+        return {"subscribers": []}

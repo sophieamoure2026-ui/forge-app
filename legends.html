@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Legends Pool — NeuForge</title>
+    <meta name="description"
+        content="Trade alongside the greatest investors of all time. 18 AI agents — Warren Buffett, Michael Burry, Charlie Munger and more — analyze every trade for you." />
+    <!-- AI/Agent-readable structured data -->
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"NeuForge Legends Pool","description":"18 AI investment agents modeled on legendary investors. Choose your committee. Copy their trades.","offers":[{"@type":"Offer","name":"Starter","price":"49","priceCurrency":"USD","billingDuration":"P1M"},{"@type":"Offer","name":"Pro","price":"149","priceCurrency":"USD","billingDuration":"P1M"},{"@type":"Offer","name":"All-Stars","price":"299","priceCurrency":"USD","billingDuration":"P1M"}]}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: #0d1220;
+            --surface2: #111827;
+            --border: #1e2d45;
+            --accent: #f97316;
+            --accent2: #fb923c;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --gold: #eab308;
+            --text: #f1f5f9;
+            --muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: .4;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(120px);
+            opacity: .2
+        }
+
+        .orb1 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, #f97316, transparent);
+            top: -200px;
+            right: -150px
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #a855f7, transparent);
+            bottom: -100px;
+            left: -150px
+        }
+
+        .orb3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #eab308, transparent);
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(8, 11, 20, .85);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .nav-link {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text);
+            background: var(--glass)
+        }
+
+        .btn-primary {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, .4)
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 24px 60px;
+            position: relative;
+            z-index: 1
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(234, 179, 8, .1);
+            border: 1px solid rgba(234, 179, 8, .3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 32px
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(1.3)
+            }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px
+        }
+
+        .line1 {
+            color: var(--text)
+        }
+
+        .line2 {
+            background: linear-gradient(90deg, var(--gold), var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 40px
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: .95rem;
+            font-weight: 600;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            display: inline-block
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold)
+        }
+
+        .btn-lg {
+            padding: 14px 32px;
+            font-size: 1rem;
+            border-radius: 10px
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+            flex-wrap: wrap
+        }
+
+        .stat {
+            text-align: center
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .stat-label {
+            font-size: .8rem;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        .hero-divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border)
+        }
+
+        /* PACKAGES */
+        section {
+            position: relative;
+            z-index: 1
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        .py80 {
+            padding: 80px 0
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px
+        }
+
+        .section-title span {
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.6
+        }
+
+        /* PACKAGE CARDS */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        @media(max-width:700px) {
+            .packages-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .pkg-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 28px;
+            text-align: center;
+            transition: all .3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden
+        }
+
+        .pkg-card.featured {
+            border-color: var(--gold);
+            background: rgba(234, 179, 8, .04);
+            box-shadow: 0 0 40px rgba(234, 179, 8, .08)
+        }
+
+        .pkg-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(234, 179, 8, .12);
+            border-color: var(--gold)
+        }
+
+        .pkg-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: #000;
+            font-size: .65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: .5px
+        }
+
+        .pkg-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px
+        }
+
+        .pkg-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 6px
+        }
+
+        .pkg-agents {
+            font-size: .85rem;
+            color: var(--muted);
+            margin-bottom: 20px
+        }
+
+        .pkg-price {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 4px
+        }
+
+        .pkg-price sup {
+            font-size: 1.2rem;
+            vertical-align: super
+        }
+
+        .pkg-period {
+            font-size: .8rem;
+            color: var(--muted);
+            margin-bottom: 24px
+        }
+
+        .pkg-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 28px
+        }
+
+        .pkg-features li {
+            padding: 6px 0;
+            font-size: .85rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, .04)
+        }
+
+        .pkg-features li .check {
+            color: var(--green);
+            font-size: 1rem
+        }
+
+        .pkg-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: .9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .pkg-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(234, 179, 8, .35)
+        }
+
+        .pkg-btn.outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border)
+        }
+
+        .pkg-btn.outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: none
+        }
+
+        /* LEGEND CARDS */
+        .legends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px
+        }
+
+        .legend-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            transition: all .3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer
+        }
+
+        .legend-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(234, 179, 8, .06), transparent);
+            opacity: 0;
+            transition: opacity .3s
+        }
+
+        .legend-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(234, 179, 8, .1)
+        }
+
+        .legend-card:hover::after {
+            opacity: 1
+        }
+
+        .legend-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px
+        }
+
+        .legend-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            background: rgba(234, 179, 8, .1);
+            border: 1px solid rgba(234, 179, 8, .2)
+        }
+
+        .legend-name {
+            font-weight: 700;
+            font-size: .95rem;
+            margin-bottom: 2px
+        }
+
+        .legend-era {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            animation: pulse 2s infinite;
+            margin-left: auto;
+            margin-top: 2px;
+            flex-shrink: 0
+        }
+
+        .legend-philosophy {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.55;
+            margin-bottom: 14px
+        }
+
+        .legend-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 14px
+        }
+
+        .ltag {
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: .7rem;
+            font-weight: 600
+        }
+
+        .ltag.gold {
+            background: rgba(234, 179, 8, .1);
+            color: var(--gold);
+            border: 1px solid rgba(234, 179, 8, .2)
+        }
+
+        .ltag.blue {
+            background: rgba(59, 130, 246, .1);
+            color: var(--blue);
+            border: 1px solid rgba(59, 130, 246, .2)
+        }
+
+        .ltag.purple {
+            background: rgba(168, 85, 247, .1);
+            color: var(--purple);
+            border: 1px solid rgba(168, 85, 247, .2)
+        }
+
+        .ltag.green {
+            background: rgba(34, 197, 94, .1);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, .2)
+        }
+
+        .ltag.orange {
+            background: rgba(249, 115, 22, .1);
+            color: var(--accent);
+            border: 1px solid rgba(249, 115, 22, .2)
+        }
+
+        .legend-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 1px solid var(--border)
+        }
+
+        .legend-signal {
+            font-size: .72rem;
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .signal-buy {
+            color: var(--green)
+        }
+
+        .signal-hold {
+            color: var(--gold)
+        }
+
+        .signal-sell {
+            color: #ef4444
+        }
+
+        .select-btn {
+            padding: 5px 12px;
+            border-radius: 7px;
+            font-size: .72rem;
+            font-weight: 600;
+            background: rgba(234, 179, 8, .1);
+            color: var(--gold);
+            border: 1px solid rgba(234, 179, 8, .25);
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .select-btn:hover,
+        .legend-card.selected .select-btn {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold)
+        }
+
+        /* DEMO PANEL */
+        .demo-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden
+        }
+
+        .demo-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .demo-title {
+            font-weight: 700;
+            font-size: 1rem
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, .1);
+            border: 1px solid rgba(34, 197, 94, .25);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: .72rem;
+            font-weight: 600;
+            color: var(--green)
+        }
+
+        .demo-body {
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px
+        }
+
+        @media(max-width:700px) {
+            .demo-body {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .demo-input {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .demo-label {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            margin-bottom: 4px
+        }
+
+        .ticker-input {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: .9rem;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            transition: all .2s;
+            width: 100%
+        }
+
+        .ticker-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(234, 179, 8, .1)
+        }
+
+        .package-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .package-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: .78rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .package-pill.active {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(234, 179, 8, .08)
+        }
+
+        .analyze-btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: .9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            margin-top: 4px
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(234, 179, 8, .35)
+        }
+
+        .analyze-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none
+        }
+
+        .demo-output {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+            color: var(--muted);
+            min-height: 240px;
+            overflow-y: auto;
+            line-height: 1.7;
+            position: relative
+        }
+
+        .demo-output .line {
+            display: block;
+            animation: fadeIn .3s ease
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-4px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .output-buy {
+            color: var(--green)
+        }
+
+        .output-sell {
+            color: #ef4444
+        }
+
+        .output-hold {
+            color: var(--gold)
+        }
+
+        .output-agent {
+            color: var(--blue)
+        }
+
+        .output-ticker {
+            color: var(--purple)
+        }
+
+        /* TITAN TRACK */
+        .tracks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        @media(max-width:700px) {
+            .tracks {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .track-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all .3s;
+            text-align: center
+        }
+
+        .track-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px)
+        }
+
+        .track-icon {
+            font-size: 2.5rem;
+            margin-bottom: 14px
+        }
+
+        .track-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 8px
+        }
+
+        .track-desc {
+            font-size: .85rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 20px
+        }
+
+        /* CTA */
+        .cta-wrap {
+            background: linear-gradient(135deg, rgba(234, 179, 8, .08), rgba(168, 85, 247, .08));
+            border: 1px solid rgba(234, 179, 8, .2);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center
+        }
+
+        .cta-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            margin-bottom: 16px
+        }
+
+        .cta-sub {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 32px
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--muted);
+            font-size: .8rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 1
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none
+        }
+
+        footer a:hover {
+            color: var(--accent)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>NeuForge</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Marketplace</a>
+                <a href="legends.html" class="nav-link active">Legends Pool</a>
+                <a href="#titan" class="nav-link">Titan Signal</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#demo" class="btn-primary">Try Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                18 AI Agents Running Live
+            </div>
+            <h1>
+                <div class="line1">Trade alongside the</div>
+                <div class="line2">greatest investors alive.</div>
+            </h1>
+            <p class="hero-sub">Warren Buffett. Michael Burry. Charlie Munger. Cathie Wood. 18 legendary investor AIs —
+                each analyzing every trade through their own philosophy. You pick the committee. They vote. You copy the
+                call.</p>
+            <div class="hero-actions">
+                <a href="#demo" class="btn-primary btn-lg">Run Live Analysis →</a>
+                <a href="#legends" class="btn-secondary btn-lg">Meet the Legends</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">18</div>
+                    <div class="stat-label">Legendary Agents</div>
+                </div>
+                <div class="hero-divider"></div>
+                <div class="stat">
+                    <div class="stat-num">100+</div>
+                    <div class="stat-label">Tickers Analyzed Daily</div>
+                </div>
+                <div class="hero-divider"></div>
+                <div class="stat">
+                    <div class="stat-num">24/7</div>
+                    <div class="stat-label">Committee Active</div>
+                </div>
+                <div class="hero-divider"></div>
+                <div class="stat">
+                    <div class="stat-num">2 Pools</div>
+                    <div class="stat-label">Legends + Titan Signal</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section id="pricing" class="py80">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Build Your Committee</div>
+                <h2 class="section-title">Choose your <span>Legends</span></h2>
+                <p class="section-sub">Pick the investors who match your strategy. More legends = deeper consensus
+                    signal.</p>
+            </div>
+            <div class="packages-grid">
+                <div class="pkg-card" id="pkg-starter">
+                    <div class="pkg-icon">🎯</div>
+                    <div class="pkg-name">Starter</div>
+                    <div class="pkg-agents">Choose any 3 legends</div>
+                    <div class="pkg-price"><sup>$</sup>49</div>
+                    <div class="pkg-period">per month</div>
+                    <ul class="pkg-features">
+                        <li><span class="check">✓</span> 3 AI legend agents</li>
+                        <li><span class="check">✓</span> Daily signal report</li>
+                        <li><span class="check">✓</span> Buy / Sell / Hold vote</li>
+                        <li><span class="check">✓</span> Full reasoning access</li>
+                        <li><span class="check">✓</span> 5 tickers/day</li>
+                    </ul>
+                    <button class="pkg-btn outline" id="btn-starter" onclick="checkout('starter')">Start with 3
+                        Legends</button>
+                </div>
+                <div class="pkg-card featured" id="pkg-pro">
+                    <div class="pkg-badge">MOST POPULAR</div>
+                    <div class="pkg-icon">⚡</div>
+                    <div class="pkg-name">Pro</div>
+                    <div class="pkg-agents">Choose any 10 legends</div>
+                    <div class="pkg-price"><sup>$</sup>149</div>
+                    <div class="pkg-period">per month</div>
+                    <ul class="pkg-features">
+                        <li><span class="check">✓</span> 10 AI legend agents</li>
+                        <li><span class="check">✓</span> Real-time signals</li>
+                        <li><span class="check">✓</span> Consensus scoring</li>
+                        <li><span class="check">✓</span> Full reasoning + debate</li>
+                        <li><span class="check">✓</span> Unlimited tickers</li>
+                        <li><span class="check">✓</span> Copy trade API access</li>
+                    </ul>
+                    <button class="pkg-btn" onclick="selectPackage('pro')">Start with 10 Legends</button>
+                </div>
+                <div class="pkg-card" id="pkg-allstars">
+                    <div class="pkg-icon">👑</div>
+                    <div class="pkg-name">All-Stars</div>
+                    <div class="pkg-agents">All 18 legends</div>
+                    <div class="pkg-price"><sup>$</sup>299</div>
+                    <div class="pkg-period">per month</div>
+                    <ul class="pkg-features">
+                        <li><span class="check">✓</span> All 18 AI agents</li>
+                        <li><span class="check">✓</span> Full committee vote</li>
+                        <li><span class="check">✓</span> Predictive signals</li>
+                        <li><span class="check">✓</span> Portfolio optimization</li>
+                        <li><span class="check">✓</span> Priority analysis queue</li>
+                        <li><span class="check">✓</span> Titan Signal bundled</li>
+                    </ul>
+                    <button class="pkg-btn outline" onclick="selectPackage('allstars')">Get All 18 Legends</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEGENDS GRID -->
+    <section id="legends" class="py80"
+        style="background:rgba(234,179,8,.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Your Committee</div>
+                <h2 class="section-title">Meet the <span>18 Legends</span></h2>
+                <p class="section-sub">Each agent thinks, reasons, and votes exactly like its namesake. Click to add to
+                    your committee.</p>
+            </div>
+            <div class="legends-grid" id="legends-grid">
+                <!-- JS rendered -->
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE DEMO -->
+    <section id="demo" class="py80">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Live Committee</div>
+                <h2 class="section-title">Run a <span>real analysis</span></h2>
+                <p class="section-sub">Pick tickers, choose your package, watch the committee debate live.</p>
+            </div>
+            <div class="demo-wrap">
+                <div class="demo-header">
+                    <div class="demo-title">🏛️ Committee Analysis Chamber</div>
+                    <div class="live-badge"><span
+                            style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 1.5s infinite"></span>
+                        Live</div>
+                </div>
+                <div class="demo-body">
+                    <div class="demo-input">
+                        <div>
+                            <div class="demo-label">Tickers</div>
+                            <input class="ticker-input" id="demo-tickers" type="text" placeholder="NVDA, TSLA, AAPL"
+                                value="NVDA, TSLA" />
+                        </div>
+                        <div>
+                            <div class="demo-label">Package</div>
+                            <div class="package-pills">
+                                <button class="package-pill" onclick="setDemoPkg('starter',this)">Starter (3)</button>
+                                <button class="package-pill active" onclick="setDemoPkg('pro',this)">Pro (10)</button>
+                                <button class="package-pill" onclick="setDemoPkg('allstars',this)">All-Stars
+                                    (18)</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="demo-label">Selected Legends</div>
+                            <div id="selected-legends-list" style="font-size:.78rem;color:var(--muted);line-height:1.7">
+                                Warren Buffett, Charlie Munger, Michael Burry, Cathie Wood, Bill Ackman, Ben Graham,
+                                Peter Lynch, Phil Fisher, Stanley Druckenmiller, Aswath Damodaran</div>
+                        </div>
+                        <button class="analyze-btn" id="analyze-btn" onclick="runAnalysis()">▶ Run Committee
+                            Vote</button>
+                    </div>
+                    <div class="demo-output" id="demo-output">
+                        <span class="line" style="color:var(--gold)">▸ Committee ready. Enter tickers and click
+                            Run.</span>
+                        <span class="line" style="color:var(--muted)">▸ All 18 agents on standby...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TWO TRACKS -->
+    <section id="titan" class="py80" style="background:rgba(0,0,0,.3);border-top:1px solid var(--border)">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Two Pools. One Platform.</div>
+                <h2 class="section-title">Legends <span>+</span> Titan Signal</h2>
+                <p class="section-sub">Choose your trading team — or run both.</p>
+            </div>
+            <div class="tracks">
+                <div class="track-card">
+                    <div class="track-icon">🏛️</div>
+                    <div class="track-name">The Legends Pool</div>
+                    <div class="track-desc">18 AI agents modeled on investing legends. Choose your committee. They
+                        debate. You copy the consensus call.</div>
+                    <a href="#pricing" class="btn-primary" style="display:inline-block">Choose Legends →</a>
+                </div>
+                <div class="track-card" style="border-color:var(--accent)">
+                    <div class="track-icon">⚡</div>
+                    <div class="track-name">Titan Signal</div>
+                    <div class="track-desc">Titan's proprietary 23-pair autonomous swarm. Live 24/7. Copy exact
+                        positions or customize risk, leverage, and exposure.</div>
+                    <a href="index.html" class="btn-primary" style="display:inline-block">Explore Titan →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py80">
+        <div class="container">
+            <div class="cta-wrap">
+                <h2 class="cta-title">Your committee is waiting.</h2>
+                <p class="cta-sub">Start with 3 legends for $49/mo. Cancel anytime.</p>
+                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+                    <a href="#pricing" class="btn-primary btn-lg">Start Free Trial →</a>
+                    <a href="#demo" class="btn-secondary btn-lg">Try Demo First</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 NeuForge · Built by <a href="#">Titan Signal</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        <p style="margin-top:8px;font-size:.72rem">Signals are AI-generated for informational purposes. Not financial
+            advice.</p>
+    </footer>
+
+    <script>
+        const LEGENDS = [
+            { id: 'warren_buffett', name: 'Warren Buffett', era: 'Berkshire Hathaway', icon: '🎩', philosophy: 'Only buys wonderful businesses at fair prices. Moat-first. Holds forever.', tags: ['gold', 'Value', 'gold', 'Long-term', 'blue', 'Moat'], lastSignal: 'BUY', ticker: 'AAPL' },
+            { id: 'charlie_munger', name: 'Charlie Munger', era: 'Vice Chairman, Berkshire', icon: '🦉', philosophy: 'Mental models + margin of safety on every pick. Avoid stupidity over seeking brilliance.', tags: ['gold', 'Value', 'purple', 'Mental Models', 'green', 'Contrarian'], lastSignal: 'HOLD', ticker: 'BRK.B' },
+            { id: 'michael_burry', name: 'Michael Burry', era: 'Scion Asset Management', icon: '🔍', philosophy: 'Deep contrarian. Buys what everyone hates. Found the subprime short before anyone.', tags: ['green', 'Contrarian', 'orange', 'Deep Value', 'blue', 'Macro'], lastSignal: 'BUY', ticker: 'NVDA' },
+            { id: 'cathie_wood', name: 'Cathie Wood', era: 'ARK Invest', icon: '🚀', philosophy: 'Disruptive innovation at any price. 5-year horizon. High conviction, high concentration.', tags: ['purple', 'Growth', 'blue', 'Innovation', 'orange', 'Disruptive'], lastSignal: 'BUY', ticker: 'TSLA' },
+            { id: 'bill_ackman', name: 'Bill Ackman', era: 'Pershing Square', icon: '📢', philosophy: 'Activist investor. Takes bold concentrated positions and fights for change.', tags: ['orange', 'Activist', 'gold', 'Concentrated', 'blue', 'Event-Driven'], lastSignal: 'BUY', ticker: 'GOOGL' },
+            { id: 'ben_graham', name: 'Ben Graham', era: 'Value Investing Godfather', icon: '📚', philosophy: 'Father of value investing. Hidden gems below intrinsic value only. Margin of safety.', tags: ['gold', 'Deep Value', 'green', 'Net-Net', 'blue', 'Classic'], lastSignal: 'HOLD', ticker: 'BAC' },
+            { id: 'aswath_damodaran', name: 'Aswath Damodaran', era: 'NYU Stern / Valuation', icon: '📊', philosophy: 'Every story needs a number. Valuation drives every decision. No narrative without data.', tags: ['blue', 'Valuation', 'purple', 'DCF', 'gold', 'Fundamentals'], lastSignal: 'HOLD', ticker: 'MSFT' },
+            { id: 'peter_lynch', name: 'Peter Lynch', era: 'Fidelity Magellan', icon: '🏪', philosophy: 'Invest in what you know. GARP. Tenbaggers hide in plain sight.', tags: ['green', 'GARP', 'gold', 'Consumer', 'blue', 'Local Edge'], lastSignal: 'BUY', ticker: 'NKE' },
+            { id: 'phil_fisher', name: 'Phil Fisher', era: 'Fisher Investments', icon: '🔬', philosophy: 'Scuttlebutt research. Growth at quality price. Sell almost never.', tags: ['purple', 'Growth', 'blue', 'Quality', 'orange', 'Long Hold'], lastSignal: 'HOLD', ticker: 'CRM' },
+            { id: 'stanley_druckenmiller', name: 'Stanley Druckenmiller', era: 'Duquesne Capital', icon: '🌍', philosophy: 'Macro momentum. Go for the jugular when the conviction is highest.', tags: ['blue', 'Macro', 'orange', 'Momentum', 'green', 'Risk-On'], lastSignal: 'BUY', ticker: 'GLD' },
+            { id: 'mohnish_pabrai', name: 'Mohnish Pabrai', era: 'Pabrai Funds', icon: '🎲', philosophy: 'Dhandho investor. Copy the best. Low risk, high uncertainty = asymmetric returns.', tags: ['gold', 'Dhandho', 'green', 'Asymmetric', 'purple', 'Clone'], lastSignal: 'BUY', ticker: 'RAIN' },
+            { id: 'rakesh_jhunjhunwala', name: 'Rakesh Jhunjhunwala', era: 'RARE Enterprises', icon: '🏏', philosophy: 'Big Bull of India. Emerging market compounders. Macro + micro combined.', tags: ['orange', 'Emerging', 'blue', 'EM Macro', 'green', 'Growth'], lastSignal: 'HOLD', ticker: 'TTM' },
+            { id: 'technical_analyst', name: 'Technical Analyst', era: 'AI Quant Agent', icon: '📈', philosophy: 'Chart patterns, momentum, RSI, MACD, support/resistance. Pure price action.', tags: ['blue', 'Technical', 'green', 'Momentum', 'purple', 'Quant'], lastSignal: 'BUY', ticker: 'SPY' },
+            { id: 'fundamentals_analyst', name: 'Fundamentals Analyst', era: 'AI Research Agent', icon: '🏦', philosophy: 'Balance sheet deep dive. EPS growth, P/E, FCF, debt ratios. Numbers only.', tags: ['gold', 'Fundamentals', 'blue', 'EPS', 'green', 'FCF'], lastSignal: 'HOLD', ticker: 'META' },
+            { id: 'growth_analyst', name: 'Growth Analyst', era: 'AI Growth Agent', icon: '🌱', philosophy: 'TAM, revenue growth rate, net retention, rule of 40. Only buys compounders.', tags: ['green', 'Growth', 'purple', 'SaaS', 'blue', 'Rule of 40'], lastSignal: 'BUY', ticker: 'NVDA' },
+            { id: 'news_sentiment_agent', name: 'News Sentiment', era: 'AI News Agent', icon: '📰', philosophy: 'Real-time news parsing. Tracks sentiment shifts before they hit price.', tags: ['orange', 'Sentiment', 'blue', 'News', 'purple', 'NLP'], lastSignal: 'BUY', ticker: 'TSLA' },
+            { id: 'sentiment_agent', name: 'Market Sentiment', era: 'AI Social Agent', icon: '💬', philosophy: 'Options flow, WSB tracking, short interest, social momentum signals.', tags: ['purple', 'Social', 'orange', 'Options Flow', 'green', 'Short'], lastSignal: 'HOLD', ticker: 'GME' },
+            { id: 'valuation_agent', name: 'Valuation Agent', era: 'AI Valuation Agent', icon: '⚖️', philosophy: 'Pure fair value calculation. DCF, comps, precedents. No emotion.', tags: ['gold', 'DCF', 'blue', 'Comps', 'purple', 'EV/EBITDA'], lastSignal: 'HOLD', ticker: 'AMZN' },
+        ];
+
+        let selectedPkg = 'pro';
+        let selectedLegends = new Set(['warren_buffett', 'charlie_munger', 'michael_burry', 'cathie_wood', 'bill_ackman', 'ben_graham', 'peter_lynch', 'phil_fisher', 'stanley_druckenmiller', 'aswath_damodaran']);
+        let demoRunning = false;
+
+        function renderLegends() {
+            const grid = document.getElementById('legends-grid');
+            grid.innerHTML = LEGENDS.map(l => {
+                const sel = selectedLegends.has(l.id);
+                const tagHtml = (function () {
+                    let t = '';
+                    for (let i = 0; i < l.tags.length; i += 2) { t += `<span class="ltag ${l.tags[i]}">${l.tags[i + 1]}</span>` }
+                    return t;
+                })();
+                const sig = l.lastSignal === 'BUY' ? 'signal-buy' : l.lastSignal === 'SELL' ? 'signal-sell' : 'signal-hold';
+                return `<div class="legend-card${sel ? ' selected' : ''}" id="lc-${l.id}" onclick="toggleLegend('${l.id}')">
+      <div class="legend-header">
+        <div class="legend-avatar">${l.icon}</div>
+        <div><div class="legend-name">${l.name}</div><div class="legend-era">${l.era}</div></div>
+        <div class="status-dot"></div>
+      </div>
+      <div class="legend-philosophy">${l.philosophy}</div>
+      <div class="legend-tags">${tagHtml}</div>
+      <div class="legend-footer">
+        <div class="legend-signal">Last: <span class="${sig}">${l.lastSignal}</span> <span style="color:var(--muted)">${l.ticker}</span></div>
+        <button class="select-btn">${sel ? '✓ Selected' : '+ Add'}</button>
+      </div>
+    </div>`;
+            }).join('');
+        }
+
+        function toggleLegend(id) {
+            if (selectedLegends.has(id)) {
+                if (selectedLegends.size > 1) selectedLegends.delete(id);
+            } else {
+                selectedLegends.add(id);
+            }
+            renderLegends();
+            updateSelectedList();
+        }
+
+        function updateSelectedList() {
+            const names = LEGENDS.filter(l => selectedLegends.has(l.id)).map(l => l.name);
+            document.getElementById('selected-legends-list').textContent = names.join(', ');
+        }
+
+        function selectPackage(pkg) {
+            selectedPkg = pkg;
+            document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('featured'));
+            document.getElementById('pkg-' + pkg).classList.add('featured');
+            const counts = { starter: 3, pro: 10, allstars: 18 };
+            const n = counts[pkg];
+            selectedLegends = new Set(LEGENDS.slice(0, n).map(l => l.id));
+            renderLegends();
+            updateSelectedList();
+        }
+
+        function setDemoPkg(pkg, btn) {
+            document.querySelectorAll('.package-pill').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectPackage(pkg);
+        }
+
+        const AGENT_LINES = [
+            ['warren_buffett', '🎩 Warren Buffett', 'Analyzing moat quality and earnings power...', 'BUY'],
+            ['michael_burry', '🔍 Michael Burry', 'Examining debt structure and short interest...', 'BUY'],
+            ['cathie_wood', '🚀 Cathie Wood', 'Projecting 5-year disruption potential...', 'BUY'],
+            ['charlie_munger', '🦉 Charlie Munger', 'Checking margin of safety and management quality...', 'HOLD'],
+            ['bill_ackman', '📢 Bill Ackman', 'Evaluating activist opportunity and capital allocation...', 'BUY'],
+            ['ben_graham', '📚 Ben Graham', 'Comparing price to intrinsic value...', 'HOLD'],
+            ['peter_lynch', '🏪 Peter Lynch', 'Checking PEG ratio and consumer trends...', 'BUY'],
+            ['technical_analyst', '📈 Technical Analyst', 'RSI oversold, MACD bullish crossover detected...', 'BUY'],
+            ['aswath_damodaran', '📊 Aswath Damodaran', 'Running DCF with current growth assumptions...', 'HOLD'],
+            ['stanley_druckenmiller', '🌍 Druckenmiller', 'Macro tail winds confirmed. High conviction...', 'BUY'],
+        ];
+
+        async function runAnalysis() {
+            if (demoRunning) return;
+            demoRunning = true;
+            const btn = document.getElementById('analyze-btn');
+            btn.disabled = true;
+            btn.textContent = '⟳ Convening committee...';
+            const tickers = document.getElementById('demo-tickers').value || 'NVDA';
+            const out = document.getElementById('demo-output');
+            out.innerHTML = '';
+
+            const addLine = (txt, cls = '', delay = 0) => new Promise(r => setTimeout(() => {
+                const s = document.createElement('span');
+                s.className = 'line' + (cls ? ' ' + cls : '');
+                s.textContent = txt;
+                out.appendChild(s);
+                out.scrollTop = out.scrollHeight;
+                r();
+            }, delay));
+
+            await addLine(`▸ Committee convening for: ${tickers}`, 'output-ticker', 0);
+            await addLine(`▸ Package: ${selectedPkg.toUpperCase()} | ${selectedLegends.size} agents`, '', 300);
+            await addLine('─'.repeat(50), '', 600);
+
+            let buy = 0, hold = 0, sell = 0;
+            const active = AGENT_LINES.filter(a => selectedLegends.has(a[0])).slice(0, selectedLegends.size);
+            for (let i = 0; i < active.length; i++) {
+                const [, name, action, signal] = active[i];
+                await addLine(`${name}: ${action}`, 'output-agent', 400 * i + 800);
+                const sigCls = signal === 'BUY' ? 'output-buy' : signal === 'SELL' ? 'output-sell' : 'output-hold';
+                await addLine(`  → VOTE: ${signal} ${tickers.split(',')[0].trim()}`, sigCls, 400 * i + 1100);
+                if (signal === 'BUY') buy++; else if (signal === 'SELL') sell++; else hold++;
+            }
+
+            const total = buy + hold + sell;
+            const delay = 400 * active.length + 1500;
+            await addLine('─'.repeat(50), '', delay);
+            await addLine(`▸ COMMITTEE RESULT: ${buy}/${total} agents voted BUY`, '', delay + 200);
+            const consensus = buy > total * 0.6 ? 'STRONG BUY' : buy > total * 0.4 ? 'BUY' : hold > sell ? 'HOLD' : 'SELL';
+            const consCls = consensus.includes('BUY') ? 'output-buy' : consensus === 'HOLD' ? 'output-hold' : 'output-sell';
+            await addLine(`▸ CONSENSUS: ${consensus}`, consCls, delay + 500);
+            await addLine(`▸ Confidence: ${Math.round((buy / total) * 100)}%`, '', delay + 700);
+
+            btn.disabled = false;
+            btn.textContent = '▶ Run Committee Vote';
+            demoRunning = false;
+        }
+
+        renderLegends();
+        updateSelectedList();
+
+        // ── STRIPE CHECKOUT ──────────────────────────────────────────────────────────
+        const API_BASE = 'https://neuforge-api.onrender.com'; // your Render URL
+
+        async function checkout(pkg) {
+            const btn = document.getElementById(`btn-${pkg}`);
+            const original = btn ? btn.textContent : '';
+            if (btn) { btn.disabled = true; btn.textContent = '⟳ Redirecting...'; }
+
+            try {
+                const res = await fetch(`${API_BASE}/checkout/create-session`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ package: pkg }),
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    alert(`Checkout error: ${err.detail || 'Please try again.'}`);
+                    if (btn) { btn.disabled = false; btn.textContent = original; }
+                    return;
+                }
+
+                const { url } = await res.json();
+                window.location.href = url; // redirect to Stripe hosted checkout
+            } catch (e) {
+                alert('Network error — please try again.');
+                if (btn) { btn.disabled = false; btn.textContent = original; }
+            }
+        }
+    </script>
+</body>
+
+</html>

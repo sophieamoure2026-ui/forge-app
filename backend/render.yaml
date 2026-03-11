@@ -7,3 +7,23 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      # ── Set these 3 in Render dashboard (Environment tab) ──────────────────
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      # ── Live price IDs — safe to commit ────────────────────────────────────
+      - key: STRIPE_PRICE_STARTER
+        value: price_1T9ePtQjMo90dGzHJZjSR6vY
+      - key: STRIPE_PRICE_PRO
+        value: price_1T9ePtQjMo90dGzHWR8INWxa
+      - key: STRIPE_PRICE_ALLSTARS
+        value: price_1T9ePuQjMo90dGzH4Xz0SRsW
+      - key: STRIPE_PRICE_TITAN_COPY
+        value: price_1T9ePvQjMo90dGzHCSaHqpP5
+      - key: STRIPE_PRICE_ELITE
+        value: price_1T9ePwQjMo90dGzH0Akp11Ks
+      - key: DOMAIN
+        value: https://neuforge.app
