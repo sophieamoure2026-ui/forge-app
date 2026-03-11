@@ -1,0 +1,21 @@
+[Unit]
+Description=NeuForge Lead Harvester — AI Lead Scraper (Flagship Commando)
+After=network.target redis.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/titan
+ExecStart=/opt/titan/venv/bin/python /opt/titan/Titan_NeuForgeHarvester.py
+Restart=always
+RestartSec=30
+StandardOutput=append:/var/log/titan/neuforge_harvester.log
+StandardError=append:/var/log/titan/neuforge_harvester.err
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=/opt/titan/.env
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

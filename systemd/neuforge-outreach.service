@@ -1,0 +1,21 @@
+[Unit]
+Description=NeuForge Email Outreach — 3-Sequence Campaign Engine (Flagship Commando)
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/titan
+ExecStart=/opt/titan/venv/bin/python /opt/titan/Titan_NeuForgeOutreach.py
+Restart=always
+RestartSec=30
+StandardOutput=append:/var/log/titan/neuforge_outreach.log
+StandardError=append:/var/log/titan/neuforge_outreach.err
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=/opt/titan/.env
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

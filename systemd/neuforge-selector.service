@@ -1,0 +1,21 @@
+[Unit]
+Description=NeuForge Commando Selector — Lifecycle Governance v3.0
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/titan
+ExecStart=/opt/titan/venv/bin/python /opt/titan/Titan_CommandoSelector.py
+Restart=always
+RestartSec=60
+StandardOutput=append:/var/log/titan/commando_selector.log
+StandardError=append:/var/log/titan/commando_selector.err
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=/opt/titan/.env
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

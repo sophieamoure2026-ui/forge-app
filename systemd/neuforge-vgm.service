@@ -1,0 +1,21 @@
+[Unit]
+Description=NeuForge VGM Commando — Voicemail Drops via Telnyx AMD (Flagship Commando)
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/titan
+ExecStart=/opt/titan/venv/bin/python /opt/titan/Titan_NeuForgeVGM.py
+Restart=always
+RestartSec=60
+StandardOutput=append:/var/log/titan/neuforge_vgm.log
+StandardError=append:/var/log/titan/neuforge_vgm.err
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=/opt/titan/.env
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
