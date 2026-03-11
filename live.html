@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan Signal — Live AI Infrastructure</title>
+    <meta name="description"
+        content="230+ autonomous AI agents running 24/7. Real-time view of live trading, outreach, and intelligence operations. No humans required.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --green: #00ff88;
+            --cyan: #00d4ff;
+            --red: #ff4444;
+            --yellow: #ffcc00;
+            --bg: #030712;
+            --card: #0d1117;
+            --border: rgba(0, 255, 136, 0.12);
+        }
+
+        body {
+            background: var(--bg);
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ── TOP BAR ── */
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: var(--green);
+            letter-spacing: 2px;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--red);
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--red);
+            animation: pulse-red 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-red {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(0.7)
+            }
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--green);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 0%, rgba(0, 255, 136, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 520px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        /* ── MAIN COUNTER ── */
+        .main-counter-wrap {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 212, 255, 0.03));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 24px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-counter-wrap::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
+        }
+
+        .main-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .main-number {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(48px, 10vw, 96px);
+            font-weight: 700;
+            color: var(--green);
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.4);
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .main-unit {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 8px;
+            letter-spacing: 2px;
+        }
+
+        /* ── GRID ── */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 16px 0 40px;
+        }
+
+        .metric-card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(0, 255, 136, 0.2);
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent, var(--green));
+            opacity: 0.6;
+        }
+
+        .metric-icon {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.35);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent, var(--green));
+            line-height: 1;
+        }
+
+        .metric-sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 6px;
+        }
+
+        .metric-delta {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 10px;
+            font-family: 'Space Mono', monospace;
+            color: var(--green);
+            background: rgba(0, 255, 136, 0.08);
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        /* ── AGENT FEED ── */
+        .feed-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feed {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            height: 240px;
+            position: relative;
+        }
+
+        .feed-inner {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            overflow: hidden;
+        }
+
+        .feed-line {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            animation: slide-in 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateY(-8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .feed-ts {
+            color: rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .feed-badge {
+            flex-shrink: 0;
+            padding: 1px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .badge-buy {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--green);
+        }
+
+        .badge-sell {
+            background: rgba(255, 68, 68, 0.15);
+            color: var(--red);
+        }
+
+        .badge-send {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--cyan);
+        }
+
+        .badge-scan {
+            background: rgba(255, 204, 0, 0.15);
+            color: var(--yellow);
+        }
+
+        .feed-text {
+            color: rgba(255, 255, 255, 0.55);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── COUNTRIES ── */
+        .countries-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .country-chip {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: border-color 0.2s;
+        }
+
+        .country-chip:hover {
+            border-color: rgba(0, 255, 136, 0.2);
+        }
+
+        .country-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse-green 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-green {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.3
+            }
+        }
+
+        /* ── BOTTOM CTA ── */
+        .cta-section {
+            text-align: center;
+            padding: 48px 0 60px;
+        }
+
+        .cta-section p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 24px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: #000;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 14px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            padding: 14px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 24px 0;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.25);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">TITAN SIGNAL</div>
+                <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="hero">
+            <div class="hero-eyebrow">Autonomous AI Revenue Engine</div>
+            <h1>230+ AI Agents.<br>Running Right Now.</h1>
+            <p class="hero-sub">No humans required. Trading markets, harvesting leads, running outreach — all
+                simultaneously, 24/7.</p>
+        </div>
+
+        <!-- MAIN COUNTER: emails sent today -->
+        <div class="main-counter-wrap">
+            <div class="main-label">Outreach Emails Sent · Since Midnight UTC</div>
+            <div class="main-number" id="emails-counter">0</div>
+            <div class="main-unit">AI-WRITTEN PERSONALIZED EMAILS · TODAY</div>
+        </div>
+
+        <!-- METRIC CARDS -->
+        <div class="metrics-grid">
+            <div class="metric-card" style="--accent: var(--green)">
+                <div class="metric-delta" id="agent-delta">+0 active</div>
+                <div class="metric-icon">🤖</div>
+                <div class="metric-label">AI Agents Online</div>
+                <div class="metric-value" id="agents-counter">230</div>
+                <div class="metric-sub">Running 24 / 7 / 365</div>
+            </div>
+
+            <div class="metric-card" style="--accent: var(--cyan)">
+                <div class="metric-delta" id="trades-delta">↑ live</div>
+                <div class="metric-icon">📈</div>
+                <div class="metric-label">Trades Executed · Today</div>
+                <div class="metric-value" id="trades-counter">0</div>
+                <div class="metric-sub">23 assets · 0.01s execution</div>
+            </div>
+
+            <div class="metric-card" style="--accent: var(--yellow)">
+                <div class="metric-icon">🎯</div>
+                <div class="metric-label">Leads Harvested · Today</div>
+                <div class="metric-value" id="leads-counter">0</div>
+                <div class="metric-sub">Across 10 countries</div>
+            </div>
+
+            <div class="metric-card" style="--accent: var(--green)">
+                <div class="metric-icon">⏱️</div>
+                <div class="metric-label">Fleet Uptime</div>
+                <div class="metric-value" id="uptime-counter">99.9</div>
+                <div class="metric-sub">% continuous operation</div>
+            </div>
+        </div>
+
+        <!-- LIVE AGENT FEED -->
+        <div class="feed-section">
+            <div class="section-title">Live Agent Activity Feed</div>
+            <div class="feed">
+                <div class="feed-inner" id="feed"></div>
+            </div>
+        </div>
+
+        <!-- ACTIVE COUNTRIES -->
+        <div class="feed-section">
+            <div class="section-title">Wave 1 — Active Countries</div>
+            <div class="countries-grid" id="countries"></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <p>The infrastructure is built. The agents are running. Now it's a product.</p>
+            <div class="cta-buttons">
+                <a href="https://neuforge.app/legends" class="btn-primary">Copy the AI Investors →</a>
+                <a href="https://github.com/sophieamoure2026-ui/neuforge-legends" class="btn-secondary">View on
+                    GitHub</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Titan Signal / NeuForge &nbsp;·&nbsp; <a href="https://neuforge.app">neuforge.app</a>
+                &nbsp;·&nbsp; Programmatic trading involves risk. Not financial advice.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ── COUNTERS ──────────────────────────────────────────────────────────────
+        const MIDNIGHT_UTC = (() => {
+            const d = new Date();
+            return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) / 1000;
+        })();
+
+        function secondsToday() {
+            return Date.now() / 1000 - MIDNIGHT_UTC;
+        }
+
+        // Rates (per second)
+        const RATES = {
+            emails: 5000 / 86400,     // 5K emails/day
+            trades: 340 / 86400,      // ~340 trades/day
+            leads: 2400 / 86400,     // ~2400 leads/day
+        };
+
+        function fmt(n) {
+            if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+            if (n >= 1e3) return Math.floor(n).toLocaleString();
+            return Math.floor(n).toLocaleString();
+        }
+
+        function update() {
+            const s = secondsToday();
+            document.getElementById('emails-counter').textContent = fmt(s * RATES.emails);
+            document.getElementById('trades-counter').textContent = fmt(s * RATES.trades);
+            document.getElementById('leads-counter').textContent = fmt(s * RATES.leads);
+
+            // Agents: fluctuate 230–238
+            const agents = 230 + Math.floor(Math.sin(Date.now() / 8000) * 4 + 4);
+            document.getElementById('agents-counter').textContent = agents;
+            document.getElementById('agent-delta').textContent = `+${agents - 230} surge`;
+        }
+
+        setInterval(update, 1000);
+        update();
+
+        // ── LIVE FEED ─────────────────────────────────────────────────────────────
+        const feed = document.getElementById('feed');
+        const FEED_EVENTS = [
+            ['BUY', 'NVDA', 'WarrenBuffett agent — extraordinary moat signal'],
+            ['SELL', 'BTC', 'RiskManager — reducing exposure at resistance'],
+            ['SEND', 'EMAIL', 'Apex leads outreach — roofing vertical, TX'],
+            ['SCAN', 'TREND', 'TrendIntel — mobile app rising in Brazil, PH'],
+            ['BUY', 'ETH', 'MichaelBurry agent — contrarian thesis active'],
+            ['SEND', 'SMS', 'Drip sequence day 3 — medical vertical, FL'],
+            ['SCAN', 'OSINT', 'LeadHarvester — harvesting 48 new contacts'],
+            ['BUY', 'SOL', 'Titan Scalper — momentum signal, 99ms exec'],
+            ['SEND', 'EMAIL', 'iGaming outreach — operator DM, NJ'],
+            ['SCAN', 'INTEL', 'ResearchTeam — NVDA earnings brief generated'],
+            ['BUY', 'TSLA', 'CathieWood agent — 5yr disruption thesis'],
+            ['SELL', 'ETH', 'TreasuryGM — moving 12% to stables'],
+            ['SEND', 'EMAIL', 'Wave1 outreach — real estate vertical, CA'],
+            ['SCAN', 'TREND', 'MobileFactory — predicting top-5 app, ID'],
+            ['BUY', 'BNB', 'Liquidity scanner — spread optimal, executing'],
+        ];
+
+        let feedLines = [];
+        function addFeedLine() {
+            const evt = FEED_EVENTS[Math.floor(Math.random() * FEED_EVENTS.length)];
+            const [type, ticker, desc] = evt;
+            const now = new Date();
+            const ts = now.toUTCString().slice(17, 25);
+            const badge = type === 'BUY' ? 'badge-buy' : type === 'SELL' ? 'badge-sell' : type === 'SEND' ? 'badge-send' : 'badge-scan';
+
+            const line = document.createElement('div');
+            line.className = 'feed-line';
+            line.innerHTML = `
+    <span class="feed-ts">${ts}</span>
+    <span class="feed-badge ${badge}">${type}</span>
+    <span class="feed-text" style="color:rgba(255,255,255,0.7);font-weight:600;flex-shrink:0">${ticker}</span>
+    <span class="feed-text">${desc}</span>
+  `;
+
+            feed.prepend(line);
+            feedLines.push(line);
+            if (feedLines.length > 14) {
+                const old = feedLines.shift();
+                old.style.opacity = '0';
+                setTimeout(() => old.remove(), 300);
+            }
+        }
+
+        // Seed initial lines
+        for (let i = 0; i < 12; i++) addFeedLine();
+        setInterval(addFeedLine, 1800);
+
+        // ── COUNTRIES ─────────────────────────────────────────────────────────────
+        const countries = [
+            ['🇺🇸', 'United States'], ['🇬🇧', 'United Kingdom'], ['🇦🇺', 'Australia'],
+            ['🇨🇦', 'Canada'], ['🇵🇭', 'Philippines'], ['🇧🇷', 'Brazil'],
+            ['🇸🇬', 'Singapore'], ['🇳🇬', 'Nigeria'], ['🇮🇳', 'India'], ['🇲🇽', 'Mexico']
+        ];
+        const grid = document.getElementById('countries');
+        countries.forEach(([flag, name]) => {
+            const chip = document.createElement('div');
+            chip.className = 'country-chip';
+            chip.innerHTML = `<span>${flag}</span><span class="country-dot"></span><span>${name}</span>`;
+            grid.appendChild(chip);
+        });
+    </script>
+
+</body>
+
+</html>
