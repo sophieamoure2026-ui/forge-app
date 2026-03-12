@@ -24,7 +24,116 @@ PRICES = {
 }
 
 app = FastAPI(title="Neuforge AgentRegistry", version="1.0.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+# ── CORS — locked to Titan Signal / NeuForge domains only ──────────────────
+ALLOWED_ORIGINS = [
+    "https://neuforge.app",
+    "https://www.neuforge.app",
+    "https://api.neuforge.app",
+    "https://moltenbot.io",          # legacy
+    "http://localhost:3000",         # local dev only
+    "http://localhost:8080",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+    allow_credentials=False,
+)
+
+# ── Security constants ─────────────────────────────────────────────────────
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID   = os.getenv("TELEGRAM_CHAT_ID", "")
+BACKOFFICE_KEY     = os.getenv("BACKOFFICE_KEY", "nf-admin-2026")
+
+# Known scraper / bot user-agent fragments to block
+BLOCKED_UA_FRAGMENTS = [
+    "python-requests", "python-urllib", "curl/", "wget/", "scrapy",
+    "httpx", "httpie", "go-http-client", "zgrab", "masscan",
+    "nmap", "nikto", "sqlmap", "dirbuster", "gobuster", "wfuzz",
+    "burpsuite", "semrush", "ahrefs", "mj12bot", "dotbot",
+    "petalbot", "serpstatbot", "dataforseo", "seokicks",
+]
+
+# Canary paths — any hit fires immediate alert
+CANARY_PATHS = {
+    "/api/v1/internal", "/api/v2/internal", "/admin", "/admin/",
+    "/admin/export", "/admin/agents", "/backup", "/backup.json",
+    "/dump.sql", "/config.json", "/config.yaml", "/.env",
+    "/api/secret", "/internal/health", "/private",
+    "/agents/export", "/agents/dump", "/api/v2/agents/all",
+}
+
+# Per-IP rate limit: max 60 requests per 60 seconds
+_ip_request_log: dict = {}
+RATE_LIMIT_WINDOW = 60   # seconds
+RATE_LIMIT_MAX    = 60   # requests per window
+
+def _push_canary_alert(path: str, ip: str, ua: str, geo: str = ""):
+    """Fire Telegram alert when a canary endpoint is probed."""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return
+    msg = (
+        f"🪤 *CANARY TRAP TRIGGERED*\n\n"
+        f"*Path:* `{path}`\n"
+        f"*IP:* `{ip}` {geo}\n"
+        f"*UA:* `{ua[:120]}`\n"
+        f"⏰ {time.strftime('%H:%M UTC — %b %d')}\n"
+        f"_— NeuForge Perimeter_"
+    )
+    try:
+        _req.post(
+            f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
+            json={"chat_id": TELEGRAM_CHAT_ID, "text": msg, "parse_mode": "Markdown"},
+            timeout=8,
+        )
+    except Exception:
+        pass
+
+@app.middleware("http")
+async def perimeter_guard(request: Request, call_next):
+    """
+    Multi-layer inbound perimeter:
+    1. Canary trap detection → instant Telegram alert
+    2. Scraper / bot UA blocking (returns 403)
+    3. Per-IP rate limiting (returns 429)
+    """
+    path = request.url.path
+    ip   = request.headers.get("x-forwarded-for", request.client.host).split(",")[0].strip()
+    ua   = request.headers.get("user-agent", "").lower()
+    now  = time.time()
+
+    # ── Layer 1: Canary trap ────────────────────────────────────────────────
+    for canary in CANARY_PATHS:
+        if path.rstrip("/") == canary.rstrip("/") or path.startswith(canary + "/"):
+            _push_canary_alert(path, ip, ua)
+            return JSONResponse({"detail": "Not found"}, status_code=404)
+
+    # ── Layer 2: Bot / scraper UA block ────────────────────────────────────
+    # Allow known API keys to bypass UA check
+    api_key = request.headers.get("x-api-key", "")
+    if not api_key or api_key != BACKOFFICE_KEY:
+        for blocked in BLOCKED_UA_FRAGMENTS:
+            if blocked in ua:
+                return JSONResponse({"detail": "Forbidden"}, status_code=403)
+
+    # ── Layer 3: Per-IP rate limit ──────────────────────────────────────────
+    bucket = _ip_request_log.setdefault(ip, {"count": 0, "window_start": now})
+    if now - bucket["window_start"] > RATE_LIMIT_WINDOW:
+        bucket["count"] = 0
+        bucket["window_start"] = now
+    bucket["count"] += 1
+    if bucket["count"] > RATE_LIMIT_MAX:
+        return JSONResponse(
+            {"detail": "Rate limit exceeded. Slow down."},
+            status_code=429,
+            headers={"Retry-After": str(RATE_LIMIT_WINDOW)},
+        )
+
+    return await call_next(request)
+
+
 
 DB = "forge_registry.db"
 
@@ -46,8 +155,14 @@ def init_db():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         ts INTEGER, ip TEXT, country TEXT, city TEXT, region TEXT, isp TEXT,
         page TEXT, referrer TEXT, utm_source TEXT, utm_medium TEXT,
-        utm_campaign TEXT, user_agent TEXT, language TEXT, screen TEXT
+        utm_campaign TEXT, user_agent TEXT, language TEXT, screen TEXT,
+        visitor_type TEXT DEFAULT 'unknown'
     )""")
+    # Migrate older DBs without visitor_type column
+    try:
+        c.execute("ALTER TABLE visits ADD COLUMN visitor_type TEXT DEFAULT 'unknown'")
+    except Exception:
+        pass
     conn.commit()
 
     # Seed Titan Signal fleet
@@ -296,25 +411,86 @@ class VisitPayload(BaseModel):
     language:     Optional[str] = ""
     screen:       Optional[str] = ""
 
+def classify_visitor(page: str, referrer: str, utm_source: str, ua: str) -> str:
+    """
+    Classify inbound visitor intent:
+    🔴 competitor  — API probing, short recon sessions, known bot patterns
+    🔵 partner     — hits sell.html, API docs, pricing, swarm tier
+    🟢 customer    — browses marketplace, agent cards, learn/invest pages
+    ⚫ bot         — no-JS UA, systematic crawl, known scraper strings
+    """
+    ua_l   = ua.lower()
+    page_l = page.lower()
+
+    # Bot detection
+    BOT_SIGNALS = ["bot", "crawler", "spider", "wget", "scrapy", "curl", "python-requests",
+                   "go-http", "java/", "apache-httpclient", "okhttp"]
+    if any(s in ua_l for s in BOT_SIGNALS):
+        return "bot"
+
+    # Competitor signals — probing API or recon paths
+    COMPETITOR_PAGES = ["/api/", "/admin", "/backup", "/config", "/dump",
+                        "/internal", "/agents/export", "/analytics", "/backoffice"]
+    if any(p in page_l for p in COMPETITOR_PAGES):
+        return "competitor"
+
+    # Competitor referrers — coming from competitor platforms
+    COMPETITOR_REFS = ["similarweb", "semrush", "ahrefs", "moz.com", "spyfu",
+                       "builtwith", "wappalyzer", "ph4", "producthunt.com/maker"]
+    if referrer and any(r in referrer.lower() for r in COMPETITOR_REFS):
+        return "competitor"
+
+    # Partner signals — listing, selling, integrating
+    PARTNER_PAGES = ["/sell", "/investors", "/agent-submit", "/api/docs",
+                     "/partner", "/swarm", "/enterprise"]
+    if any(p in page_l for p in PARTNER_PAGES):
+        return "partner"
+    if utm_source and any(s in utm_source.lower() for s in ["partner", "b2b", "api", "enterprise"]):
+        return "partner"
+
+    # Customer default
+    return "customer"
+
 @app.post("/track")
 async def track_visit(payload: VisitPayload, request: Request):
-    """Lightweight visitor beacon — called from every NeuForge page."""
-    ip = request.headers.get("x-forwarded-for","").split(",")[0].strip() or request.client.host
-    ua = request.headers.get("user-agent","")[:200]
+    """Lightweight visitor beacon — called from every NeuForge page. Classifies intent."""
+    ip  = request.headers.get("x-forwarded-for","").split(",")[0].strip() or request.client.host
+    ua  = request.headers.get("user-agent","")[:200]
     geo = geo_resolve(ip)
+
+    vtype = classify_visitor(payload.page, payload.referrer or "", payload.utm_source or "", ua)
+
     conn = sqlite3.connect(DB)
     conn.execute(
         "INSERT INTO visits (ts,ip,country,city,region,isp,page,referrer,"
-        "utm_source,utm_medium,utm_campaign,user_agent,language,screen) VALUES "
-        "(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        "utm_source,utm_medium,utm_campaign,user_agent,language,screen,visitor_type) VALUES "
+        "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (int(time.time()), ip, geo["country"], geo["city"], geo["region"], geo["isp"],
-         payload.page[:120], payload.referrer[:200], payload.utm_source[:80],
-         payload.utm_medium[:80], payload.utm_campaign[:80], ua,
-         payload.language[:20], payload.screen[:20])
+         payload.page[:120], (payload.referrer or "")[:200], (payload.utm_source or "")[:80],
+         (payload.utm_medium or "")[:80], (payload.utm_campaign or "")[:80], ua,
+         (payload.language or "")[:20], (payload.screen or "")[:20], vtype)
     )
     conn.commit()
     conn.close()
-    return {"ok": True}
+
+    # Alert on competitor immediately
+    if vtype == "competitor" and TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+        msg = (f"🔴 *COMPETITOR DETECTED*\n\n"
+               f"*IP:* `{ip}` ({geo.get('country','?')} · {geo.get('city','?')})\n"
+               f"*ISP:* {geo.get('isp','?')}\n*Page probed:* `{payload.page}`\n"
+               f"*Referrer:* {(payload.referrer or 'direct')[:80]}\n"
+               f"*UA:* `{ua[:80]}`\n"
+               f"⏰ {time.strftime('%H:%M UTC')}\n_— NeuForge Perimeter_")
+        try:
+            _req.post(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
+                      json={"chat_id": TELEGRAM_CHAT_ID, "text": msg, "parse_mode": "Markdown"},
+                      timeout=6)
+        except Exception:
+            pass
+
+    return {"ok": True, "type": vtype}
+
+
 
 
 @app.get("/analytics")
