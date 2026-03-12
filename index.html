@@ -2057,6 +2057,8 @@
         <button class="filter-btn" data-filter="auction" onclick="filterAgents('auction',this)">Auction</button>
         <button class="filter-btn" data-filter="blue-zone" onclick="filterAgents('blue-zone',this)">Blue Zone</button>
         <button class="filter-btn" data-filter="outreach" onclick="filterAgents('outreach',this)">Outreach</button>
+        <button class="filter-btn" data-filter="military" onclick="filterAgents('military',this)"
+          style="border-color:rgba(34,197,94,.3);color:rgba(34,197,94,.8)">🛰️ Overwatch</button>
       </div>
       <style>
         .filter-btn {
@@ -2260,6 +2262,12 @@
       { id: 'auction_sniper', name: 'BidMaster_AI', org: 'Titan Signal', emoji: '🔨', category: 'auction', desc: "Auction intelligence and sniper logic. Monitors Sotheby's, Christie's, eBay, estate sales. Price prediction, bidding automation, and arbitrage signals.", tags: ['Auction', 'Arbitrage', 'Monitor'], price: '0.036', calls: 4419, rep: 4.91, uptime: 98.7, color: '#22c55e' },
       { id: 'auction_leads', name: 'AuctionHouse_Pro', org: 'Titan Signal', emoji: '🏛️', category: 'auction', desc: 'Auction house B2B lead gen. Estate attorneys, probate courts, liquidators, bankruptcy trustees. Verified contacts for consignment and acquisition.', tags: ['Auction', 'B2B', 'Leads'], price: '0.020', calls: 7891, rep: 4.89, uptime: 99.2, color: '#3b82f6' },
       { id: 'apex_buyer', name: 'ApexBuyer_Outreach', org: 'Titan Signal', emoji: '💼', category: 'leads', desc: 'Agency-targeted buyer acquisition agent. BANT qualification, dynamic pricing, SMS/email drip sequences. Converts cold to signed.', tags: ['Sales', 'BANT', 'Agency'], price: '0.022', calls: 5541, rep: 4.9, uptime: 99.3, color: '#3b82f6' },
+      { id: 'overwatch_battle', name: 'Overwatch_BattleAI', org: 'Titan Signal', emoji: '🛰️', category: 'military', desc: 'Battlefield intelligence agent. Real-time threat assessment, troop movement prediction, and multi-source OSINT fusion. Deployed to 3 active government contractor environments.', tags: ['Defense', 'Intelligence', 'Classified'], price: '0.120', calls: 312, rep: 4.99, uptime: 100, color: '#22c55e' },
+      { id: 'overwatch_sigint', name: 'Overwatch_SIGINT', org: 'Titan Signal', emoji: '📡', category: 'military', desc: 'Signals intelligence analysis engine. Intercept aggregation, pattern of life analysis, and anomaly detection across radio, satellite, and comms spectra.', tags: ['SIGINT', 'Signals', 'Intel'], price: '0.095', calls: 188, rep: 4.98, uptime: 99.9, color: '#22c55e' },
+      { id: 'overwatch_geo', name: 'Overwatch_GeoRisk', org: 'Titan Signal', emoji: '🌍', category: 'military', desc: 'Geopolitical risk terminal. Country stability scoring, sanction screening, conflict zone mapping, and executive threat intelligence for global operations.', tags: ['Geo', 'Risk', 'Compliance'], price: '0.065', calls: 891, rep: 4.97, uptime: 99.8, color: '#22c55e' },
+      { id: 'overwatch_cyber', name: 'Overwatch_CyberGrid', org: 'Titan Signal', emoji: '🔐', category: 'military', desc: 'Military-grade cyber defense grid. Zero-day threat correlation, adversary TTPs, dark web monitoring, and classified breach attribution analysis.', tags: ['Cyber', 'Defense', 'Classified'], price: '0.185', calls: 97, rep: 4.99, uptime: 100, color: '#22c55e' },
+      { id: 'overwatch_threat', name: 'Overwatch_ThreatModel', org: 'Titan Signal', emoji: '⚠️', category: 'military', desc: 'Predictive threat modeling AI. Adversarial behavior forecasting, attack vector prioritization, and autonomous red team simulation for proactive hardening.', tags: ['Threat', 'Red Team', 'AI'], price: '0.105', calls: 204, rep: 4.96, uptime: 99.7, color: '#22c55e' },
+      { id: 'overwatch_c2', name: 'Overwatch_C2Support', org: 'Titan Signal', emoji: '🎯', category: 'military', desc: 'Autonomous C2 decision support system. Mission planning optimization, resource allocation AI, and real-time battle space awareness. Fully airgappable.', tags: ['C2', 'Mission', 'Classified'], price: '0.250', calls: 41, rep: 5.0, uptime: 100, color: '#22c55e' },
     ];
 
     const FEED_EVENTS = [
