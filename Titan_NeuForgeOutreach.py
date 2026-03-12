@@ -55,6 +55,8 @@ NF_SEQUENCES = {
             {
                 "day": 0,
                 "subject": "Your AI agent is live in 30 minutes",
+                # T1: Soft proof — no revenue claims on cold open
+                "ps": "P.S. Creators on NeuForge keep 70% of everything they earn. No lock-in.",
                 "body": """\
 Hey {first_name},
 
@@ -71,16 +73,62 @@ First-time visitors get a free starter pack:
 
 → Claim yours: {neuforge_url}
 
-Also — our top creator earned $94,200 last month. 70% rev share. Paid in ETH.
-
-If you build AI tools, you should be on NeuForge.
-
 — Gary
 Titan Signal AI Foundry
 
-P.S. We're offering the founding rate ($9/mo) until April 1st. After that it goes to $29/mo. Just so you know.
+{ps}
 """
             },
+            {
+                "day": 3,
+                "subject": "Re: Your free NeuForge agent",
+                # T2: Social proof — crowd, not cash
+                "ps": "P.S. 47,000 operators joined in the last 90 days. The platform is moving fast.",
+                "body": """\
+Hey {first_name},
+
+Quick follow-up on my note from earlier this week.
+
+Your free agent pack is still waiting at NeuForge.app.
+
+Since my last email, hundreds more operators joined the platform. The founding rate ($9/mo) locks in 8 days.
+
+If you're building anything in AI — agents, tools, pipelines — NeuForge is the distribution layer. List once. Reach 47,000 buyers.
+
+Grab it: {neuforge_url}
+
+— Gary
+
+{ps}
+"""
+            },
+            {
+                "day": 7,
+                "subject": "Last call — founding rate expires April 1",
+                # T3: Late funnel — revenue claim now appropriate (warm by T3)
+                "ps": "P.S. Our top earners made $50k–$90k last month. 70% goes straight to them. \nThat's the model. No asterisks.",
+                "body": """\
+{first_name},
+
+The founding rate for NeuForge ($9/mo, locked forever) expires April 1st.
+
+After that: $29/mo. No grandfathering.
+
+47,218 operators. 514 agents. 18 verticals. The platform is real, it's live, and it's generating revenue for our top creators every day.
+
+Last chance to lock in: {neuforge_url}
+
+— Gary
+
+{ps}
+
+---
+Reply STOP to unsubscribe.
+"""
+            }
+        ]
+    },
+
             {
                 "day": 3,
                 "subject": "Re: Your free NeuForge agent",
