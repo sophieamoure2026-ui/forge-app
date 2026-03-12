@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException, Request, Header
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from pydantic import BaseModel
 from typing import List, Optional
-import sqlite3, json, time, uuid, os
+import sqlite3, json, time, uuid, os, requests as _req
 import stripe
 from dotenv import load_dotenv
 
@@ -41,6 +41,13 @@ def init_db():
         id TEXT PRIMARY KEY, buyer_agent TEXT, seller_id TEXT,
         eth_amount REAL, timestamp INTEGER, status TEXT
     )""")
+    # ── Visitor analytics table ──
+    c.execute("""CREATE TABLE IF NOT EXISTS visits (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ts INTEGER, ip TEXT, country TEXT, city TEXT, region TEXT, isp TEXT,
+        page TEXT, referrer TEXT, utm_source TEXT, utm_medium TEXT,
+        utm_campaign TEXT, user_agent TEXT, language TEXT, screen TEXT
+    )""")
     conn.commit()
 
     # Seed Titan Signal fleet
@@ -59,6 +66,22 @@ def init_db():
     conn.close()
 
 init_db()
+
+BACKOFFICE_KEY = os.getenv("BACKOFFICE_KEY", "nf-admin-2026")
+
+def geo_resolve(ip: str) -> dict:
+    """Resolve IP to country/city via ip-api.com (free, no key)."""
+    try:
+        if not ip or any(ip.startswith(p) for p in ("127.","10.","192.168.","::1","172.16.")):
+            return {"country":"Local","city":"Localhost","region":"","isp":""}
+        r = _req.get(f"http://ip-api.com/json/{ip}?fields=status,country,city,regionName,isp",timeout=4)
+        d = r.json()
+        if d.get("status")=="success":
+            return {"country":d.get("country",""),"city":d.get("city",""),
+                    "region":d.get("regionName",""),"isp":d.get("isp","")}
+    except Exception:
+        pass
+    return {"country":"","city":"","region":"","isp":""}
 
 class AgentCreate(BaseModel):
     name: str
@@ -258,3 +281,76 @@ def list_subscribers():
         return {"subscribers": [{"package": r[0], "count": r[1]} for r in rows]}
     except Exception:
         return {"subscribers": []}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# VISITOR ANALYTICS
+# ─────────────────────────────────────────────────────────────────────────────
+
+class VisitPayload(BaseModel):
+    page:         str
+    referrer:     Optional[str] = ""
+    utm_source:   Optional[str] = ""
+    utm_medium:   Optional[str] = ""
+    utm_campaign: Optional[str] = ""
+    language:     Optional[str] = ""
+    screen:       Optional[str] = ""
+
+@app.post("/track")
+async def track_visit(payload: VisitPayload, request: Request):
+    """Lightweight visitor beacon — called from every NeuForge page."""
+    ip = request.headers.get("x-forwarded-for","").split(",")[0].strip() or request.client.host
+    ua = request.headers.get("user-agent","")[:200]
+    geo = geo_resolve(ip)
+    conn = sqlite3.connect(DB)
+    conn.execute(
+        "INSERT INTO visits (ts,ip,country,city,region,isp,page,referrer,"
+        "utm_source,utm_medium,utm_campaign,user_agent,language,screen) VALUES "
+        "(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        (int(time.time()), ip, geo["country"], geo["city"], geo["region"], geo["isp"],
+         payload.page[:120], payload.referrer[:200], payload.utm_source[:80],
+         payload.utm_medium[:80], payload.utm_campaign[:80], ua,
+         payload.language[:20], payload.screen[:20])
+    )
+    conn.commit()
+    conn.close()
+    return {"ok": True}
+
+
+@app.get("/analytics")
+def analytics(key: str = "", days: int = 7):
+    """Aggregated visitor stats — secured by ?key=BACKOFFICE_KEY."""
+    if key != BACKOFFICE_KEY:
+        raise HTTPException(403, "Invalid key")
+    since = int(time.time()) - days * 86400
+    conn  = sqlite3.connect(DB)
+    total = conn.execute("SELECT COUNT(*) FROM visits WHERE ts>?", (since,)).fetchone()[0]
+    pages = conn.execute(
+        "SELECT page,COUNT(*) c FROM visits WHERE ts>? GROUP BY page ORDER BY c DESC LIMIT 20", (since,)
+    ).fetchall()
+    countries = conn.execute(
+        "SELECT country,COUNT(*) c FROM visits WHERE ts>? AND country!=\'\' GROUP BY country ORDER BY c DESC LIMIT 20", (since,)
+    ).fetchall()
+    cities = conn.execute(
+        "SELECT city,country,COUNT(*) c FROM visits WHERE ts>? AND city!=\'\' GROUP BY city,country ORDER BY c DESC LIMIT 20", (since,)
+    ).fetchall()
+    refs = conn.execute(
+        "SELECT referrer,COUNT(*) c FROM visits WHERE ts>? AND referrer!=\'\' GROUP BY referrer ORDER BY c DESC LIMIT 20", (since,)
+    ).fetchall()
+    recent = conn.execute(
+        "SELECT ts,country,city,page,referrer,isp FROM visits ORDER BY ts DESC LIMIT 100"
+    ).fetchall()
+    conn.close()
+    return {
+        "total_visits": total, "days": days,
+        "top_pages":     [{"page": r[0], "views": r[1]} for r in pages],
+        "top_countries": [{"country": r[0], "visits": r[1]} for r in countries],
+        "top_cities":    [{"city": r[0], "country": r[1], "visits": r[2]} for r in cities],
+        "top_referrers": [{"referrer": r[0], "count": r[1]} for r in refs],
+        "recent":        [{"ts": r[0], "country": r[1], "city": r[2], "page": r[3], "referrer": r[4], "isp": r[5]} for r in recent],
+    }
+
+
+@app.get("/backoffice", response_class=HTMLResponse)
+def backoffice_redirect():
+    return HTMLResponse('<meta http-equiv="refresh" content="0;url=https://neuforge.app/backoffice.html">', 200)

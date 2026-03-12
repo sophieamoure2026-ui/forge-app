@@ -1150,6 +1150,31 @@
       }
     }
   </style>
+
+  <!-- NeuForge Back Office Beacon -->
+  <script>
+  (function(){
+    try {
+      var p = window.location.pathname;
+      var ref = document.referrer || '';
+      var sp = new URLSearchParams(window.location.search);
+      var payload = {
+        page: p, referrer: ref,
+        utm_source: sp.get('utm_source')||'',
+        utm_medium: sp.get('utm_medium')||'',
+        utm_campaign: sp.get('utm_campaign')||'',
+        language: navigator.language||'',
+        screen: window.screen.width+'x'+window.screen.height
+      };
+      fetch('https://neuforge-api.onrender.com/track', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
+  })();
+  </script>
 </head>
 
 <body>
