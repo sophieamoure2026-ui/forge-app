@@ -798,6 +798,139 @@
             font-weight: 600;
             text-align: center;
         }
+
+        /* ── NEUFORGE BADGE ── */
+        .nf-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(249, 115, 22, .08), rgba(168, 85, 247, .08));
+            border: 1px solid rgba(249, 115, 22, .3);
+            border-radius: 10px;
+            padding: 8px 14px;
+            margin-top: 10px;
+        }
+
+        .nf-badge-icon {
+            font-size: 18px;
+        }
+
+        .nf-badge-text .label {
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .nf-badge-text .name {
+            font-size: .95rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nf-badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            animation: pulse 2s infinite;
+            margin-left: 4px;
+        }
+
+        .nf-badge-viral {
+            font-size: .7rem;
+            color: rgba(249, 115, 22, .7);
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* ── AGENT STACK ── */
+        .agent-stack-block {
+            background: rgba(13, 18, 32, .8);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .agent-stack-label {
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 12px;
+        }
+
+        .agent-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .agent-pill {
+            background: rgba(249, 115, 22, .08);
+            border: 1px solid rgba(249, 115, 22, .25);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            cursor: default;
+        }
+
+        .agent-pill:hover {
+            background: rgba(249, 115, 22, .15);
+        }
+
+        .agent-roi-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .agent-roi-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .82rem;
+        }
+
+        .agent-roi-stat .stat-val {
+            font-weight: 800;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .agent-roi-stat .stat-label {
+            color: var(--muted);
+        }
+
+        /* ── VIBE QUOTE ── */
+        .vibe-quote {
+            background: rgba(168, 85, 247, .05);
+            border-left: 3px solid var(--purple);
+            border-radius: 0 10px 10px 0;
+            padding: 14px 18px;
+            margin: 18px 0;
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .7);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .vibe-quote strong {
+            color: var(--purple);
+            font-style: normal;
+        }
     </style>
 
     <script>
@@ -845,6 +978,255 @@
             } catch (e) { }
         })();
     </script>
+
+    <!-- NeuForge Industry Agent Injector -->
+    <script>
+        const NF_INDUSTRIES = {
+            hvac: {
+                title: 'HVAC AI Agent',
+                agents: ['Titan_CallCenter', 'BlueZone_Dominator', 'SMTPRouter_Fleet', 'Titan_SMS', 'Titan_NeuForgeOutreach'],
+                timeSaved: '18–22 hrs/week',
+                roi: '$3,400/mo avg revenue recovered from after-hours calls alone',
+                automations: [
+                    '📞 Answers every call 24/7 — even 2am emergency AC calls',
+                    '📅 Books appointments and dispatches technicians automatically',
+                    '💌 Sends 7-touch quote follow-up sequences (text + email)',
+                    '🌡️ Runs seasonal campaigns — AC startup in March, furnace in Oct',
+                    '⭐ Requests Google reviews 30 min after every job closes',
+                    '💰 Sends invoice reminders until paid — no awkward calls'
+                ],
+                vibeQuote: 'You built this business on instinct, not spreadsheets. The AI handles the calculation layer. You stay the one who sees around corners.'
+            },
+            roofing: {
+                title: 'Roofing AI Agent',
+                agents: ['Titan_CallCenter', 'ApexLeads_v3', 'SMTPRouter_Fleet', 'Titan_SMS', 'BlueZone_Dominator'],
+                timeSaved: '22–28 hrs/week',
+                roi: '$12,000+ avg per storm season from faster-than-competitor response',
+                automations: [
+                    '🌪️ Detects storm damage zip codes and contacts homeowners within hours',
+                    '📝 Writes insurance supplement letters in 2 min, not 2 hours',
+                    '📅 Books adjuster appointments — confirms with all parties, sends reminders',
+                    '📊 Maintains a live pipeline view — no spreadsheet needed',
+                    '📞 7-touch follow-up sequence on every lead until they answer',
+                    '⭐ Post-completion review requests — your Google rating climbs automatically'
+                ],
+                vibeQuote: 'By the time your competitor hears about the storm Thursday morning, your AI already texted 200 homeowners Wednesday night.'
+            },
+            legal: {
+                title: 'Law Firm AI Agent',
+                agents: ['Titan_CallCenter', 'SMTPRouter_Fleet', 'Titan_SMS', 'BlueZone_Dominator', 'ApexLeads_v3'],
+                timeSaved: '15–20 hrs/week',
+                roi: '$8,200/mo avg from intake screening eliminating unqualified consultations',
+                automations: [
+                    '⚖️ Screens and qualifies every intake call — only warm leads reach you',
+                    '📅 Books consultations and sends automated prep documents',
+                    '📋 Requests and follows up on missing client documents automatically',
+                    '🔄 Sends case-status updates proactively — kills "where\'s my case?" calls',
+                    '💌 Runs referral request sequences to past satisfied clients',
+                    '⭐ Post-case review requests and attorney recommendation asks'
+                ],
+                vibeQuote: 'Your receptionist fields 40 calls a day. The AI qualifies them first so she handles 8 real ones. That\'s 32 hours a week back.'
+            },
+            dental: {
+                title: 'Dental Practice AI Agent',
+                agents: ['Titan_CallCenter', 'SMTPRouter_Fleet', 'Titan_SMS', 'BlueZone_Dominator', 'Titan_NeuForgeOutreach'],
+                timeSaved: '14–18 hrs/week',
+                roi: '$6,800/mo avg from no-show reduction and reactivation campaigns alone',
+                automations: [
+                    '🦷 Sends 48hr + 2hr appointment reminders — no-show rate drops 60%',
+                    '📅 Recalls patients due for cleanings without your front desk lifting a finger',
+                    '📋 Collects new patient intake forms automatically before first visit',
+                    '💳 Sends payment plan reminders until balance is cleared',
+                    '⭐ Post-visit review requests for Google and Healthgrades',
+                    '😴 Reactivates patients who went 12+ months without a visit'
+                ],
+                vibeQuote: 'The patient who cancelled 6 months ago doesn\'t need a phone call. They need three texts and a reminder that they\'re overdue. The AI sends all three.'
+            },
+            realestate: {
+                title: 'Real Estate AI Agent',
+                agents: ['Titan_CallCenter', 'ApexLeads_v3', 'SMTPRouter_Fleet', 'Titan_SMS', 'BlueZone_Dominator'],
+                timeSaved: '20–25 hrs/week',
+                roi: '$14,000+ avg per quarter from faster lead response and showing automation',
+                automations: [
+                    '🏡 Captures and qualifies leads from Zillow, Realtor.com, and your site 24/7',
+                    '📅 Sets up showings and sends confirmation + directions automatically',
+                    '🔄 Runs long-term nurture for cold leads — 6, 12, 18-month follow-up',
+                    '📊 Alerts you when a listing drops in a buyer\'s target area',
+                    '📝 Preps CMA research and talking points before listing appointments',
+                    '⭐ Post-close review requests and referral asks to past clients'
+                ],
+                vibeQuote: 'The buyer who clicks at 11pm expects an answer. Not tomorrow. Not in the morning. The AI responds in 60 seconds every time.'
+            },
+            electrical: {
+                title: 'Electrical Contractor AI Agent',
+                agents: ['Titan_CallCenter', 'BlueZone_Dominator', 'SMTPRouter_Fleet', 'Titan_SMS', 'Titan_NeuForgeOutreach'],
+                timeSaved: '16–20 hrs/week',
+                roi: '$4,100/mo avg recovered from missed emergency calls and uncontacted leads',
+                automations: [
+                    '⚡ Books emergency service calls 24/7 — even at 3am panel failures',
+                    '📋 Sends job confirmations, arrival windows, and tech bios to customers',
+                    '💌 Follow-up sequences on commercial bids that went quiet',
+                    '🏗️ Targets contractors and builders with new commercial project alerts',
+                    '⭐ Review requests after every job — with permit completion triggers',
+                    '💰 Invoicing follow-up until paid — no uncomfortable calls needed'
+                ],
+                vibeQuote: 'The panel emergency at midnight doesn\'t care that you\'re asleep. Your AI agent picks up, books the job, and texts your on-call tech. You wake up to revenue.'
+            },
+            plumbing: {
+                title: 'Plumbing AI Agent',
+                agents: ['Titan_CallCenter', 'BlueZone_Dominator', 'SMTPRouter_Fleet', 'Titan_SMS', 'ApexLeads_v3'],
+                timeSaved: '16–22 hrs/week',
+                roi: '$5,200/mo avg from after-hours emergency recovery and upsell sequences',
+                automations: [
+                    '🚿 Books emergency calls 24/7 — busted pipes don\'t wait till morning',
+                    '📅 Schedules estimates and confirms jobs without you touching the phone',
+                    '💌 Follows up on water heater and pipe replacement quotes automatically',
+                    '🔄 Maintenance contract campaigns to turn one-time into recurring revenue',
+                    '📬 Neighbor-targeting after a big job — "same street, same pipes, same age"',
+                    '⭐ Review requests and warranty reminder sequences'
+                ],
+                vibeQuote: 'A burst pipe at 2am is pure panic for the homeowner. The one plumber who answers wins every time. Your AI is always awake.'
+            },
+            landscaping: {
+                title: 'Landscaping AI Agent',
+                agents: ['Titan_CallCenter', 'BlueZone_Dominator', 'SMTPRouter_Fleet', 'Titan_SMS', 'Titan_NeuForgeOutreach'],
+                timeSaved: '12–18 hrs/week',
+                roi: '$3,600/mo avg from seasonal campaign automation and route efficiency',
+                automations: [
+                    '🌿 Seasonal push campaigns — spring cleanup, aeration, winterization on auto',
+                    '📅 Route optimization across your client base — AI clusters jobs by zip code',
+                    '💌 Reactivates past clients who haven\'t called in 8+ months',
+                    '📋 Sends automated quotes and follows up 3 times before giving up',
+                    '💰 Payment reminders sent automatically — no chasing checks',
+                    '⭐ Review requests and referral asks after every completed service'
+                ],
+                vibeQuote: 'In January, when nothing\'s growing, the AI is already booking your March cleanups. You start the season full.'
+            },
+            pest: {
+                title: 'Pest Control AI Agent',
+                agents: ['Titan_CallCenter', 'BlueZone_Dominator', 'SMTPRouter_Fleet', 'Titan_SMS', 'Titan_NeuForgeSMS'],
+                timeSaved: '14–18 hrs/week',
+                roi: '$4,800/mo avg from recurring service retention and neighbor expansion',
+                automations: [
+                    '🐛 Schedules recurring treatments automatically — quarterly, bi-monthly, monthly',
+                    '📬 Neighbor-targeting after every treatment — "same yard, same pests"',
+                    '🔄 Cancellation win-back sequences with a special return offer',
+                    '💌 Seasonal upsell — rodent prevention in fall, mosquito in spring',
+                    '📅 Re-inspection reminders 30 days after a treatment',
+                    '⭐ Review requests + referral asks — your neighborhood reputation compounds'
+                ],
+                vibeQuote: 'One job on a street is a seed. The AI texts the 8 neighbors the same week. That\'s how you take a neighborhood.'
+            },
+            cleaning: {
+                title: 'Cleaning Service AI Agent',
+                agents: ['Titan_CallCenter', 'BlueZone_Dominator', 'SMTPRouter_Fleet', 'Titan_SMS', 'Titan_NeuForgeOutreach'],
+                timeSaved: '12–16 hrs/week',
+                roi: '$2,900/mo avg from booking automation and client retention sequences',
+                automations: [
+                    '🧹 Books new clients and recurring appointments without phone tag',
+                    '📅 Sends crew schedules and arrival reminders automatically',
+                    '💌 Reactivates clients who paused or cancelled service',
+                    '⭐ Post-clean quality check texts + review requests within 2 hours',
+                    '📬 Targets new move-ins and real estate listings in your territory',
+                    '💰 Recurring billing reminders and payment confirmations automated'
+                ],
+                vibeQuote: 'Every apartment complex in your zip code has 200 units. The AI is already in their inbox. You just show up to clean.'
+            },
+            pool: {
+                title: 'Pool Service AI Agent',
+                agents: ['Titan_CallCenter', 'BlueZone_Dominator', 'SMTPRouter_Fleet', 'Titan_SMS', 'Titan_NeuForgeOutreach'],
+                timeSaved: '10–14 hrs/week',
+                roi: '$3,100/mo avg from opening/closing season campaigns and chemical upsells',
+                automations: [
+                    '🏊 Spring opening and fall closing campaigns — fills your calendar before season',
+                    '💧 Chemical treatment reminders and reorder alerts to recurring clients',
+                    '📅 Weekly service scheduling and crew dispatch without owner involvement',
+                    '📋 Equipment repair quotes sent and followed up automatically',
+                    '💰 Monthly billing reminders and payment collection automated',
+                    '⭐ Review requests after major jobs — openings, closings, equipment repairs'
+                ],
+                vibeQuote: 'Pool season is 12 weeks. The AI spends February booking all 12. By March you\'re turning people away.'
+            },
+            seo: {
+                title: 'Local SEO AI Agent',
+                agents: ['BlueZone_SEO', 'Titan_NeuForgeOutreach', 'SMTPRouter_Fleet', 'ApexLeads_v3', 'BlueZone_Dominator'],
+                timeSaved: '10–15 hrs/week',
+                roi: '$4,200/mo avg additional revenue from map pack ranking improvements in 90 days',
+                automations: [
+                    '📍 Optimizes your Google Business Profile weekly — categories, posts, Q&A',
+                    '⭐ Automates review request campaigns — 4.8+ stars in 60 days',
+                    '🗺️ Map pack ranking pushes — builds citations, fixes NAP inconsistencies',
+                    '🔗 Competitor monitoring — alerts you when a rival gets a new review surge',
+                    '📊 Monthly SEO reports sent to your email automatically — no login needed',
+                    '📢 Creates and schedules GBP posts 4x/week to boost local signals'
+                ],
+                vibeQuote: 'Google ranks the businesses that look most active. The AI posts, requests reviews, and answers questions on your profile daily — without you touching it.'
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            Object.entries(NF_INDUSTRIES).forEach(function ([id, data]) {
+                var section = document.getElementById(id);
+                if (!section) return;
+
+                // 1 — Inject NeuForge Badge into header
+                var header = section.querySelector('.svc-header');
+                if (header) {
+                    var badge = document.createElement('div');
+                    badge.style.cssText = 'margin-left:auto;flex-shrink:0;text-align:right';
+                    badge.innerHTML = '<div class="nf-badge">' +
+                        '<div class="nf-badge-icon">⚡</div>' +
+                        '<div class="nf-badge-text"><div class="label">Powered By</div><div class="name">NeuForge</div></div>' +
+                        '<div class="nf-badge-dot"></div>' +
+                        '</div>' +
+                        '<div class="nf-badge-viral">🔥 Clients see this. Competitors want it.</div>';
+                    header.style.cssText = header.getAttribute('style') || '';
+                    header.style.display = 'flex';
+                    header.style.alignItems = 'flex-start';
+                    header.style.flexWrap = 'wrap';
+                    header.style.gap = '16px';
+                    header.appendChild(badge);
+                }
+
+                // 2 — Inject vibe quote before pricing
+                var pricing = section.querySelector('.svc-pricing');
+                if (pricing && data.vibeQuote) {
+                    var vq = document.createElement('div');
+                    vq.className = 'vibe-quote';
+                    vq.innerHTML = '<strong>Your edge isn\'t doing more — it\'s seeing more:</strong> ' + data.vibeQuote;
+                    section.insertBefore(vq, pricing);
+                }
+
+                // 3 — Inject agent stack before pricing
+                if (pricing) {
+                    var stack = document.createElement('div');
+                    stack.className = 'agent-stack-block';
+                    var pillsHtml = data.agents.map(function (a) {
+                        return '<span class="agent-pill">' + a + '</span>';
+                    }).join('');
+                    stack.innerHTML =
+                        '<div class="agent-stack-label">🤖 Titan Signal Agents Running Your ' + data.title + '</div>' +
+                        '<div class="agent-pills">' + pillsHtml + '</div>' +
+                        '<div class="agent-roi-row">' +
+                        '<div class="agent-roi-stat"><span class="stat-val">⏱ ' + data.timeSaved + '</span><span class="stat-label"> returned to owner every week</span></div>' +
+                        '<div class="agent-roi-stat"><span class="stat-val">💰</span><span class="stat-label"> ' + data.roi + '</span></div>' +
+                        '</div>';
+                    section.insertBefore(stack, pricing);
+                }
+
+                // 4 — Inject automations list into the "After" card if empty enough
+                var afterCard = section.querySelector('.before-after:last-of-type');
+                // Only add if data exists; don't overwrite existing rich content
+                if (afterCard && data.automations && afterCard.querySelectorAll('.benefit-line').length === 0) {
+                    var listHtml = data.automations.map(function (a) {
+                        return '<div class="benefit-line"><span class="check">✓</span><span>' + a + '</span></div>';
+                    }).join('');
+                    afterCard.innerHTML += listHtml;
+                }
+            });
+        });
+    </script>
+
 </head>
 
 <body>
