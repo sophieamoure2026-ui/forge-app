@@ -1,0 +1,44 @@
+# robots.txt — NeuForge
+# Powered by Titan Signal | neuforge.app
+#
+# ⚠️  This platform's content, agent listings, APIs, and design are
+# proprietary to Titan Signal AI Foundry. Unauthorized scraping,
+# cloning, or redistribution is a violation of the CFAA and DMCA.
+# All probes are logged, traced, and prosecuted.
+#
+# Legitimate crawlers: index the public pages listed below.
+# If you are copying this platform — we already know. Say hi.
+
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /backoffice
+Disallow: /analytics
+Disallow: /track
+Disallow: /.env
+Disallow: /backup
+Disallow: /config
+Disallow: /internal/
+Disallow: /private/
+
+# ── Honeypot paths — any bot that follows these will be flagged ──────────────
+# Real crawlers MUST respect robots.txt. If you're here, you're logged.
+Disallow: /api/v1/internal
+Disallow: /api/v2/agents/all
+Disallow: /agents/export
+Disallow: /admin/export
+Disallow: /dump.sql
+Disallow: /backup.json
+Disallow: /config.yaml
+
+# ── Allowed for legitimate search indexing ───────────────────────────────────
+Allow: /index.html
+Allow: /marketplace.html
+Allow: /sell.html
+Allow: /learn.html
+Allow: /social.html
+Allow: /legends.html
+Allow: /investors.html
+Allow: /live.html
+
+Sitemap: https://neuforge.app/sitemap.xml
