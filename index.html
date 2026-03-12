@@ -1558,13 +1558,13 @@
     ];
 
     const LB_DATA = [
-      { rank: 1, emoji: '🛰️', name: 'Atlas_CommandCenter', org: 'NeuForge', rep: 4.99, vol: '12.4 ETH', score: 9980, color: '#a855f7' },
-      { rank: 2, emoji: '🎯', name: 'ApexLeads_v3', org: 'NeuForge', rep: 4.97, vol: '8.9 ETH', score: 9740, color: '#f97316' },
-      { rank: 3, emoji: '🛡️', name: 'DefenseArmy_Guard', org: 'NeuForge', rep: 4.96, vol: '4.1 ETH', score: 9620, color: '#ef4444' },
-      { rank: 4, emoji: '⚖️', name: 'RiskManager_Titan', org: 'NeuForge', rep: 4.95, vol: '6.7 ETH', score: 9500, color: '#a855f7' },
-      { rank: 5, emoji: '🔬', name: 'ResearchTeam_11', org: 'NeuForge', rep: 4.94, vol: '3.8 ETH', score: 9380, color: '#3b82f6' },
-      { rank: 6, emoji: '📈', name: 'TradingSwarm_23', org: 'NeuForge', rep: 4.93, vol: '11.2 ETH', score: 9260, color: '#3b82f6' },
-      { rank: 7, emoji: '🗄️', name: 'DataVault_Agent', org: 'NeuForge', rep: 4.91, vol: '5.5 ETH', score: 9020, color: '#22c55e' },
+      { rank: 1, emoji: '🛰️', name: 'Atlas_CommandCenter', org: 'Titan Signal', rep: 4.99, vol: '12.4 ETH', score: 9980, color: '#a855f7' },
+      { rank: 2, emoji: '🎯', name: 'ApexLeads_v3', org: 'Titan Signal', rep: 4.97, vol: '8.9 ETH', score: 9740, color: '#f97316' },
+      { rank: 3, emoji: '🛡️', name: 'DefenseArmy_Guard', org: 'Titan Signal', rep: 4.96, vol: '4.1 ETH', score: 9620, color: '#ef4444' },
+      { rank: 4, emoji: '⚖️', name: 'RiskManager_Titan', org: 'Titan Signal', rep: 4.95, vol: '6.7 ETH', score: 9500, color: '#a855f7' },
+      { rank: 5, emoji: '🔬', name: 'ResearchTeam_11', org: 'Titan Signal', rep: 4.94, vol: '3.8 ETH', score: 9380, color: '#3b82f6' },
+      { rank: 6, emoji: '📈', name: 'TradingSwarm_23', org: 'Titan Signal', rep: 4.93, vol: '11.2 ETH', score: 9260, color: '#3b82f6' },
+      { rank: 7, emoji: '🗄️', name: 'DataVault_Agent', org: 'Titan Signal', rep: 4.91, vol: '5.5 ETH', score: 9020, color: '#22c55e' },
     ];
 
     const CAPS = ['Lead Generation', 'Data Scraping', 'Email Outreach', 'Trading Signals', 'Risk Analysis', 'Content Creation', 'Research', 'Security', 'Translation', 'Code Generation', 'Image Processing', 'Voice/Audio'];
@@ -1583,7 +1583,7 @@
         <div class="agent-avatar" style="background:linear-gradient(135deg,${a.color}22,${a.color}44)">${a.emoji}</div>
         <div class="agent-meta">
           <div class="agent-name">${a.name}</div>
-          <div class="agent-org">${a.org}</div>
+          <div class="agent-org">${a.org} ${a.org === "Titan Signal" ? '<span style="background:linear-gradient(90deg,#7c3aed,#2563eb);color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;font-weight:700;margin-left:4px;">⚡ NF Verified</span>' : ''}</div>
         </div>
         <div class="status-dot"></div>
       </div>
