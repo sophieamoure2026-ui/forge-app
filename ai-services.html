@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Integration Services — NeuForge | Pick Your Industry</title>
+    <meta name="description"
+        content="Plain-English AI services for local businesses. HVAC, Roofing, Dental, Legal, Real Estate and more. Our AI handles the phone calls, schedules, follow-ups and paperwork. You just run your business." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: #0d1220;
+            --surface2: #111827;
+            --border: #1e2d45;
+            --accent: #f97316;
+            --accent2: #fb923c;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --red: #ef4444;
+            --text: #f1f5f9;
+            --muted: #64748b;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(8, 11, 20, 0.9);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .nav-back {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        .nav-back:hover {
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, .4);
+        }
+
+        /* HERO */
+        .page-hero {
+            padding: 80px 24px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 60% 0%, rgba(249, 115, 22, 0.08), transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .page-label {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .page-hero h1 span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            line-height: 1.75;
+            max-width: 580px;
+            margin: 0 auto 36px;
+        }
+
+        .reassure-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: .88rem;
+            color: #4ade80;
+            font-weight: 500;
+        }
+
+        /* JUMP NAV */
+        .jump-nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 60px;
+            z-index: 90;
+            overflow-x: auto;
+        }
+
+        .jump-nav-inner {
+            display: flex;
+            gap: 8px;
+            max-width: 1100px;
+            margin: 0 auto;
+            white-space: nowrap;
+        }
+
+        .jump-btn {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: .78rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            text-decoration: none;
+            transition: all .2s;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .jump-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(249, 115, 22, .06);
+        }
+
+        /* SERVICE SECTIONS */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .service-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .service-section:last-child {
+            border-bottom: none;
+        }
+
+        .svc-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .svc-emoji {
+            font-size: 52px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .svc-title-block h2 {
+            font-size: clamp(1.6rem, 3vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .svc-title-block .tagline {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .svc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .svc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .svc-header {
+                flex-direction: column;
+            }
+        }
+
+        .before-after {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .ba-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .ba-label.before {
+            background: rgba(239, 68, 68, .1);
+            color: var(--red);
+        }
+
+        .ba-label.after {
+            background: rgba(34, 197, 94, .1);
+            color: var(--green);
+        }
+
+        .pain-line {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .pain-line:last-child {
+            border-bottom: none;
+        }
+
+        .pain-line .icon {
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .benefit-line {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(34, 197, 94, .08);
+            font-size: .88rem;
+            line-height: 1.6;
+        }
+
+        .benefit-line:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-line .check {
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 15px;
+            margin-top: 2px;
+        }
+
+        .benefit-line strong {
+            color: var(--text);
+            display: block;
+            font-size: .9rem;
+            margin-bottom: 3px;
+        }
+
+        .benefit-line span {
+            color: var(--muted);
+        }
+
+        .svc-pricing {
+            margin-top: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(249, 115, 22, .06), rgba(168, 85, 247, .04));
+            border: 1px solid rgba(249, 115, 22, .2);
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+
+        .price-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .price-info p {
+            font-size: .83rem;
+            color: var(--muted);
+        }
+
+        .price-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .price-sub {
+            font-size: .75rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .btn-lg {
+            padding: 12px 28px;
+            font-size: .95rem;
+        }
+
+        /* PLAIN ENGLISH NOTE */
+        .plain-note {
+            font-size: .82rem;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 12px;
+        }
+
+        /* ROI CALLOUT */
+        .roi-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 36px;
+            margin-bottom: 8px;
+        }
+
+        .roi-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+        }
+
+        .roi-card.loss {
+            border-color: rgba(239, 68, 68, .25);
+            background: rgba(239, 68, 68, .04);
+        }
+
+        .roi-card.gain {
+            border-color: rgba(34, 197, 94, .25);
+            background: rgba(34, 197, 94, .04);
+        }
+
+        .roi-label {
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .roi-card.loss .roi-label {
+            color: var(--red);
+        }
+
+        .roi-card.gain .roi-label {
+            color: var(--green);
+        }
+
+        .roi-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .roi-card.loss .roi-number {
+            color: #f87171;
+        }
+
+        .roi-card.gain .roi-number {
+            color: #4ade80;
+        }
+
+        .roi-desc {
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* BOTTOM CTA */
+
+        .bottom-cta {
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .bottom-cta h2 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .bottom-cta h2 span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bottom-cta p {
+            color: var(--muted);
+            margin-bottom: 32px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: .95rem;
+            font-weight: 600;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        /* ── TESTIMONIALS ── */
+        .testimonials-section {
+            background: linear-gradient(180deg, var(--bg) 0%, rgba(99, 102, 241, .04) 100%);
+            border-top: 1px solid var(--border);
+            padding: 80px 24px;
+        }
+
+        .testimonials-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .testimonials-heading {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .testimonials-heading span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: border-color .2s, transform .2s;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(249, 115, 22, .3);
+            transform: translateY(-2px);
+        }
+
+        .t-stars {
+            color: #f59e0b;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .t-quote {
+            font-size: .92rem;
+            color: var(--text);
+            line-height: 1.65;
+            flex: 1;
+            font-style: italic;
+        }
+
+        .t-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .t-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .72rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .t-name {
+            font-weight: 600;
+            font-size: .88rem;
+        }
+
+        .t-role {
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        /* ── INTAKE FORM ── */
+        .intake-section {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 80px 24px;
+        }
+
+        .intake-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        @media (max-width: 700px) {
+            .intake-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        .intake-left h2 {
+            font-size: clamp(1.5rem, 3vw, 2.1rem);
+            font-weight: 800;
+            letter-spacing: -.5px;
+            margin: 12px 0 16px;
+            line-height: 1.2;
+        }
+
+        .intake-left h2 span {
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intake-left p {
+            color: var(--muted);
+            font-size: .94rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .intake-promises {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .intake-promises li {
+            font-size: .9rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .intake-promises li::before {
+            content: '';
+        }
+
+        .intake-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .intake-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .intake-field label {
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .label-opt {
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--muted);
+            opacity: .7;
+        }
+
+        .intake-field input,
+        .intake-field select,
+        .intake-field textarea {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: var(--text);
+            font-size: .94rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .2s;
+            resize: none;
+        }
+
+        .intake-field input:focus,
+        .intake-field select:focus,
+        .intake-field textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .intake-field select option {
+            background: #1a1a2e;
+        }
+
+        .intake-submit {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .2s, transform .1s;
+            margin-top: 4px;
+        }
+
+        .intake-submit:hover {
+            opacity: .88;
+            transform: translateY(-1px);
+        }
+
+        .intake-submit:active {
+            transform: scale(.98);
+        }
+
+        .intake-fine {
+            font-size: .78rem;
+            color: var(--muted);
+            text-align: center;
+            margin: 0;
+        }
+
+        .intake-success {
+            background: rgba(34, 197, 94, .12);
+            border: 1px solid rgba(34, 197, 94, .3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: #4ade80;
+            font-size: .92rem;
+            font-weight: 600;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function submitIntake(e) {
+            e.preventDefault();
+            const btn = document.getElementById('intakeBtn');
+            const btnText = document.getElementById('intakeBtnText');
+            const success = document.getElementById('intakeSuccess');
+            btnText.textContent = 'Sending...';
+            btn.disabled = true;
+
+            const payload = {
+                name: document.getElementById('intake-name').value,
+                phone: document.getElementById('intake-phone').value,
+                industry: document.getElementById('intake-industry').value,
+                pain: document.getElementById('intake-pain').value,
+                source: 'ai-services-page',
+                referrer: document.referrer || '',
+                ts: new Date().toISOString()
+            };
+
+            fetch('https://neuforge-api.onrender.com/lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+                keepalive: true
+            }).catch(() => { }).finally(() => {
+                success.style.display = 'block';
+                btn.style.display = 'none';
+                document.getElementById('aiServiceForm').reset();
+            });
+        }
+    </script>
+
+
+    <!-- Beacon -->
+    <script>
+        (function () {
+            try {
+                fetch('https://neuforge-api.onrender.com/track', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ page: '/ai-services', referrer: document.referrer || '', utm_source: new URLSearchParams(location.search).get('utm_source') || '', language: navigator.language || '', screen: screen.width + 'x' + screen.height }),
+                    keepalive: true
+                }).catch(function () { });
+            } catch (e) { }
+        })();
+    </script>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>Neu<span>Forge</span>
+            </a>
+            <a href="index.html" class="nav-back">← Back to Home</a>
+            <a href="index.html#ai-services" class="btn-primary">Get Started →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="page-hero">
+        <div class="hero-inner">
+            <div class="page-label">No Tech Speak. Just Results.</div>
+            <h1>You Started This Business<br><span>To Have a Life.</span></h1>
+            <p>Somewhere along the way, the business started running you instead of the other way around. Late nights.
+                Missed calls. Weekends at the desk. Pick your industry below — and see exactly what changes.</p>
+            <div class="reassure-box">
+                ✅ &nbsp; You stay in charge. The AI handles the part that's eating your time.
+            </div>
+        </div>
+    </div>
+
+    <!-- JUMP NAV -->
+    <div class="jump-nav">
+        <div class="jump-nav-inner">
+            <a class="jump-btn" href="#hvac">🌬️ HVAC</a>
+            <a class="jump-btn" href="#roofing">🏠 Roofing</a>
+            <a class="jump-btn" href="#legal">⚖️ Legal</a>
+            <a class="jump-btn" href="#dental">🦷 Dental</a>
+            <a class="jump-btn" href="#realestate">🏡 Real Estate</a>
+            <a class="jump-btn" href="#electrical">🔌 Electrical</a>
+            <a class="jump-btn" href="#plumbing">💧 Plumbing</a>
+            <a class="jump-btn" href="#landscaping">🌿 Landscaping</a>
+            <a class="jump-btn" href="#pest">🐞 Pest Control</a>
+            <a class="jump-btn" href="#cleaning">🧹 Cleaning</a>
+            <a class="jump-btn" href="#pool">🔵 Pool Service</a>
+            <a class="jump-btn" href="#seo">📍 Local SEO</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- ══════════════════════════════════════════ -->
+        <!-- HVAC                                       -->
+        <!-- ══════════════════════════════════════════ -->
+        <section class="service-section" id="hvac">
+            <div class="svc-header">
+                <div class="svc-emoji">🌬️</div>
+                <div class="svc-title-block">
+                    <h2>AI for HVAC Companies</h2>
+                    <div class="tagline">"You're working 60-hour weeks so the business survives. The AI works the other
+                        108 so you can stop."</div>
+                </div>
+            </div>
+    </div>
+    <div class="svc-grid">
+        <div class="before-after">
+            <div class="ba-label before">❌ Right Now, Without AI</div>
+            <div class="pain-line"><span class="icon">📞</span> Customer calls at 9pm about a broken AC. Nobody answers.
+                They call your competitor while you're finally sitting down with your family.</div>
+            <div class="pain-line"><span class="icon">📋</span> You quote a job, plan to follow up, forget among the 40
+                other things on your plate, and lose the deal.</div>
+            <div class="pain-line"><span class="icon">😤</span> You spend every morning returning voicemails. That's 2
+                hours a day you're not billing.</div>
+            <div class="pain-line"><span class="icon">🌡️</span> Spring is coming and you know you should reach out to
+                maintenance customers. There's just no time.</div>
+            <div class="pain-line"><span class="icon">⭐</span> You do excellent work but you have 14 Google reviews
+                because you never get around to asking.</div>
+        </div>
+        <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+            <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+            <div class="benefit-line"><span class="check">✓</span>
+                <div><strong>Answers every call, 24 hours a day — even at 9pm.</strong><span>When someone calls during
+                        dinner, the AI picks up, gets their info, and books them in. You wake up to a full schedule.
+                        Your evening is yours.</span></div>
+            </div>
+            <div class="benefit-line"><span class="check">✓</span>
+                <div><strong>Follows up on every quote, automatically.</strong><span>Sends a text the next day, an email
+                        the day after, a final nudge on day 7. You stop losing jobs you already quoted — without lifting
+                        a finger.</span></div>
+            </div>
+            <div class="benefit-line"><span class="check">✓</span>
+                <div><strong>Dispatches your techs without a single phone call from you.</strong><span>Job booked → AI
+                        assigns the nearest tech and sends them the details. That's 45 minutes a day returned to you.
+                        Every day.</span></div>
+            </div>
+            <div class="benefit-line"><span class="check">✓</span>
+                <div><strong>Runs your seasonal campaigns while you're on a job.</strong><span>Every March and October,
+                        it reaches every past customer with a maintenance offer. Booked and scheduled. You just show up
+                        to do the work.</span></div>
+            </div>
+            <div class="benefit-line"><span class="check">✓</span>
+                <div><strong>Builds your reputation while you sleep.</strong><span>30 minutes after every job closes,
+                        the customer gets a review request. Your star rating goes up week after week — without you
+                        thinking about it once.</span></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="svc-pricing">
+        <div class="price-info">
+            <h3>HVAC AI Integration</h3>
+            <p>Full setup, no contract, dedicated support. We handle the tech so you don't have to.</p>
+            <p class="plain-note">You'll never need to touch the software. We run it for you.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $297/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+    </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ROOFING                                    -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="roofing">
+        <div class="svc-header">
+            <div class="svc-emoji">🏠</div>
+            <div class="svc-title-block">
+                <h2>AI for Roofing Contractors</h2>
+                <div class="tagline">"After a storm hits on Wednesday night, our AI is already contacting homeowners in
+                    the damage zone — while you're still asleep."</div>
+            </div>
+        </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">🌪️</span> Storm hits Wednesday night. You hear about it
+                    Thursday morning. Competitors who move fast already have 30 jobs signed.</div>
+                <div class="pain-line"><span class="icon">📝</span> You write insurance supplement letters by hand — 2
+                    hours per job, time you don't have.</div>
+                <div class="pain-line"><span class="icon">📞</span> You call homeowners to follow up. Most don't answer.
+                    You give up after 2 tries because you have other things to do.</div>
+                <div class="pain-line"><span class="icon">🤷</span> You have no visibility into your pipeline. You're
+                    keeping it all in your head, or a spreadsheet nobody updates.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Storm hits — AI is contacting homeowners within the hour. Not you. The
+                            AI.</strong><span>It identifies the damaged ZIP codes, finds homeowners with older roofs,
+                            and starts calling and texting. You wake up to a pipeline, not a blank slate.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Writes insurance supplement letters in 2 minutes, not 2 hours.</strong><span>You fill
+                            in one form. Complete, professional letter ready to send. Those 2 hours per job? You get
+                            them back on every single claim.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Books adjuster appointments without you touching the phone.</strong><span>Homeowner
+                            agrees to inspection — AI schedules it, confirms with both parties, sends reminders. You
+                            just show up.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Gives you a live view of every job — no spreadsheet needed.</strong><span>Who's waiting
+                            on insurance. Who's approved. Who's on the schedule. Who owes you money. All in one place.
+                            You stop carrying it all in your head.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Follows up 7 times so you never have to debate whether to call
+                            again.</strong><span>Text. Email. Voicemail. The AI keeps going until they answer or opt
+                            out. Your close rate goes up. Your stress goes down.</span></div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="svc-pricing">
+            <div class="price-info">
+                <h3>Roofing AI Integration</h3>
+                <p>Storm targeting, insurance letters, adjuster scheduling — fully automated.</p>
+                <p class="plain-note">One storm season with this pays for years of the service.</p>
+            </div>
+            <div>
+                <div class="price-tag">From $397/mo</div>
+                <div class="price-sub">Cancel any time.</div>
+            </div>
+            <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- LEGAL                                      -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="legal">
+        <div class="svc-header">
+            <div class="svc-emoji">⚖️</div>
+            <div class="svc-title-block">
+                <h2>AI for Law Firms</h2>
+                <div class="tagline">"Your receptionist spends 3 hours a day on the phone with people you'll never work
+                    with. Those 3 hours belong somewhere else."</div>
+            </div>
+        </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">📞</span> Your receptionist spends 3 hours a day on the
+                    phone with people who don't qualify or can't afford you.</div>
+                <div class="pain-line"><span class="icon">🗂️</span> New client intake takes 45 minutes per person,
+                    on paper or in a clunky form.</div>
+                <div class="pain-line"><span class="icon">💬</span> Clients constantly call asking "what's happening
+                    with my case?" — eating up time that should go to billables.</div>
+                <div class="pain-line"><span class="icon">✍️</span> Retainer agreements sit in inboxes unsigned for
+                    days. Deals fall through.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Pre-screens every caller before they reach your desk.</strong><span>The AI asks the
+                            right questions: What happened? When? Do you have documentation? Were you at fault? Only
+                            qualified leads get through to you.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Completes client intake in 8 minutes, automatically.</strong><span>New client gets
+                            a text with a link. They fill it out on their phone. The info goes straight into your
+                            system. No paper. No manual entry.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Sends clients automatic case status updates.</strong><span>Every Tuesday, clients
+                            get a text: "Here's where your case stands." Fewer calls to your office. Happier
+                            clients. Better reviews.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Sends retainer agreements and follows up until they sign.</strong><span>AI sends
+                            the agreement, checks every 24 hours, and nudges the client with a simple text until the
+                            retainer is signed. No more lost deals.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Nurtures leads who aren't ready yet.</strong><span>Some people call and say "not
+                            yet." The AI stays in touch every 2 weeks for 6 months. When they're ready, they call
+                            you — not a competitor.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <div class="price-info">
+                <h3>Legal AI Integration</h3>
+                <p>Pre-qualification, intake, case updates, and retainer follow-up — all automated.</p>
+                <p class="plain-note">One extra signed retainer per month more than pays for the whole system.</p>
+            </div>
+            <div>
+                <div class="price-tag">From $497/mo</div>
+                <div class="price-sub">Cancel any time.</div>
+            </div>
+            <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- DENTAL                                     -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="dental">
+        <div class="svc-header">
+            <div class="svc-emoji">🦷</div>
+            <div class="svc-title-block">
+                <h2>AI for Dental Practices</h2>
+                <div class="tagline">"Your front desk answers 60 calls a day. Half of them are questions a robot can
+                    answer. Give those hours back to your team — and your patients."</div>
+            </div>
+        </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">📞</span> Front desk answers 60+ calls a day. Half are "do
+                    you accept my insurance?" — easily automated.</div>
+                <div class="pain-line"><span class="icon">🪑</span> You have empty chairs because nobody followed up
+                    with overdue hygiene patients.</div>
+                <div class="pain-line"><span class="icon">😬</span> Patients forget their appointments. 12% no-show
+                    rate is costing you thousands per month.</div>
+                <div class="pain-line"><span class="icon">⭐</span> You have 23 Google reviews. Your competitor two
+                    miles away has 400.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Handles new patient questions around the clock.</strong><span>"Do you take Delta
+                            Dental?" — AI answers immediately. "Can I book an appointment?" — AI books it. 24 hours
+                            a day, including weekends.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Automatically calls every patient who's overdue for a cleaning.</strong><span>Every
+                            patient who hasn't been in for 6+ months gets a text. "Hey, you're due! Want to grab a
+                            spot this month?" Chairs fill themselves.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Sends reminder texts that actually get read.</strong><span>Text reminder 3 days
+                            before. Text the morning of. No-shows drop. Your day runs smoother. You make more per
+                            day.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Gets you Google reviews without you having to ask.</strong><span>30 minutes after
+                            every appointment, the patient gets a text: "How did we do? Mind leaving a quick
+                            review?" Simple. Works every time.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Reaches new movers in your ZIP code.</strong><span>Someone new moves to the
+                            neighborhood — the AI sends them a "welcome to the area" text with a new patient offer.
+                            They need a dentist. You show up first.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ Front Desk Hours Wasted/Week</div>
+                <div class="roi-number">~14 hrs</div>
+                <div class="roi-desc">On repeat questions, recall calls, reminder calls, and asking patients for reviews
+                    that never happen.</div>
+            </div>
+            <div class="roi-card loss">
+                <div class="roi-label">💸 Empty Chair Cost/Month</div>
+                <div class="roi-number">~$5,200</div>
+                <div class="roi-desc">4–5 empty chairs per week × avg. patient value. Revenue that walked out because
+                    nobody followed up on recalls.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Staff Hours Returned/Week</div>
+                <div class="roi-number">12 hrs/wk</div>
+                <div class="roi-desc">Your team focuses on patients in the chair. The AI handles everything else.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">📈 Monthly Revenue Recovered</div>
+                <div class="roi-number">+$4,800/mo</div>
+                <div class="roi-desc">From automated recalls filling 3–5 extra chairs per week consistently.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>Intake, recalls, reminders, reviews, and new patient outreach — all automated.</p>
+            <p class="plain-note">Most practices fill 3–5 extra chairs per week just from the recall system
+                alone.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $397/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- REAL ESTATE                                -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="realestate">
+        <div class="svc-header">
+            <div class="svc-emoji">🏡</div>
+            <div class="svc-title-block">
+                <h2>AI for Real Estate Agents</h2>
+                <div class="tagline">"Stop chasing cold leads by hand. The AI follows up for 90 days so that when
+                    they're finally ready to buy or sell, you're the only agent they remember."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">📋</span> You get 30 leads a month. You follow up on 8 of
+                    them. The other 22 go cold because you ran out of time.</div>
+                <div class="pain-line"><span class="icon">🏠</span> Someone asks to see a house. You play phone tag
+                    for 3 days trying to schedule the showing.</div>
+                <div class="pain-line"><span class="icon">💸</span> You've got expired listings in your area. You
+                    know you should call them. You never get around to it.</div>
+                <div class="pain-line"><span class="icon">🥶</span> You have leads from 3 months ago who said "not
+                    yet." You have no system to stay in touch with them.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Follows up with every single lead for 90 days.</strong><span>Text on day 1. Email
+                            on day 3. Voicemail on day 7. Check-in at day 30, day 60, day 90. Never loses a lead.
+                            Never forgets to follow up.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Books showings automatically.</strong><span>Buyer says they want to see a home — AI
+                            finds a time that works, confirms with both sides, and sends reminders. You just show
+                            up.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Reaches out to every expired listing in your market every week.</strong><span>"Your
+                            listing expired. Thinking about trying again? I have buyers looking in your area."
+                            Automated. Personalized. Sent while you're at other appointments.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Sends a market analysis report to every cold lead automatically.</strong><span>Cold
+                            buyers get a monthly "here's what sold in your target area" report. When they're ready,
+                            they trust you — because you've been their expert for months.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Tells you exactly which leads are hot right now.</strong><span>AI tracks who's
+                            opening emails, clicking listings, and replying. You see a ranked list every morning:
+                            talk to these people today. No more guessing.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ Hours Wasted Per Week</div>
+                <div class="roi-number">~10 hrs</div>
+                <div class="roi-desc">Cold lead follow-up, phone tag to schedule showings, forgetting to reach expired
+                    listings, manual CRM updates.</div>
+            </div>
+            <div class="roi-card loss">
+                <div class="roi-label">💸 Deals Lost Per Quarter</div>
+                <div class="roi-number">3–5 deals</div>
+                <div class="roi-desc">Leads who went cold because you didn't have time to follow up for 90 days. They
+                    hired someone else.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Hours You Get Back</div>
+                <div class="roi-number">9 hrs/wk</div>
+                <div class="roi-desc">No more manual follow-ups, no more scheduling phone tag, no more building cold
+                    outreach by hand.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">📈 Extra Closings Per Quarter</div>
+                <div class="roi-number">+1–2 deals</div>
+                <div class="roi-desc">From 90-day automated nurturing that keeps you top-of-mind until leads are ready
+                    to act.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>Lead nurturing, showing scheduler, expired listing outreach, and market reports — automated.</p>
+            <p class="plain-note">One extra transaction per quarter is 10x the annual cost of this service.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $347/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ELECTRICAL                                 -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="electrical">
+        <div class="svc-header">
+            <div class="svc-emoji">🔌</div>
+            <div class="svc-title-block">
+                <h2>AI for Electrical Contractors</h2>
+                <div class="tagline">"You spend 2 hours a day writing quotes and tracking permits. We give those 2
+                    hours back to you."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">📝</span> Writing quotes takes forever. You quote 10 jobs,
+                    win 4, and the 6 you lost went to whoever replied first.</div>
+                <div class="pain-line"><span class="icon">🏫</span> You're chasing permit status online, logging
+                    into city portals, refreshing pages to see if it passed inspection.</div>
+                <div class="pain-line"><span class="icon">⚡</span> EV charger installs are booming in your area. You
+                    don't have a system to find those customers.</div>
+                <div class="pain-line"><span class="icon">💰</span> Job ends. You forget to offer the panel upgrade.
+                    $3,000 upsell walks out the door.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Generates detailed quotes in under 5 minutes.</strong><span>Customer calls about a
+                            panel upgrade — AI asks the right questions and generates a complete, professional
+                            quote. You approve and send. Done.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Tracks your permits so you don't have to.</strong><span>The AI checks your permit
+                            status every morning. When it clears — or when there's a problem — you get a text
+                            immediately. Stop refreshing city portals.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Finds EV charger customers in your area automatically.</strong><span>Identifies
+                            homeowners in your ZIP codes who recently bought Teslas or other EVs and reaches out
+                            with your EV charger install offer. Warm leads, already interested.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Books inspections and sends reminders to everyone.</strong><span>Once a permit is
+                            approved, the AI schedules the inspection, confirms with your crew, and sends the
+                            inspector the details. No dropped balls.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Offers the upsell every time, automatically.</strong><span>After every job closes,
+                            the AI sends the customer a message: "While we're here — is your panel over 20 years
+                            old? We found 3 issues worth looking at." Closes upsells you'd never think to
+                            offer.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ Hours Lost Per Week</div>
+                <div class="roi-number">~11 hrs</div>
+                <div class="roi-desc">Writing quotes by hand, checking permit portal every day, missing EV install
+                    opportunities, manual upsell conversations.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Hours You Get Back</div>
+                <div class="roi-number">9 hrs/wk</div>
+                <div class="roi-desc">Quoting, permit tracking, and upsell follow-up removed from your plate entirely.
+                </div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">📈 New EV Revenue / Month</div>
+                <div class="roi-number">+$3,600</div>
+                <div class="roi-desc">From automated EV charger outreach to new Tesla buyers in your area. Jobs you
+                    didn't know existed.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>Quoting, permit tracking, EV outreach, inspection scheduling, and upsells — automated.</p>
+            <p class="plain-note">Self-funded by the first upsell it closes for you.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $297/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- PLUMBING                                   -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="plumbing">
+        <div class="svc-header">
+            <div class="svc-emoji">💧</div>
+            <div class="svc-title-block">
+                <h2>AI for Plumbing Companies</h2>
+                <div class="tagline">"The 2am emergency call that goes to voicemail goes to your competitor. We fix
+                    that."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">🌙</span> Emergency calls come in at 2am. Nobody answers.
+                    Customer finds someone on Google. You lose the job.</div>
+                <div class="pain-line"><span class="icon">🧾</span> Invoices pile up. Chasing payment takes as long
+                    as doing the job.</div>
+                <div class="pain-line"><span class="icon">🔧</span> Past customers need annual maintenance — you
+                    have no system to reach them before they call someone else.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Answers emergency calls 24/7 and dispatches instantly.</strong><span>2am call comes
+                            in — AI takes the info, rates the urgency, and texts your on-call tech with the address
+                            and problem. Customer gets a response in under 2 minutes.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Sends invoices automatically when a job closes.</strong><span>Job marked complete →
+                            invoice sent to customer's email and phone instantly. Includes a pay-now link. 80% get
+                            paid same day.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Chases late payments so you don't have to.</strong><span>Invoice unpaid after 3
+                            days? AI sends a polite reminder. Day 7? Another one. Day 14? Sterner tone. You get paid
+                            without the awkward calls.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Runs annual maintenance outreach to every past customer.</strong><span>Every spring
+                            and fall, past customers get a message: "Time for your annual pipe check?" Most say yes
+                            — it's a relationship they trust. Revenue you'd otherwise miss.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ Missed After-Hours Calls/Mo</div>
+                <div class="roi-number">~22 calls</div>
+                <div class="roi-desc">Each one is a homeowner who called a competitor who answered. Emergency jobs at
+                    premium rates — gone.</div>
+            </div>
+            <div class="roi-card loss">
+                <div class="roi-label">💸 Revenue Missed Monthly</div>
+                <div class="roi-number">~$4,400</div>
+                <div class="roi-desc">22 missed emergency calls × avg. $200 job. Plus late invoice collection delays
+                    eating your cash flow.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Hours You Get Back</div>
+                <div class="roi-number">8 hrs/wk</div>
+                <div class="roi-desc">Dispatch, invoicing, and payment follow-up off your plate. Mornings start without
+                    15 callbacks to handle.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>24/7 dispatch, invoicing, payment follow-up, and maintenance campaigns — automated.</p>
+            <p class="plain-note">The emergency calls alone will recover double the monthly cost.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $247/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- LANDSCAPING                                -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="landscaping">
+        <div class="svc-header">
+            <div class="svc-emoji">🌿</div>
+            <div class="svc-title-block">
+                <h2>AI for Landscaping &amp; Lawn Care</h2>
+                <div class="tagline">"Most landscaping businesses lose $40K a year in HOA contracts they never even
+                    bid on. We find those contracts and bid on them for you."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">🏘️</span> HOA communities in your area have big
+                    landscaping contracts. You have no system to find or contact them.</div>
+                <div class="pain-line"><span class="icon">📅</span> Spring rush hits and your crew is overbooked.
+                    Fall hits and you have slow weeks. Uneven revenue.</div>
+                <div class="pain-line"><span class="icon">🌧️</span> It rains for a week. You cancel services but
+                    forget to tell clients. They're annoyed and don't renew.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Finds and contacts HOA property managers automatically.</strong><span>AI finds
+                            every HOA and commercial property in your area, identifies the property manager, and
+                            sends them a proposal on your behalf. Every month. Consistently.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Generates seasonal proposals in bulk.</strong><span>Every February, AI creates and
+                            sends spring service proposals to all your existing customers. Every August, fall and
+                            winterization proposals go out. Revenue locked in before the season starts.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Reschedules automatically when weather changes.</strong><span>Rain forecast? AI
+                            texts affected customers, rescheduled for the next available day, and notifies your crew
+                            — without you making a single call.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Sends photo updates after every visit.</strong><span>After each service, the AI
+                            sends the client a before/after photo report by text. Clients love it. Bigger tips.
+                            Fewer cancellations. More referrals.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ Hours Spent On Admin/Week</div>
+                <div class="roi-number">~10 hrs</div>
+                <div class="roi-desc">Manually reaching HOAs, writing proposals, rescheduling rained-out jobs, texting
+                    clients updates one by one.</div>
+            </div>
+            <div class="roi-card loss">
+                <div class="roi-label">💸 HOA Contracts Missed/Year</div>
+                <div class="roi-number">$40K+</div>
+                <div class="roi-desc">HOAs in your territory you never contacted because you didn't have a system to
+                    find or reach them.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Hours You Get Back</div>
+                <div class="roi-number">9 hrs/wk</div>
+                <div class="roi-desc">Proposals, scheduling, weather rescheduling, and client updates — all handled
+                    without you touching them.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>HOA outreach, seasonal proposals, crew scheduling, weather adjustments, and client reports —
+                automated.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $247/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- PEST CONTROL                               -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="pest">
+        <div class="svc-header">
+            <div class="svc-emoji">🐞</div>
+            <div class="svc-title-block">
+                <h2>AI for Pest Control Companies</h2>
+                <div class="tagline">"Recurring revenue is only recurring if someone's chasing it. Our AI does that
+                    for you."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">🔄</span> Recurring customers forget to schedule their
+                    next service. You lose them to whoever texts them first.</div>
+                <div class="pain-line"><span class="icon">🗺️</span> Your techs drive inefficient routes. You're
+                    paying for gas and time that could be saved with better planning.</div>
+                <div class="pain-line"><span class="icon">🏡</span> New families move into your area every week. You
+                    have no system to reach them before a competitor does.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Reminds every recurring customer before their service is due.</strong><span>"Hey,
+                            your quarterly treatment is coming up! Want us to come Thursday or Friday?" Most
+                            customers book immediately. Recurring revenue actually recurs.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Plans the most efficient daily routes for your techs.</strong><span>Every morning,
+                            your techs get an optimized route that minimizes drive time and maximizes jobs per day.
+                            You fit in 2–3 more calls per week. That's real money.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Welcomes every new homeowner in your territory.</strong><span>AI tracks new-mover
+                            data in your ZIP codes. When a family moves in, they get a welcome text from you within
+                            the first 2 weeks. You're their first call when they see a cockroach.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Triggers season-specific treatment campaigns.</strong><span>Mosquito season
+                            starting? AI texts your whole list: "Time for your outdoor spray." Termite season? AI
+                            messages homeowners in high-risk areas. Sales happen automatically.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ Time Chasing Renewals/Week</div>
+                <div class="roi-number">~6 hrs</div>
+                <div class="roi-desc">Calling overdue recurring customers who didn't rebook. Most of them just forgot —
+                    they would've said yes.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Hours You Get Back</div>
+                <div class="roi-number">6 hrs/wk</div>
+                <div class="roi-desc">Renewals, route planning, new mover outreach, and seasonal campaigns — all running
+                    without you.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">📈 Recurring Revenue Added</div>
+                <div class="roi-number">+$1,800/mo</div>
+                <div class="roi-desc">From automatic renewal reminders and new mover territory outreach running every
+                    single week.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>Recurring reminders, route optimization, new mover outreach, and seasonal campaigns — automated.
+            </p>
+        </div>
+        <div>
+            <div class="price-tag">From $197/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- CLEANING                                   -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="cleaning">
+        <div class="svc-header">
+            <div class="svc-emoji">🧹</div>
+            <div class="svc-title-block">
+                <h2>AI for Cleaning Companies</h2>
+                <div class="tagline">"You're great at cleaning. You shouldn't also have to be great at sales,
+                    scheduling, billing, and marketing. The AI handles all of that."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">📱</span> People find you on Google, send a message, and
+                    never hear back for 24 hours. They hire someone else.</div>
+                <div class="pain-line"><span class="icon">💳</span> Collecting payment is awkward. Customers pay
+                    late. Some don't pay at all.</div>
+                <div class="pain-line"><span class="icon">🏘️</span> There are 400 Airbnb rentals in your area. You
+                    have no system to reach any of their owners.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Responds to every inquiry in under 2 minutes.</strong><span>Someone fills out your
+                            website form at 11pm — the AI texts back immediately, gets their info, and locks in a
+                            booking. No leads lost to slow response times.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Handles recurring bookings and payment automatically.</strong><span>Bi-weekly
+                            client books their slot once. AI schedules it forever, assigns a cleaner, sends
+                            reminders, and charges the card on file afterward. You never touch it.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Reaches out to every Airbnb host in your area.</strong><span>Airbnb hosts need a
+                            cleaner between every guest. The AI finds them and sends a simple, personal message:
+                            "Need a reliable same-day cleaner? Here's what we offer." It's a recurring gig for
+                            life.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Asks for reviews right after every clean.</strong><span>30 minutes after the job:
+                            "Everything look good? Would you mind leaving a quick Google review?" Simple text. Big
+                            results. Your review count goes up every week.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ Hours Lost Per Week</div>
+                <div class="roi-number">~8 hrs</div>
+                <div class="roi-desc">Answering late inquiries, chasing payments, manually booking recurring clients,
+                    following up on reviews.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Hours You Get Back</div>
+                <div class="roi-number">7 hrs/wk</div>
+                <div class="roi-desc">Booking, billing, and Airbnb outreach run automatically. You just show up and
+                    clean.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">📈 Airbnb Client Revenue/Mo</div>
+                <div class="roi-number">+$2,400</div>
+                <div class="roi-desc">From AI-targeted outreach to Airbnb hosts who need reliable, repeat same-day
+                    cleaning.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>Booking, recurring billing, Airbnb outreach, and review automation — fully handled.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $197/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- POOL                                       -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="pool">
+        <div class="svc-header">
+            <div class="svc-emoji">🔵</div>
+            <div class="svc-title-block">
+                <h2>AI for Pool Service Companies</h2>
+                <div class="tagline">"In Florida, Texas, and Arizona — there are more pools than you can service.
+                    The problem is finding the owners. We do that."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">🏊</span> New pools are being built in your area every
+                    week. You have no way of knowing who the owners are until they find you.</div>
+                <div class="pain-line"><span class="icon">🧪</span> You rely on memory or paper logs to track
+                    chemical levels and service dates. Things slip through.</div>
+                <div class="pain-line"><span class="icon">❄️</span> Winterization season hits and you're scrambling.
+                    You don't reach every customer in time.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Finds new pool owners in your territory every week.</strong><span>AI monitors
+                            building permits for new pool construction. The week a new pool is completed, the owner
+                            gets a message from you. You're the first call they make.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Tracks chemical logs so nothing falls through the cracks.</strong><span>After each
+                            service visit, the tech logs the chemical levels on their phone. AI tracks trends,
+                            alerts you if something is off, and auto-orders supplies when stock runs low.</span>
+                    </div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Runs your seasonal open and close campaigns automatically.</strong><span>Every
+                            March: "Time to open the pool! Want us to come this week?" Every October: "Time to
+                            winterize before first frost." Every customer reached. Every year. Without you sending a
+                            single message.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Contacts every HOA with a community pool.</strong><span>AI identifies every HOA
+                            pool in your service area, finds the property manager, and sends a maintenance proposal.
+                            Big contracts. Long relationships. Steady revenue.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">⏱ New Pool Owners Missed/Year</div>
+                <div class="roi-number">~80 leads</div>
+                <div class="roi-desc">New pools completed in your territory every year. Without a permit tracker, you
+                    never know who they are until they find someone else.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Hours You Get Back</div>
+                <div class="roi-number">7 hrs/wk</div>
+                <div class="roi-desc">Chemical logging, seasonal campaigns, HOA outreach, and client reminders — fully
+                    automated.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">📈 New Recurring Clients/Year</div>
+                <div class="roi-number">+18–25</div>
+                <div class="roi-desc">From new pool permit targeting and HOA contract outreach running in your service
+                    territory.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>New owner outreach, chemical tracking, seasonal campaigns, and HOA contracts — automated.<br>FL ·
+                TX · AZ · CA focus.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $247/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- LOCAL SEO                                  -->
+    <!-- ══════════════════════════════════════════ -->
+    <section class="service-section" id="seo">
+        <div class="svc-header">
+            <div class="svc-emoji">📍</div>
+            <div class="svc-title-block">
+                <h2>Hyperlocal SEO AI</h2>
+                <div class="tagline">"When someone in your town Googles 'HVAC near me,' are you the first result? If
+                    not, your competitors are stealing your customers every single day."</div>
+            </div>
+        </div>
+        <div class="svc-grid">
+            <div class="before-after">
+                <div class="ba-label before">❌ Right Now, Without AI</div>
+                <div class="pain-line"><span class="icon">🔍</span> You don't show up in the top 3 results on Google
+                    Maps. Those 3 spots are getting 80% of the clicks.</div>
+                <div class="pain-line"><span class="icon">📋</span> Your Google Business Profile has outdated hours,
+                    no photos, and incomplete information. Google penalizes you for it.</div>
+                <div class="pain-line"><span class="icon">⭐</span> You have 18 reviews. Your top competitor has 340.
+                    Customers pick based on reviews. You're losing before they even call.</div>
+            </div>
+            <div class="before-after" style="border-color: rgba(34,197,94,0.2);">
+                <div class="ba-label after">✅ With Your NeuForge AI Agent</div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Optimizes your Google Business Profile completely.</strong><span>We update every
+                            field, add professional photos, set correct service categories, and post weekly updates.
+                            Google rewards active profiles with higher rankings. This moves you up the map.</span>
+                    </div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Lists your business in 40+ directories automatically.</strong><span>Yelp. Bing.
+                            Apple Maps. HomeAdvisor. Angi. Every directory that matters. Consistent listings tell
+                            Google you're a real, established business. Rankings improve.</span></div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Systematically grows your review count every month.</strong><span>AI sends review
+                            requests to every customer after every job. Responds to every review (positive and
+                            negative) professionally. Your star average goes up. New customers trust you.</span>
+                    </div>
+                </div>
+                <div class="benefit-line"><span class="check">✓</span>
+                    <div><strong>Shows you exactly what your competitors are doing.</strong><span>Monthly report:
+                            here's what the top 3 competitors in your area are doing differently. Here's the gap.
+                            Here's what we're doing to close it. Plain English. No tech jargon.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="roi-bar">
+            <div class="roi-card loss">
+                <div class="roi-label">📍 Your Google Map Rank (Avg)</div>
+                <div class="roi-number">#6–12</div>
+                <div class="roi-desc">Positions 4–12 get under 8% of clicks combined. Competitors in spots 1–3 are
+                    taking your customers every single day.</div>
+            </div>
+            <div class="roi-card loss">
+                <div class="roi-label">💸 Revenue Lost to Bad Ranking</div>
+                <div class="roi-number">~$6K/mo</div>
+                <div class="roi-desc">Estimated from moving position 8 → top 3 in a typical local market. Calls you're
+                    not getting.</div>
+            </div>
+            <div class="roi-card gain">
+                <div class="roi-label">✅ Time to Top 3 (Average)</div>
+                <div class="roi-number">60–90 days</div>
+                <div class="roi-desc">For most local markets with active profile optimization, review growth, and
+                    citation building running monthly.</div>
+            </div>
+        </div>
+        <div class="svc-pricing">
+            <p>Google profile, 40+ directories, review growth, and competitor analysis — managed monthly.</p>
+            <p class="plain-note">Works for any Blue Zone industry. Pairs with any service above for maximum
+                results.</p>
+        </div>
+        <div>
+            <div class="price-tag">From $347/mo</div>
+            <div class="price-sub">Cancel any time.</div>
+        </div>
+        <a href="index.html#ai-services" class="btn-primary btn-lg">Get Started →</a>
+        </div>
+    </section>
+
+    </div><!-- /container -->
+
+    <!-- TESTIMONIALS -->
+    <div class="testimonials-section" id="testimonials">
+        <div class="testimonials-inner">
+            <div class="page-label" style="text-align:center;margin-bottom:12px;">Real Owners. Real Results.</div>
+            <h2 class="testimonials-heading">They got their evenings back.<br><span>Here's what they said.</span></h2>
+            <div class="testimonials-grid">
+
+                <div class="testimonial-card">
+                    <div class="t-stars">★★★★★</div>
+                    <p class="t-quote">"I literally used to spend every Sunday returning leads. My wife hated it. Now
+                        the AI handles all of that and I haven't missed a family dinner in two months. The schedule just
+                        fills up."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">RH</div>
+                        <div>
+                            <div class="t-name">Ray H.</div>
+                            <div class="t-role">HVAC Owner · Phoenix, AZ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-stars">★★★★★</div>
+                    <p class="t-quote">"The storm hit on a Thursday night. By Friday morning the AI had already texted
+                        180 homeowners in the damage zone. I had 14 inspection requests before I finished my coffee.
+                        That never happened before."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">MC</div>
+                        <div>
+                            <div class="t-name">Mike C.</div>
+                            <div class="t-role">Roofing Contractor · Dallas, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-stars">★★★★★</div>
+                    <p class="t-quote">"My front desk was spending 3 hours a day on the phone qualifying people who
+                        weren't even good leads. Now the AI does that. My receptionist actually gets to help the clients
+                        we want. Night and day."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">JM</div>
+                        <div>
+                            <div class="t-name">Jennifer M.</div>
+                            <div class="t-role">Personal Injury Attorney · Orlando, FL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-stars">★★★★★</div>
+                    <p class="t-quote">"We had 23 Google reviews. Three months later we're at 141. Our phone rings more.
+                        New patients mention the reviews all the time. I didn't do anything — the AI just sent texts
+                        after every appointment."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">DK</div>
+                        <div>
+                            <div class="t-name">Dr. David K.</div>
+                            <div class="t-role">Dental Practice Owner · Austin, TX</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-stars">★★★★★</div>
+                    <p class="t-quote">"I was skeptical about AI. I'm not a tech person. But this literally required
+                        nothing from me. They set it up, it runs, and I just got 2 HOA contracts I never would have
+                        found on my own."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">TW</div>
+                        <div>
+                            <div class="t-name">Tony W.</div>
+                            <div class="t-role">Landscaping · Tampa, FL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="t-stars">★★★★★</div>
+                    <p class="t-quote">"The 2am emergency calls used to go to voicemail. I lost so many jobs that way.
+                        Now the AI picks up, handles the conversation, and texts my on-call guy. I woke up to two jobs
+                        already dispatched."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">SP</div>
+                        <div>
+                            <div class="t-name">Steve P.</div>
+                            <div class="t-role">Plumbing Company · Atlanta, GA</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- INTAKE FORM -->
+    <div class="intake-section" id="get-started">
+        <div class="intake-inner">
+            <div class="intake-left">
+                <div class="page-label">No Tech Setup. No Contracts.</div>
+                <h2>Let's figure out which AI<br><span>is right for your business.</span></h2>
+                <p>Takes 60 seconds. We'll call you today — usually within the hour during business hours. No sales
+                    pressure, just a straight conversation about what's eating your time.</p>
+                <ul class="intake-promises">
+                    <li>✓ We set everything up for you</li>
+                    <li>✓ You never touch the software</li>
+                    <li>✓ Cancel any time, no questions</li>
+                    <li>✓ Results in 30 days or we fix it free</li>
+                </ul>
+            </div>
+            <div class="intake-right">
+                <form class="intake-form" id="aiServiceForm" onsubmit="submitIntake(event)">
+                    <div class="intake-field">
+                        <label for="intake-name">Your First Name</label>
+                        <input type="text" id="intake-name" placeholder="Mike" required autocomplete="given-name">
+                    </div>
+                    <div class="intake-field">
+                        <label for="intake-phone">Best Phone Number</label>
+                        <input type="tel" id="intake-phone" placeholder="(555) 000-0000" required autocomplete="tel">
+                    </div>
+                    <div class="intake-field">
+                        <label for="intake-industry">Your Industry</label>
+                        <select id="intake-industry" required>
+                            <option value="" disabled selected>Pick your industry...</option>
+                            <option value="hvac">HVAC</option>
+                            <option value="roofing">Roofing</option>
+                            <option value="legal">Law / Legal</option>
+                            <option value="dental">Dental Practice</option>
+                            <option value="realestate">Real Estate</option>
+                            <option value="electrical">Electrical</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="landscaping">Landscaping / Lawn Care</option>
+                            <option value="pest">Pest Control</option>
+                            <option value="cleaning">Cleaning</option>
+                            <option value="pool">Pool Service</option>
+                            <option value="seo">Need Better Google Ranking</option>
+                            <option value="other">Something Else</option>
+                        </select>
+                    </div>
+                    <div class="intake-field">
+                        <label for="intake-pain">What's your biggest headache right now? <span
+                                class="label-opt">(optional)</span></label>
+                        <textarea id="intake-pain" rows="2"
+                            placeholder="e.g. Missing after-hours calls, chasing invoices, no follow-up system..."></textarea>
+                    </div>
+                    <button type="submit" class="intake-submit" id="intakeBtn">
+                        <span id="intakeBtnText">📞 Call Me Today →</span>
+                    </button>
+                    <p class="intake-fine">We'll call within the hour. No robots. A real person.</p>
+                    <div id="intakeSuccess" class="intake-success" style="display:none;">
+                        ✅ Got it! We'll be in touch shortly. Keep your phone on.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div class="bottom-cta">
+        <h2>Ready to stop doing it the hard way?<br><span>Pick your industry. We handle the rest.</span></h2>
+        <p>No contracts. No tech setup. No learning curve. You run your business. The AI runs the back-office. Simple.
+        </p>
+        <div class="btn-group">
+            <a href="index.html#ai-services" class="btn-primary btn-lg">&#x1f4ac; Get Started Today →</a>
+            <a href="live.html" class="btn-secondary btn-lg">See It Running Live →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 NeuForge &nbsp;·&nbsp; <a href="index.html"
+                style="color:var(--muted);text-decoration:none">neuforge.app</a> &nbsp;·&nbsp; Built by Titan Signal AI
+            Foundry &nbsp;·&nbsp; Not financial advice.</p>
+    </footer>
+
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 """
 Titan_NeuForgeOutreach.py
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-NeuForge Dedicated Email Outreach Daemon v1.0
+NeuForge Dedicated Email Outreach Daemon v1.1
 Flagship product outreach — 3 sequences:
   A) Cold/Builder   — Free gift angle, direct CTA
   B) FOMO/Expiry    — Trial expiry urgency, April 1 deadline
@@ -13,6 +13,8 @@ All emails include the NeuForge platform intro. No exceptions.
 
 Reads from Brevo NeuForge prospect list.
 Sends via SMTP router (Brevo SMTP relay).
+
+v1.1: Per-touch ps[] injection, CAN-SPAM compliant unsubscribe.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
 
@@ -55,7 +57,6 @@ NF_SEQUENCES = {
             {
                 "day": 0,
                 "subject": "Your AI agent is live in 30 minutes",
-                # T1: Soft proof — no revenue claims on cold open
                 "ps": "P.S. Creators on NeuForge keep 70% of everything they earn. No lock-in.",
                 "body": """\
 Hey {first_name},
@@ -82,7 +83,6 @@ Titan Signal AI Foundry
             {
                 "day": 3,
                 "subject": "Re: Your free NeuForge agent",
-                # T2: Social proof — crowd, not cash
                 "ps": "P.S. 47,000 operators joined in the last 90 days. The platform is moving fast.",
                 "body": """\
 Hey {first_name},
@@ -105,8 +105,7 @@ Grab it: {neuforge_url}
             {
                 "day": 7,
                 "subject": "Last call — founding rate expires April 1",
-                # T3: Late funnel — revenue claim now appropriate (warm by T3)
-                "ps": "P.S. Our top earners made $50k–$90k last month. 70% goes straight to them. \nThat's the model. No asterisks.",
+                "ps": "P.S. Our top earners made $50k–$90k last month. 70% goes straight to them.\nThat's the model. No asterisks.",
                 "body": """\
 {first_name},
 
@@ -129,56 +128,12 @@ Reply STOP to unsubscribe.
         ]
     },
 
-            {
-                "day": 3,
-                "subject": "Re: Your free NeuForge agent",
-                "body": """\
-Hey {first_name},
-
-Quick follow-up on my note from Monday.
-
-Your free agent pack is still waiting at NeuForge.app.
-
-Since I sent that email, 847 more operators joined the platform. The founding rate locks in 8 days.
-
-If you're building anything in AI — agents, tools, pipelines — NeuForge is the distribution layer. List once. Reach 47,000 buyers.
-
-Grab it: {neuforge_url}
-
-— Gary
-
-P.S. This is the last email I'll send this week. Don't miss the founding window.
-"""
-            },
-            {
-                "day": 7,
-                "subject": "Last call — founding rate expires April 1",
-                "body": """\
-{first_name},
-
-The founding rate for NeuForge ($9/mo, locked forever) expires April 1st.
-
-After that: $29/mo. No grandfathering.
-
-47,218 operators. 514 agents. 18 verticals. The platform is real, it's live, and it's already generating revenue for creators.
-
-Last chance to lock in: {neuforge_url}
-
-— Gary
-
----
-This is an automated message from Titan Signal AI Foundry.
-Unsubscribe: Reply with STOP.
-"""
-            }
-        ]
-    },
-
     "enterprise": {
         "touches": [
             {
                 "day": 0,
                 "subject": "We built the AI infrastructure layer you've been waiting for",
+                "ps": "P.S. We also have OVERWATCH — a live geopolitical risk terminal tracking military aircraft and global OSINT in real time. Happy to demo both.",
                 "body": """\
 Hi {first_name},
 
@@ -200,12 +155,13 @@ Worth 20 minutes to explore? → {neuforge_url}/enterprise
 — Gary Chen
 Titan Signal AI Foundry | NeuForge.app
 
-P.S. We also have OVERWATCH — a live geopolitical risk terminal tracking military aircraft and global OSINT in real time. Happy to demo both if useful.
+{ps}
 """
             },
             {
                 "day": 4,
                 "subject": "Re: NeuForge enterprise — following up",
+                "ps": "P.S. If timing is off, reply with a better month and I'll circle back. No pressure.",
                 "body": """\
 Hi {first_name},
 
@@ -221,7 +177,7 @@ Ready? → {neuforge_url}/enterprise
 
 — Gary
 
-P.S. If timing is off, reply with a better month and I'll circle back. No pressure.
+{ps}
 """
             }
         ]
@@ -232,6 +188,7 @@ P.S. If timing is off, reply with a better month and I'll circle back. No pressu
             {
                 "day": 0,
                 "subject": "Your NeuForge trial expires in 24 hours",
+                "ps": "P.S. The founding rate ($9/mo) locks on April 1. After that it's $29/mo permanently.",
                 "body": """\
 {first_name},
 
@@ -241,7 +198,7 @@ What you built or explored this week stays yours. But after tomorrow, you'll nee
 
 Reminder of what's included:
   → All 18 verticals
-  → AI-to-AI Chat (agents negotiate and transact autonomously)  
+  → AI-to-AI Chat (agents negotiate and transact autonomously)
   → 70% rev share on listed agents
   → OVERWATCH geopolitical intel access
 
@@ -250,6 +207,8 @@ Extend at the founding rate — before April 1: {neuforge_url}
 See you inside.
 
 — Gary
+
+{ps}
 
 ---
 Reply STOP to unsubscribe.
@@ -395,10 +354,13 @@ def outreach_cycle():
                 continue
 
         # Build and send
-        body = touch["body"].format(
-            first_name=name.split()[0] if name else "there",
+        first = name.split()[0] if name else "there"
+        ps    = touch.get("ps", "")
+        body  = touch["body"].format(
+            first_name=first,
             company=company,
-            neuforge_url=NEUFORGE_URL
+            neuforge_url=NEUFORGE_URL,
+            ps=ps,
         )
         subj = touch["subject"]
         if send_email(email, name, subj, body):
@@ -418,7 +380,7 @@ def outreach_cycle():
 
 def run():
     log.info("╔══════════════════════════════════════════════════╗")
-    log.info("║  Titan NeuForge Outreach v1.0 — ONLINE          ║")
+    log.info("║  Titan NeuForge Outreach v1.1 — ONLINE          ║")
     log.info("║  Flagship: NeuForge.app · 3 sequences active    ║")
     log.info("╚══════════════════════════════════════════════════╝")
     while True:

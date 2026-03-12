@@ -182,7 +182,6 @@ def init_db():
 
 init_db()
 
-BACKOFFICE_KEY = os.getenv("BACKOFFICE_KEY", "nf-admin-2026")
 
 def geo_resolve(ip: str) -> dict:
     """Resolve IP to country/city via ip-api.com (free, no key)."""
@@ -385,8 +384,10 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
 
 
 @app.get("/subscribers")
-def list_subscribers():
-    """Internal endpoint — subscriber count by package."""
+def list_subscribers(key: str = ""):
+    """Internal endpoint — subscriber count by package. Requires backoffice key."""
+    if key != BACKOFFICE_KEY:
+        raise HTTPException(403, "Invalid key")
     try:
         conn = sqlite3.connect(DB)
         rows = conn.execute(
