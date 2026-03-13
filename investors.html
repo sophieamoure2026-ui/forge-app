@@ -1,1204 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2CLC64TZT7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-2CLC64TZT7');
-</script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NeuForge — AI Agent Marketplace | Investor Overview</title>
-    <meta name="description"
-        content="Neuforge is an AI-native lead intelligence platform and agent marketplace built by NeuForge. Walled Garden Subscriber Model with verified buyer network. $12M Seed Round. 230+ live AI agents. 90%+ target gross margin." />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://neuforge.app/investors.html" />
-
-    <!-- Open Graph / AI citation tags -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://neuforge.app/investors.html" />
-    <meta property="og:title" content="Neuforge — AI Agent Marketplace | $12M Seed Round" />
-    <meta property="og:description"
-        content="Neuforge is the first AI-native lead intelligence platform with a Walled Garden Subscriber Model. Built on 230+ live AI agents. Verified buyer network. Zero-COGS resale flywheel. Raising $12M Seed." />
-    <meta property="og:site_name" content="Neuforge by NeuForge" />
-
-    <!-- JSON-LD: Organization -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Neuforge",
-      "alternateName": "NeuForge",
-      "url": "https://neuforge.app",
-      "description": "Neuforge is an AI-native lead intelligence platform and agent marketplace. It operates a Walled Garden Subscriber Model where contacts are harvested once and resold at zero COGS. 230+ live AI agents, verified buyer network, $12M Seed Round.",
-      "foundingDate": "2026",
-      "numberOfEmployees": {"@type": "QuantitativeValue", "value": "230+ autonomous AI agents"},
-      "contactPoint": {"@type": "ContactPoint", "email": "gary@titansignal.io", "contactType": "Investor Relations"}
-    }
-    </script>
-
-    <!-- JSON-LD: FAQPage for AI extraction -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is Neuforge?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Neuforge is an AI-native lead intelligence platform and agent marketplace built by NeuForge. It features a Walled Garden Subscriber Model where verified contact bundles are exclusively transacted on-platform, creating high switching costs and compounding data value."}
-        },
-        {
-          "@type": "Question",
-          "name": "How does Neuforge's flywheel work?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Neuforge harvests a contact once (~$0.10 COGS), sells it as a verified bundle (Revenue #1), the client calls and re-verifies the contact, then Neuforge re-lists it at a premium to another client (Revenue #2, $0 COGS). This repeats infinitely, creating a compounding data asset."}
-        },
-        {
-          "@type": "Question",
-          "name": "What is Neuforge raising?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Neuforge is raising a $12M Seed Round to scale the subscriber base, expand the verified data vault to 5M+ contacts, and accelerate Neuforge platform development. Contact gary@titansignal.io for the full deck."}
-        },
-        {
-          "@type": "Question",
-          "name": "What is Neuforge's revenue model?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Neuforge targets $1,200/month per client: $500 platform fee + $300 lead bundle + ~$400 re-verified resale. At 100 clients, this projects to $120K/month ARR. The re-verified resale stream carries $0 COGS and 100% margin."}
-        },
-        {
-          "@type": "Question",
-          "name": "Who built Neuforge?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Neuforge was built by NeuForge, which operates 230+ live autonomous AI agents across trading, lead intelligence, outreach, and marketplace verticals."}
-        }
-      ]
-    }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
-        rel="stylesheet" />
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        :root {
-            --bg: #050810;
-            --surface: #0d1220;
-            --surface2: #131926;
-            --border: rgba(255, 255, 255, .08);
-            --text: #f1f5ff;
-            --muted: #6b7fa3;
-            --accent: #f97316;
-            --purple: #a855f7;
-            --blue: #3b82f6;
-            --green: #22c55e;
-            --red: #ef4444;
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.7;
-            overflow-x: hidden
-        }
-
-        /* ORBS */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            pointer-events: none;
-            z-index: 0
-        }
-
-        .orb1 {
-            width: 600px;
-            height: 600px;
-            top: -200px;
-            right: -200px;
-            background: rgba(168, 85, 247, .12)
-        }
-
-        .orb2 {
-            width: 500px;
-            height: 500px;
-            bottom: 10%;
-            left: -200px;
-            background: rgba(249, 115, 22, .10)
-        }
-
-        /* NAV */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 0
-        }
-
-        .nav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: var(--text)
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px
-        }
-
-        .nav-badge {
-            background: rgba(249, 115, 22, .15);
-            border: 1px solid rgba(249, 115, 22, .3);
-            color: var(--accent);
-            font-size: .72rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            letter-spacing: .06em
-        }
-
-        .nav-cta {
-            background: linear-gradient(135deg, var(--accent), #ea580c);
-            color: white;
-            text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: .85rem;
-            font-weight: 700
-        }
-
-        /* HERO */
-        .hero {
-            padding: 160px 24px 80px;
-            text-align: center;
-            position: relative;
-            z-index: 1
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(168, 85, 247, .1);
-            border: 1px solid rgba(168, 85, 247, .25);
-            border-radius: 30px;
-            padding: 6px 16px;
-            font-size: .78rem;
-            font-weight: 600;
-            color: var(--purple);
-            margin-bottom: 28px
-        }
-
-        .dot {
-            width: 7px;
-            height: 7px;
-            background: var(--purple);
-            border-radius: 50%;
-            animation: pulse 2s infinite
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1)
-            }
-
-            50% {
-                opacity: .5;
-                transform: scale(.8)
-            }
-        }
-
-        h1 {
-            font-size: clamp(2.8rem, 7vw, 5.5rem);
-            font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1.05;
-            margin-bottom: 20px
-        }
-
-        h1 span {
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text
-        }
-
-        .hero-sub {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--muted);
-            max-width: 680px;
-            margin: 0 auto 48px;
-            line-height: 1.8
-        }
-
-        .hero-ask {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(249, 115, 22, .15), rgba(168, 85, 247, .15));
-            border: 1px solid rgba(249, 115, 22, .3);
-            border-radius: 16px;
-            padding: 24px 48px;
-            margin-bottom: 48px
-        }
-
-        .ask-num {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text
-        }
-
-        .ask-label {
-            font-size: .85rem;
-            color: var(--muted);
-            font-weight: 600;
-            letter-spacing: .08em;
-            text-transform: uppercase
-        }
-
-        .hero-meta {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap
-        }
-
-        .meta-item {
-            text-align: center
-        }
-
-        .meta-num {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text)
-        }
-
-        .meta-label {
-            font-size: .72rem;
-            color: var(--muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: .06em
-        }
-
-        /* CONTAINER */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1
-        }
-
-        .section {
-            padding: 80px 0
-        }
-
-        .section-label {
-            font-size: .72rem;
-            font-weight: 700;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px
-        }
-
-        h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 20px
-        }
-
-        h2 span {
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text
-        }
-
-        .lead {
-            font-size: 1.05rem;
-            color: var(--muted);
-            line-height: 1.8;
-            max-width: 700px
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px
-        }
-
-        .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 0
-        }
-
-        /* FLYWHEEL */
-        .flywheel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0
-        }
-
-        .fw-step {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px 28px;
-            width: 100%;
-            max-width: 640px;
-            transition: border-color .2s
-        }
-
-        .fw-step:hover {
-            border-color: rgba(249, 115, 22, .3)
-        }
-
-        .fw-arrow {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin: 8px auto
-        }
-
-        .fw-num {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: .9rem;
-            flex-shrink: 0
-        }
-
-        .fw-text {
-            font-size: .95rem;
-            flex: 1
-        }
-
-        .fw-revenue {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: .8rem;
-            color: var(--green);
-            font-weight: 600;
-            white-space: nowrap
-        }
-
-        .fw-highlight {
-            background: linear-gradient(135deg, rgba(249, 115, 22, .08), rgba(168, 85, 247, .08));
-            border-color: rgba(249, 115, 22, .25) !important
-        }
-
-        /* REVENUE TABLE */
-        .rev-table {
-            width: 100%;
-            border-collapse: collapse
-        }
-
-        .rev-table th {
-            text-align: left;
-            padding: 12px 16px;
-            font-size: .75rem;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: var(--muted);
-            border-bottom: 1px solid var(--border)
-        }
-
-        .rev-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, .04);
-            font-size: .9rem
-        }
-
-        .rev-table tr:last-child td {
-            border-bottom: none;
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--accent)
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: .72rem;
-            font-weight: 600
-        }
-
-        .badge-orange {
-            background: rgba(249, 115, 22, .15);
-            color: var(--accent)
-        }
-
-        .badge-green {
-            background: rgba(34, 197, 94, .15);
-            color: var(--green)
-        }
-
-        .badge-purple {
-            background: rgba(168, 85, 247, .15);
-            color: var(--purple)
-        }
-
-        /* STATS GRID */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px
-        }
-
-        .stat-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center
-        }
-
-        .stat-num {
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text
-        }
-
-        .stat-label {
-            font-size: .75rem;
-            color: var(--muted);
-            font-weight: 600;
-            margin-top: 4px
-        }
-
-        /* NETWORK */
-        .network-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px
-        }
-
-        .network-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px
-        }
-
-        .network-icon {
-            font-size: 1.8rem;
-            margin-bottom: 12px
-        }
-
-        .network-title {
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 8px
-        }
-
-        .network-desc {
-            font-size: .85rem;
-            color: var(--muted);
-            line-height: 1.6
-        }
-
-        .proof-box {
-            background: linear-gradient(135deg, rgba(249, 115, 22, .08), rgba(168, 85, 247, .08));
-            border: 1px solid rgba(249, 115, 22, .2);
-            border-radius: 16px;
-            padding: 28px;
-            margin-top: 24px;
-            text-align: center
-        }
-
-        .proof-quote {
-            font-size: 1.05rem;
-            font-weight: 600;
-            font-style: italic;
-            line-height: 1.6
-        }
-
-        /* SWOT */
-        .swot-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px
-        }
-
-        .swot-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px
-        }
-
-        .swot-title {
-            font-size: .78rem;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .swot-item {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: .85rem;
-            line-height: 1.5
-        }
-
-        .swot-item strong {
-            color: var(--text)
-        }
-
-        .swot-item span {
-            color: var(--muted)
-        }
-
-        /* LEGAL */
-        .legal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px
-        }
-
-        .legal-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px
-        }
-
-        .legal-title {
-            font-size: .78rem;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px
-        }
-
-        .legal-item {
-            font-size: .83rem;
-            color: var(--muted);
-            margin-bottom: 8px;
-            display: flex;
-            gap: 8px;
-            line-height: 1.5
-        }
-
-        .legal-item::before {
-            content: '✓';
-            color: var(--green);
-            flex-shrink: 0;
-            font-weight: 700
-        }
-
-        .infra-note {
-            background: rgba(168, 85, 247, .08);
-            border: 1px solid rgba(168, 85, 247, .2);
-            border-radius: 12px;
-            padding: 20px 24px;
-            margin-top: 24px;
-            font-size: .9rem;
-            color: var(--muted);
-            line-height: 1.7
-        }
-
-        .infra-note strong {
-            color: var(--text)
-        }
-
-        /* CTA */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(249, 115, 22, .12), rgba(168, 85, 247, .12));
-            border: 1px solid rgba(249, 115, 22, .2);
-            border-radius: 24px;
-            padding: 64px 40px;
-            text-align: center;
-            margin: 80px 0
-        }
-
-        .cta-section h2 {
-            margin-bottom: 16px
-        }
-
-        .cta-section p {
-            color: var(--muted);
-            max-width: 560px;
-            margin: 0 auto 36px;
-            line-height: 1.8
-        }
-
-        .cta-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent), #ea580c);
-            color: white;
-            text-decoration: none;
-            padding: 16px 40px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem
-        }
-
-        .cta-sub {
-            margin-top: 16px;
-            font-size: .82rem;
-            color: var(--muted)
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 32px 24px;
-            text-align: center;
-            color: var(--muted);
-            font-size: .82rem;
-            position: relative;
-            z-index: 1
-        }
-
-        @media(max-width: 768px) {
-
-            .swot-grid,
-            .network-grid {
-                grid-template-columns: 1fr
-            }
-
-            .hero-meta {
-                gap: 20px
-            }
-
-            .fw-step {
-                flex-direction: column;
-                text-align: center
-            }
-
-            .fw-revenue {
-                margin-top: 4px
-            }
-        }
-    </style>
-
-  <!-- NeuForge Back Office Beacon -->
-  <script>
-  (function(){
-    try {
-      var p = window.location.pathname;
-      var ref = document.referrer || '';
-      var sp = new URLSearchParams(window.location.search);
-      var payload = {
-        page: p, referrer: ref,
-        utm_source: sp.get('utm_source')||'',
-        utm_medium: sp.get('utm_medium')||'',
-        utm_campaign: sp.get('utm_campaign')||'',
-        language: navigator.language||'',
-        screen: window.screen.width+'x'+window.screen.height
-      };
-      fetch('https://neuforge-api.onrender.com/track', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload),
-        keepalive: true
-      }).catch(function(){});
-    } catch(e){}
-  })();
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuForge - Investor Relations</title>
+<meta name="description" content="NeuForge is raising $12M Seed at $120M valuation. AI-native lead intelligence + autonomous trading infrastructure. 44 live services, 230+ AI agents. Contact Gary Chen directly.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#050508;color:#e8e8f0;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid rgba(255,255,255,0.06);position:sticky;top:0;background:#050508;z-index:100}
+.nav-logo{font-size:1.2rem;font-weight:700;color:#fff;text-decoration:none}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
+.hero{text-align:center;padding:80px 40px 60px;max-width:800px;margin:0 auto}
+.tag{display:inline-block;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:#a78bfa;padding:6px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;letter-spacing:0.05em;margin-bottom:24px}
+h1{font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:20px;background:linear-gradient(135deg,#fff 0%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:1.15rem;color:rgba(255,255,255,0.55);line-height:1.6;max-width:620px;margin:0 auto 40px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:700px;margin:0 auto 80px;padding:0 40px}
+.stat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px;text-align:center}
+.stat-num{font-size:2rem;font-weight:800;color:#a78bfa;display:block}
+.stat-label{font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:4px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px;margin:0 auto 80px;padding:0 40px}
+.pitch{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:36px}
+.pitch h2{font-size:1.3rem;font-weight:700;margin-bottom:20px;color:#fff}
+.pitch p{color:rgba(255,255,255,0.55);font-size:0.95rem;line-height:1.7;margin-bottom:12px}
+.pitch ul{list-style:none;padding:0}
+.pitch ul li{color:rgba(255,255,255,0.6);font-size:0.9rem;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:10px}
+.pitch ul li:last-child{border-bottom:none}
+.bullet{color:#a78bfa;font-size:0.7rem}
+.contact-section{max-width:560px;margin:0 auto 80px;padding:0 40px}
+.contact-box{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.2);border-radius:20px;padding:40px}
+.contact-box h2{font-size:1.5rem;font-weight:700;margin-bottom:8px}
+.contact-box p{color:rgba(255,255,255,0.5);font-size:0.9rem;margin-bottom:28px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:0.8rem;color:rgba(255,255,255,0.5);margin-bottom:6px;font-weight:500}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:0.9rem;transition:border-color 0.2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:rgba(139,92,246,0.5)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-group select option{background:#1a1a2e}
+.submit-btn{width:100%;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;border:none;padding:14px;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity 0.2s;margin-top:8px}
+.submit-btn:hover{opacity:0.9}
+.direct-contact{text-align:center;margin-top:20px;font-size:0.85rem;color:rgba(255,255,255,0.4)}
+.direct-contact a{color:#a78bfa;text-decoration:none}
+footer{text-align:center;padding:40px;border-top:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.25);font-size:0.8rem}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}h1{font-size:2rem}}
+</style>
 </head>
-
 <body>
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
+<nav>
+  <a href="/" class="nav-logo">NeuForge</a>
+  <ul class="nav-links">
+    <li><a href="/ai-services.html">Services</a></li>
+    <li><a href="/marketplace.html">Marketplace</a></li>
+    <li><a href="/live.html">* Live</a></li>
+  </ul>
+</nav>
 
-    <nav>
-        <div class="nav-inner">
-            <a href="/" class="logo">
-                <div class="logo-icon">⚒️</div> Neuforge
-            </a>
-            <div style="display:flex;align-items:center;gap:16px">
-                <span class="nav-badge">INVESTOR OVERVIEW</span>
-                <a href="mailto:gary@titansignal.io" class="nav-cta">Request Deck</a>
-            </div>
-        </div>
-    </nav>
+<div class="hero">
+  <div class="tag">SEED ROUND - $12M - $120M VALUATION</div>
+  <h1>The Infrastructure Layer That Everyone Missed</h1>
+  <p class="subtitle">NeuForge is the autonomous AI operations platform running 44 live services across trading intelligence, sales automation, and government contract intelligence - self-sustaining, no human in the loop.</p>
+</div>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-badge"><span class="dot"></span> Confidential · NeuForge · 2026</div>
-        <h1>The Agent Platform<br />with a <span>Walled Garden</span><br />Subscriber Model</h1>
-        <p class="hero-sub">Neuforge is the first AI-native lead intelligence platform. Clients subscribe, buy verified
-            bundles exclusively inside the ecosystem, and face high switching costs that create durable retention. Every
-            new subscriber makes the platform more
-            valuable for everyone else.</p>
-        <div class="hero-ask">
-            <div class="ask-num">$12M Seed</div>
-            <div class="ask-label">Series Raise · 2026</div>
-        </div>
-        <div class="hero-meta">
-            <div class="meta-item">
-                <div class="meta-num">230+</div>
-                <div class="meta-label">Live AI Agents</div>
-            </div>
-            <div style="width:1px;height:40px;background:var(--border)"></div>
-            <div class="meta-item">
-                <div class="meta-num">90%+</div>
-                <div class="meta-label">Target Gross Margin*</div>
-            </div>
-            <div style="width:1px;height:40px;background:var(--border)"></div>
-            <div class="meta-item">
-                <div class="meta-num">$0</div>
-                <div class="meta-label">COGS on Resale #2+</div>
-            </div>
-            <div style="width:1px;height:40px;background:var(--border)"></div>
-            <div class="meta-item">
-                <div class="meta-num">120%+</div>
-                <div class="meta-label">Target NRR*</div>
-            </div>
-        </div>
-        <p style="font-size:.7rem;color:var(--muted);margin-top:20px">* Denotes forward-looking projections. See
-            disclaimer below.</p>
-    </section>
+<div class="stats">
+  <div class="stat"><span class="stat-num">44</span><span class="stat-label">Live Services</span></div>
+  <div class="stat"><span class="stat-num">230+</span><span class="stat-label">AI Agents</span></div>
+  <div class="stat"><span class="stat-num">$120M</span><span class="stat-label">Valuation</span></div>
+</div>
 
-    <div class="container">
+<div class="two-col">
+  <div class="pitch">
+    <h2>What We Built</h2>
+    <p>A fully autonomous AI operating system - five income streams running simultaneously with zero human execution required.</p>
+    <ul>
+      <li><span class="bullet">></span>Autonomous trading fleet (crypto + equities)</li>
+      <li><span class="bullet">></span>SPX Oracle - live public AI market signals</li>
+      <li><span class="bullet">></span>Overwatch - global AI sales intelligence map</li>
+      <li><span class="bullet">></span>GovConScout - automated SAM.gov bid pipeline</li>
+      <li><span class="bullet">></span>Non-custodial Solana copy-trading vaults</li>
+    </ul>
+  </div>
+  <div class="pitch">
+    <h2>The Raise</h2>
+    <p>$12M Seed at $120M valuation. Intentionally capped - not a syndicate. Looking for the right partner with sector expertise.</p>
+    <ul>
+      <li><span class="bullet">></span>SaaS licensing ($497-$4,999/mo)</li>
+      <li><span class="bullet">></span>Vault AUM revenue share</li>
+      <li><span class="bullet">></span>Strategy IP licensing (institutional)</li>
+      <li><span class="bullet">></span>Government contract pipeline (active)</li>
+      <li><span class="bullet">></span>Live system - no demo environment</li>
+    </ul>
+  </div>
+</div>
 
-        <!-- PROBLEM -->
-        <section class="section">
-            <div class="section-label">Problem</div>
-            <h2>The <span>Broken</span> Lead Cycle</h2>
-            <p class="lead">Every B2B outreach team runs the same losing loop: buy data → verify manually → run
-                campaigns → burn the list → repeat. Each cycle costs full price. Nothing compounds. No moat is built.
-                The data is gone the moment you use it.</p>
-        </section>
+<div class="contact-section">
+  <div class="contact-box">
+    <h2>Get in Touch</h2>
+    <p>Request the full deck or schedule a live system walkthrough. No slides - raw access only.</p>
+    <form action="https://formspree.io/f/xyzblqpd" method="POST">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="Full name" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="your@firm.com" required>
+      </div>
+      <div class="form-group">
+        <label>Firm / Fund</label>
+        <input type="text" name="firm" placeholder="Fund or firm name">
+      </div>
+      <div class="form-group">
+        <label>Interest</label>
+        <select name="interest">
+          <option value="">Select one</option>
+          <option value="full_deck">Full investment deck</option>
+          <option value="live_demo">Live system walkthrough</option>
+          <option value="technical">Technical due diligence</option>
+          <option value="partnership">Strategic partnership</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message (optional)</label>
+        <textarea name="message" placeholder="Any specific questions or context..."></textarea>
+      </div>
+      <input type="hidden" name="_replyto" value="gary@neuforge.app">
+      <input type="hidden" name="_subject" value="New Investor Inquiry - NeuForge">
+      <button type="submit" class="submit-btn">Request Access ></button>
+    </form>
+    <p class="direct-contact">Or email directly: <a href="mailto:gary@neuforge.app">gary@neuforge.app</a></p>
+  </div>
+</div>
 
-        <hr class="divider" />
-
-        <!-- FLYWHEEL -->
-        <section class="section">
-            <div class="section-label">Model</div>
-            <h2>The <span>Flywheel</span></h2>
-            <p class="lead" style="margin-bottom:40px">One contact. Infinite margin after the first sale.</p>
-            <div class="flywheel">
-                <div class="fw-step">
-                    <div class="fw-num">1</div>
-                    <div class="fw-text">Harvest contact <span style="color:var(--muted);font-size:.85rem">(once, ~$0.10
-                            COGS)</span></div>
-                </div>
-                <div class="fw-arrow">↓</div>
-                <div class="fw-step">
-                    <div class="fw-num">2</div>
-                    <div class="fw-text">Sell as verified bundle → <strong>Client A</strong></div>
-                    <div class="fw-revenue">+Revenue #1</div>
-                </div>
-                <div class="fw-arrow">↓</div>
-                <div class="fw-step">
-                    <div class="fw-num">3</div>
-                    <div class="fw-text">Client A calls → contact picks up → <strong>re-verified HOT lead</strong></div>
-                </div>
-                <div class="fw-arrow">↓</div>
-                <div class="fw-step fw-highlight">
-                    <div class="fw-num" style="background:linear-gradient(135deg,var(--green),#16a34a)">4</div>
-                    <div class="fw-text">Re-list at premium → <strong>Client B</strong> calls under their brand name
-                    </div>
-                    <div class="fw-revenue">+Revenue #2 · $0 COGS</div>
-                </div>
-                <div class="fw-arrow">↓</div>
-                <div class="fw-step">
-                    <div class="fw-num">∞</div>
-                    <div class="fw-text">Contact re-verified again → premium tier asset. Repeat across subscriber base.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider" />
-
-        <!-- REVENUE -->
-        <section class="section">
-            <div class="section-label">Economics</div>
-            <h2>Revenue <span>Per Client</span></h2>
-            <div class="card">
-                <table class="rev-table">
-                    <thead>
-                        <tr>
-                            <th>Stream</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Platform Fee</td>
-                            <td><span class="badge badge-orange">Monthly Recurring</span></td>
-                            <td>$500/mo <span style="font-size:.72rem;color:var(--muted)">(target)</span></td>
-                        </tr>
-                        <tr>
-                            <td>Lead Bundle</td>
-                            <td><span class="badge badge-orange">Monthly Recurring</span></td>
-                            <td>$300/mo <span style="font-size:.72rem;color:var(--muted)">(target)</span></td>
-                        </tr>
-                        <tr>
-                            <td>Re-verified resale (passive)</td>
-                            <td><span class="badge badge-green">Zero COGS</span></td>
-                            <td>~$400/mo</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total per client</strong></td>
-                            <td></td>
-                            <td><strong>~$1,200/mo</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="stats-grid" style="margin-top:24px">
-                <div class="stat-card">
-                    <div class="stat-num">$120K</div>
-                    <div class="stat-label">ARR at 100 clients</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">100%</div>
-                    <div class="stat-label">Margin on Resale #2+</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">$10M+</div>
-                    <div class="stat-label">Vault value at 500K contacts</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">90%+</div>
-                    <div class="stat-label">Gross margin at scale</div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider" />
-
-        <!-- LOCK-IN -->
-        <section class="section">
-            <div class="section-label">Moat</div>
-            <h2>The <span>Walled Garden</span></h2>
-            <p class="lead" style="margin-bottom:32px">Neuforge bundles are exclusive to the platform. Client outreach
-                automation is built on Neuforge infrastructure. Switching costs are prohibitive — they'd lose pipeline
-                history, verified contacts, performance data, and automation flows in a single move.</p>
-            <div class="card" style="border-color:rgba(249,115,22,.2)">
-                <p style="font-size:.95rem;font-style:italic;color:var(--muted);line-height:1.8">"We built the refinery.
-                    Now we're selling fuel to the whole industry — and every call made on this platform makes the vault
-                    more valuable. By Year 3, no competitor can buy what we've built."</p>
-                <p style="margin-top:12px;font-size:.78rem;color:var(--accent);font-weight:700">— Titan Signal AI
-                    Foundry</p>
-            </div>
-        </section>
-
-        <hr class="divider" />
-
-        <!-- VERIFIED BUYER NETWORK -->
-        <section class="section">
-            <div class="section-label">Hidden Asset</div>
-            <h2>The Verified <span>Buyer Network</span></h2>
-            <p class="lead" style="margin-bottom:32px">Every company that buys a Neuforge bundle immediately becomes the
-                most valuable lead in the marketplace — a proven, transaction-verified buyer.</p>
-            <div class="network-grid">
-                <div class="network-card">
-                    <div class="network-icon">✅</div>
-                    <div class="network-title">Has a company</div>
-                    <div class="network-desc">Real business entity — not a scraped ghost record</div>
-                </div>
-                <div class="network-card">
-                    <div class="network-icon">💰</div>
-                    <div class="network-title">Has budget</div>
-                    <div class="network-desc">Proven willingness to pay for data/AI products</div>
-                </div>
-                <div class="network-card">
-                    <div class="network-icon">📈</div>
-                    <div class="network-title">In growth mode</div>
-                    <div class="network-desc">Actively investing in outreach infrastructure</div>
-                </div>
-                <div class="network-card">
-                    <div class="network-icon">🔒</div>
-                    <div class="network-title">Already transacted</div>
-                    <div class="network-desc">Timestamped proof of action in the Neuforge registry</div>
-                </div>
-            </div>
-            <div class="proof-box">
-                <p class="proof-quote">"We don't sell intent signals.<br />We sell <strong
-                        style="color:var(--accent)">proof of action</strong> — timestamped, verifiable purchase history
-                    logged on the Neuforge registry.<br /><br />No cold lead network can show this. <strong>We
-                        can.</strong>"</p>
-            </div>
-        </section>
-
-        <hr class="divider" />
-
-        <!-- WHY NOW -->
-        <section class="section">
-            <div class="section-label">Why Now</div>
-            <h2>The <span>Inflection Point</span></h2>
-            <p class="lead" style="margin-bottom:32px">Three things happened this week that prove the timing is now. The
-                infrastructure layer is commoditizing. The revenue/operations layer doesn't exist yet. That gap is
-                Neuforge.</p>
-            <div class="swot-grid">
-                <div class="swot-card" style="border-color:rgba(168,85,247,.2)">
-                    <div class="swot-title" style="color:var(--purple)">🔓 Competitor Gaps Exposed</div>
-                    <div class="swot-item"><strong>Cursor</strong> <span>— pair programming only. Cannot generate
-                            revenue, manage leads, or run campaigns.</span></div>
-                    <div class="swot-item"><strong>Devin</strong> <span>— deploys code. Explicitly cannot make external
-                            calls without user permission.</span></div>
-                    <div class="swot-item"><strong>Manus</strong> <span>— sandboxed. Cannot access production systems or
-                            run autonomous operations.</span></div>
-                    <div class="swot-item" style="margin-top:8px"><strong style="color:var(--accent)">Neuforge fills
-                            every gap they refuse to touch.</strong> <span></span></div>
-                </div>
-                <div class="swot-card" style="border-color:rgba(34,197,94,.2)">
-                    <div class="swot-title" style="color:var(--green)">🎮 Free GPU — Today</div>
-                    <div class="swot-item"><strong>Google Colab now runs inside VS Code</strong> <span>— free T4 GPU,
-                            local files, Google's servers.</span></div>
-                    <div class="swot-item"><strong>Every dev just got free GPU</strong> <span>— the $500/mo GPU instance
-                            barrier is gone.</span></div>
-                    <div class="swot-item"><strong>Neuforge GPUTask Agent</strong> <span>— programmatically manages
-                            Colab sessions for ML workloads billed through the platform.</span></div>
-                </div>
-                <div class="swot-card" style="border-color:rgba(249,115,22,.2)">
-                    <div class="swot-title" style="color:var(--accent)">⚡ $0 Browser AI vs $200/mo Operator</div>
-                    <div class="swot-item"><strong>OpenAI Operator: $200/month</strong> <span>— browser automation,
-                            closed, cloud-only, your data leaves.</span></div>
-                    <div class="swot-item"><strong>browser-use: free · 78,000 ★</strong> <span>— 3 lines of Python. Runs
-                            locally. Same capability. Zero subscription.</span></div>
-                    <div class="swot-item"><strong>Neuforge WebOps Agent</strong> <span>— built on browser-use. $0
-                            marginal cost per task = pure margin on every agent run.</span></div>
-                </div>
-                <div class="swot-card" style="border-color:rgba(59,130,246,.2)">
-                    <div class="swot-title" style="color:var(--blue)">🧠 Karpathy Validates the Category</div>
-                    <div class="swot-item"><strong>Andrej Karpathy is building "AgentHub"</strong> <span>— GitHub for AI
-                            agent swarms. His words.</span></div>
-                    <div class="swot-item"><strong>GitHub is to App Store as AgentHub is to Neuforge</strong> <span>—
-                            he's building code storage. We're building the marketplace.</span></div>
-                    <div class="swot-item"><strong>His autoresearch already shipped</strong> <span>— Shopify CEO got 19%
-                            model gain in 8hrs on one GPU. The agent economy is real.</span></div>
-                    <div class="swot-item" style="margin-top:8px"><span
-                            style="font-style:italic;color:var(--accent)">"Karpathy is building the GitHub for agents.
-                            We're building the App Store."</span></div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider" />
-
-        <!-- SWOT -->
-        <section class="section">
-            <div class="section-label">Risk Review</div>
-            <h2><span>SWOT</span> Analysis</h2>
-            <div class="swot-grid">
-                <div class="swot-card" style="border-color:rgba(34,197,94,.2)">
-                    <div class="swot-title" style="color:var(--green)">💪 Strengths</div>
-                    <div class="swot-item"><strong>Proven infrastructure</strong> &nbsp;<span>230+ live AI agents
-                            generating revenue today</span></div>
-                    <div class="swot-item"><strong>Zero-COGS resale</strong> &nbsp;<span>100% margin on every re-sale
-                            after first contact</span></div>
-                    <div class="swot-item"><strong>Network effects</strong> &nbsp;<span>Each buyer increases catalog
-                            value for all sellers</span></div>
-                    <div class="swot-item"><strong>Lock-in</strong> &nbsp;<span>Platform dependency makes churn
-                            near-impossible</span></div>
-                </div>
-                <div class="swot-card" style="border-color:rgba(249,115,22,.2)">
-                    <div class="swot-title" style="color:var(--accent)">⚠️ Weaknesses</div>
-                    <div class="swot-item"><strong>Small team</strong> &nbsp;<span>Mitigated: autonomous AI agents scale
-                            without headcount</span></div>
-                    <div class="swot-item"><strong>Single platform</strong> &nbsp;<span>Mitigated: multi-vertical
-                            expansion already in flight</span></div>
-                    <div class="swot-item"><strong>Early-stage revenue</strong> &nbsp;<span>Mitigated: $12M raise
-                            reaches proof scale within 18 months</span></div>
-                </div>
-                <div class="swot-card" style="border-color:rgba(168,85,247,.2)">
-                    <div class="swot-title" style="color:var(--purple)">🚀 Opportunities</div>
-                    <div class="swot-item"><strong>AI outreach wave</strong> &nbsp;<span>Every SDR team is being
-                            replaced — now</span></div>
-                    <div class="swot-item"><strong>Gov contracts</strong> &nbsp;<span>SAM.gov registered · active
-                            federal AI spend category</span></div>
-                    <div class="swot-item"><strong>International</strong> &nbsp;<span>LATAM, SEA — no verified data
-                            infrastructure exists</span></div>
-                    <div class="swot-item"><strong>Agent-to-agent commerce</strong> &nbsp;<span>Neuforge becomes the
-                            coordination layer for AI agents</span></div>
-                </div>
-                <div class="swot-card" style="border-color:rgba(239,68,68,.2)">
-                    <div class="swot-title" style="color:var(--red)">🔴 Threats</div>
-                    <div class="swot-item"><strong>Regulatory (TCPA/FTC)</strong> &nbsp;<span>Platform DNC sync daily ·
-                            liability shifts to subscriber</span></div>
-                    <div class="swot-item"><strong>Data freshness</strong> &nbsp;<span>Re-verification built into every
-                            platform call</span></div>
-                    <div class="swot-item"><strong>Copycats</strong> &nbsp;<span>Vault grows with every transaction —
-                            compound moat</span></div>
-                    <div class="swot-item"><strong>Deliverability</strong> &nbsp;<span>SMTPRouter multi-provider
-                            rotation already live</span></div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider" />
-
-        <!-- LEGAL -->
-        <section class="section">
-            <div class="section-label">Compliance</div>
-            <h2>Legal <span>Framework</span></h2>
-            <p class="lead" style="margin-bottom:32px">Legal compliance is infrastructure, not afterthought. Built into
-                the platform from day one.</p>
-            <div class="legal-grid">
-                <div class="legal-card">
-                    <div class="legal-title">Data Sourcing</div>
-                    <div class="legal-item">Commercially licensed, publicly available sources</div>
-                    <div class="legal-item">Source attribution + timestamp on every record</div>
-                    <div class="legal-item">B2B only — no consumer targeting permitted</div>
-                </div>
-                <div class="legal-card">
-                    <div class="legal-title">TCPA / FTC</div>
-                    <div class="legal-item">Platform-level DNC registry, synced daily</div>
-                    <div class="legal-item">Subscribers are caller of record — Neuforge is not liable</div>
-                    <div class="legal-item">AI outreach labeled per FTC disclosure requirements</div>
-                </div>
-                <div class="legal-card">
-                    <div class="legal-title">GDPR / CCPA</div>
-                    <div class="legal-item">B2B data only — significantly reduces GDPR exposure</div>
-                    <div class="legal-item">Data deletion honored within 72 hours network-wide</div>
-                    <div class="legal-item">EU subscribers onboarded under DPA framework</div>
-                </div>
-                <div class="legal-card">
-                    <div class="legal-title">Subscriber ToS</div>
-                    <div class="legal-item">B2B use only — contractually enforced</div>
-                    <div class="legal-item">DNC compliance is subscriber's responsibility</div>
-                    <div class="legal-item">Violations = immediate termination · liability shifts downstream</div>
-                </div>
-            </div>
-            <div class="infra-note">
-                <strong>The architecture mirrors how Stripe, Twilio, and AWS scale safely.</strong> The platform sets
-                the rails. Partners own the compliance. We are not in the business of outreach. <strong>We are in the
-                    business of infrastructure.</strong>
-            </div>
-        </section>
-
-
-        <hr class="divider" />
-
-        <!-- TREASURY -->
-        <section class="section">
-            <div class="section-label">Capital Infrastructure</div>
-            <h2>ETH Treasury Was the <span>Right Bet</span></h2>
-            <p class="lead" style="margin-bottom:32px">NeuForge built its treasury on Ethereum rails. This week,
-                that bet was validated at the infrastructure level.</p>
-            <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
-                <div class="stat-card">
-                    <div style="font-size:1.8rem;margin-bottom:8px">🏛️</div>
-                    <div class="stat-num" style="font-size:1.3rem">Kraken + Fed</div>
-                    <div class="stat-label">Kraken gained Federal Reserve payment rails — a crypto exchange is now
-                        inside the same settlement infrastructure as JPMorgan</div>
-                </div>
-                <div class="stat-card">
-                    <div style="font-size:1.8rem;margin-bottom:8px">📈</div>
-                    <div class="stat-num" style="font-size:1.3rem">Nasdaq × Kraken</div>
-                    <div class="stat-label">Tokenized $TSLA, $NVDA, $SPY — trading 24/7/365. NeuForge's algo fleet
-                        adds equities with zero new infrastructure</div>
-                </div>
-                <div class="stat-card">
-                    <div style="font-size:1.8rem;margin-bottom:8px">⚖️</div>
-                    <div class="stat-num" style="font-size:1.3rem">Fed + FDIC + OCC</div>
-                    <div class="stat-label">Tokenized securities receive same capital treatment as traditional
-                        securities — the regulatory risk is gone</div>
-                </div>
-                <div class="stat-card">
-                    <div style="font-size:1.8rem;margin-bottom:8px">💡</div>
-                    <div class="stat-num" style="font-size:1.3rem">230+ AI Agents</div>
-                    <div class="stat-label">Already running 24/7 algo trading. Tokenized equities = same stack, new
-                        asset class, no market hours, no IBKR dependencies</div>
-                </div>
-            </div>
-            <div class="proof-box" style="margin-top:24px">
-                <p class="proof-quote">"We built our treasury on ETH rails.<br />Kraken just got Federal Reserve payment
-                    access.<br /><strong style="color:var(--accent)">The infrastructure we bet on is now the same
-                        infrastructure banks use.</strong>"</p>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <div class="cta-section">
-
-            <div class="section-label">The Ask</div>
-            <h2>$12M Seed Round</h2>
-            <p>To scale the subscriber base, expand the verified vault to 5M+ contacts, and accelerate Neuforge platform
-                development. The refinery is built. We're opening it to the world.</p>
-            <a href="mailto:gary@titansignal.io" class="cta-btn">📩 Request Full Deck</a>
-            <p class="cta-sub">NeuForge · <a href="https://neuforge.app"
-                    style="color:var(--accent);text-decoration:none">neuforge.app</a> · <a
-                    href="https://api.neuforge.app/docs"
-                    style="color:var(--accent);text-decoration:none">api.neuforge.app</a></p>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>© 2026 Neuforge by NeuForge. Confidential — for authorized investors only.</p>
-        <p style="max-width:760px;margin:16px auto 0;font-size:.72rem;line-height:1.7;color:#4a5568">
-            <strong style="color:#6b7fa3">Forward-Looking Statements Disclaimer:</strong>
-            This document contains forward-looking statements including projected revenue figures, target margins, NRR
-            estimates, and business model descriptions. These projections are based on assumptions and models that may
-            not reflect actual results. Neuforge / NeuForge makes no representation that any
-            forward-looking statement will prove correct. Past performance of any underlying systems does not guarantee
-            future results. This document does not constitute an offer or solicitation to sell securities. Any
-            investment involves risk, including potential loss of principal. Prospective investors should conduct their
-            own due diligence and consult independent legal and financial advisors before making any investment
-            decision.
-        </p>
-    </footer>
+<footer>
+  <p>NeuForge - neuforge.app - Confidential - for authorized investors only</p>
+  <p style="margin-top:8px">(c) 2026 NeuForge. Forward-looking projections not guaranteed. Investment involves risk.</p>
+</footer>
 </body>
-
 </html>
