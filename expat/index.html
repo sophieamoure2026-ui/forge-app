@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NeuForge — AI Tools for Expats</title>
+<meta name="description" content="10 free AI-powered tools for expats moving to Dubai, London, Singapore and Seoul. Visa guides, apartment intel, relocation checklists, cooking, community and more.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fdf8f3;--s:#fff;--b:#ede4d8;--sage:#6b9e78;--lav:#c084fc;--warm:#e8734a;--tx:#1c1917;--mu:#78716c;--subtle:#a8a29e}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.bar{background:rgba(253,248,243,.97);border-bottom:1.5px solid var(--b);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx)}
+.logo{width:32px;height:32px;background:linear-gradient(135deg,var(--sage),var(--lav));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff}
+.lb{font-size:15px;font-weight:800}.ls{font-size:11px;color:var(--mu)}
+.cta-bar{display:flex;gap:10px;align-items:center}
+.btn{padding:9px 20px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;display:inline-block;transition:all .2s;font-family:'Inter',sans-serif}
+.btn-p{background:var(--tx);color:var(--bg)}.btn-p:hover{background:#44403c}
+.btn-s{border:1.5px solid var(--b);color:var(--mu)}.btn-s:hover{border-color:var(--sage);color:var(--tx)}
+
+.hero{text-align:center;padding:70px 20px 50px;background:linear-gradient(160deg,#fff,#f0fdf4,#fdf0ff);border-bottom:1.5px solid var(--b)}
+.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(107,158,120,.1);border:1px solid rgba(107,158,120,.3);border-radius:100px;padding:7px 18px;font-size:11px;font-weight:600;color:var(--sage);margin-bottom:22px;letter-spacing:.04em}
+.dot{width:6px;height:6px;background:var(--sage);border-radius:50%;animation:bl 2s infinite}@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,58px);font-weight:700;line-height:1.08;margin-bottom:14px}
+h1 em{font-style:italic;background:linear-gradient(135deg,var(--sage),var(--lav));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--mu);font-size:16px;max-width:500px;margin:0 auto 16px;line-height:1.7}
+.cities{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px;font-size:14px;color:var(--subtle)}
+.city{background:var(--s);border:1.5px solid var(--b);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:500}
+
+.wrap{max-width:900px;margin:0 auto;padding:50px 20px 80px}
+.sh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--sage);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.sh::after{content:'';flex:1;height:1px;background:var(--b)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:50px}
+.card{display:block;background:var(--s);border:1.5px solid var(--b);border-radius:14px;padding:18px;text-decoration:none;transition:all .2s}
+.card:hover{border-color:var(--sage);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.cn{font-size:13px;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:8px}
+.ctag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(107,158,120,.1);color:var(--sage)}
+.cd{font-size:12px;color:var(--mu);line-height:1.5}
+.carrow{font-size:11px;color:var(--sage);margin-top:6px;font-weight:600}
+
+.nf-cta{background:linear-gradient(135deg,rgba(107,158,120,.08),rgba(192,132,252,.06));border:1.5px solid rgba(107,158,120,.2);border-radius:20px;padding:40px;text-align:center;margin-bottom:40px}
+.nf-cta h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:10px}
+.nf-cta p{color:var(--mu);font-size:15px;max-width:480px;margin:0 auto 26px;line-height:1.7}
+.btn-lg{padding:14px 32px;font-size:15px}
+
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:50px}
+.hw{background:var(--s);border:1.5px solid var(--b);border-radius:13px;padding:20px}
+.hw-n{font-size:24px;font-weight:900;color:var(--sage);margin-bottom:6px}
+.hw-t{font-size:13px;font-weight:700;margin-bottom:4px}
+.hw-d{font-size:12px;color:var(--mu);line-height:1.5}
+
+footer{text-align:center;padding:32px 20px;color:var(--subtle);font-size:12px;border-top:1.5px solid var(--b);line-height:2}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.how{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a href="/" class="brand">
+    <div class="logo">N</div>
+    <div><div class="lb">NeuForge</div><div class="ls">AI for Expats</div></div>
+  </a>
+  <div class="cta-bar">
+    <a href="https://neuforgeai.com/demo" class="btn btn-s">Investor Demo</a>
+    <a href="#get-help" class="btn btn-p">Get Help →</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="badge"><span class="dot"></span>Free · Real intel · No signup needed</div>
+  <h1>Your Smartest Friend<br><em>Has Already Been There</em></h1>
+  <p class="sub">10 AI tools covering everything you need before, during and after your move abroad. Free to use. No fluff.</p>
+  <div class="cities">
+    <span class="city">🇦🇪 Dubai</span>
+    <span class="city">🇬🇧 London</span>
+    <span class="city">🇸🇬 Singapore</span>
+    <span class="city">🇰🇷 Seoul</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="sh">10 Free Tools</div>
+  <div class="grid">
+    <a class="card" href="http://187.77.194.119:8017">
+      <div class="ch"><div class="cn">🌸 Expat Guide</div><span class="ctag">Women-first</span></div>
+      <div class="cd">Safety ratings, ladies nights, female expat communities, job paths. Your city, your way.</div>
+      <div class="carrow">Open Guide →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8019">
+      <div class="ch"><div class="cn">🛂 Visa AI</div><span class="ctag">Step-by-step</span></div>
+      <div class="cd">UAE, UK, Singapore, South Korea, USA. Employment, investor, startup and nomad visas.</div>
+      <div class="carrow">Check Visa →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8018">
+      <div class="ch"><div class="cn">🏠 Apartment AI</div><span class="ctag">Real prices</span></div>
+      <div class="cd">Neighbourhood-by-neighbourhood rental intel. Real prices, insider tips, native language.</div>
+      <div class="carrow">Find Apartment →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8021">
+      <div class="ch"><div class="cn">📦 Relocation AI</div><span class="ctag">First 30 days</span></div>
+      <div class="cd">Cost of living, banking setup, what to ship vs buy, 30-day checklist, SIM, healthcare.</div>
+      <div class="carrow">Plan Move →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8022">
+      <div class="ch"><div class="cn">👥 Community AI</div><span class="ctag">Meet people</span></div>
+      <div class="cd">Apps that actually work, sports clubs, arts scenes, volunteering, professional networks.</div>
+      <div class="carrow">Find Community →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8023">
+      <div class="ch"><div class="cn">🍳 Cooking AI</div><span class="ctag">Local dishes</span></div>
+      <div class="cd">Dishes to learn first, best cooking classes, market guides, kitchen essentials.</div>
+      <div class="carrow">Start Cooking →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8015">
+      <div class="ch"><div class="cn">🏢 Business Formation</div><span class="ctag">7 markets</span></div>
+      <div class="cd">Company setup in UAE, UK, Singapore, South Korea, USA. 6 native languages.</div>
+      <div class="carrow">Setup Company →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8012">
+      <div class="ch"><div class="cn">💸 Remittance AI</div><span class="ctag">Live FX rates</span></div>
+      <div class="cd">Live exchange rates across 10 corridors, 10 providers. Send money home smarter.</div>
+      <div class="carrow">Compare Rates →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8013">
+      <div class="ch"><div class="cn">📊 Tax AI</div><span class="ctag">Expat tax</span></div>
+      <div class="cd">International tax intelligence for expats. Double taxation, treaty benefits, filing deadlines.</div>
+      <div class="carrow">Check Tax →</div>
+    </a>
+    <a class="card" href="http://187.77.194.119:8016">
+      <div class="ch"><div class="cn">🎓 School AI</div><span class="ctag">Families</span></div>
+      <div class="cd">International school finder for expat families. Curriculum, fees, application timelines.</div>
+      <div class="carrow">Find School →</div>
+    </a>
+  </div>
+
+  <div class="sh">How NeuForge Works</div>
+  <div class="how">
+    <div class="hw"><div class="hw-n">01</div><div class="hw-t">Use the free tools</div><div class="hw-d">All 10 apps are genuinely free. No signup. No paywall. Real intel from people who've done it.</div></div>
+    <div class="hw"><div class="hw-n">02</div><div class="hw-t">Book a project</div><div class="hw-d">When you're ready — visa, company, apartment negotiations. Fixed fee. Done in days. No retainer.</div></div>
+    <div class="hw"><div class="hw-n">03</div><div class="hw-t">Land and live</div><div class="hw-d">We handle the paperwork and logistics. You focus on building your life in the new city.</div></div>
+  </div>
+
+  <div class="nf-cta" id="get-help">
+    <h2>Ready to move? We handle the hard parts.</h2>
+    <p>Visa processing, company registration, apartment negotiations, relocation logistics — all as a flat-fee project. No monthly retainer, no surprises.</p>
+    <a href="mailto:hello@neuforgeai.com" class="btn btn-p btn-lg">Start Your Project →</a>
+  </div>
+</div>
+
+<footer>
+  NeuForge AI Foundry · Free tools for expats worldwide<br>
+  Dubai · London · Singapore · Seoul<br>
+  <a href="mailto:hello@neuforgeai.com" style="color:var(--sage)">hello@neuforgeai.com</a> · 
+  <a href="http://187.77.194.119:8020" style="color:var(--sage)">Investor Demo</a>
+</footer>
+</body>
+</html>
